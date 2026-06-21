@@ -35,5 +35,11 @@
     <ClInclude Include="src\core\world.h">
       <Filter>Source Files\src/core</Filter>
     </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Include.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

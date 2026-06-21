@@ -1,24 +1,8 @@
-/*
-  Copyright (C) 1997-2026 Sam Lantinga <slouken@libsdl.org>
-
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely.
-*/
-#define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
-#include "src/core/world.h"
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
+#include "main.h"
 
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 
-#define vertLen 3
-SDL_Vertex vert[vertLen];
 
 World surface;
 
@@ -26,8 +10,12 @@ World surface;
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 {
 
+    surface.addChunk(0, 0);
+    surface.addChunk(-1, -1);
+    surface.addChunk(0, -1);
+
     /* Create the window */
-    if (!SDL_CreateWindowAndRenderer("Hello World", 800, 600, SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
+    if (!SDL_CreateWindowAndRenderer("Hello World", 800, 600, 0, &window, &renderer)) {
         SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
@@ -57,7 +45,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     SDL_GetRenderOutputSize(renderer, &w, &h);
     SDL_SetRenderScale(renderer, scale, scale);
 
-    surface.draw(0, 0);
+    surface.draw(renderer, 0, 0);
 
     SDL_RenderPresent(renderer);
 
