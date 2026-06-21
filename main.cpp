@@ -10,6 +10,7 @@
   freely.
 */
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
+#include "src/core/world.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -19,32 +20,11 @@ static SDL_Renderer* renderer = NULL;
 #define vertLen 3
 SDL_Vertex vert[vertLen];
 
+World surface;
+
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 {
-    // center
-    vert[0].position.x = 400;
-    vert[0].position.y = 150;
-    vert[0].color.r = 1.0;
-    vert[0].color.g = 0.0;
-    vert[0].color.b = 0.0;
-    vert[0].color.a = 1.0;
-
-    // left
-    vert[1].position.x = 200;
-    vert[1].position.y = 450;
-    vert[1].color.r = 0.0;
-    vert[1].color.g = 0.0;
-    vert[1].color.b = 1.0;
-    vert[1].color.a = 1.0;
-
-    // right
-    vert[2].position.x = 600;
-    vert[2].position.y = 450;
-    vert[2].color.r = 0.0;
-    vert[2].color.g = 1.0;
-    vert[2].color.b = 0.0;
-    vert[2].color.a = 1.0;
 
     /* Create the window */
     if (!SDL_CreateWindowAndRenderer("Hello World", 800, 600, SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
@@ -71,21 +51,14 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     const char* message = "Hello World!";
     int w = 0, h = 0;
     float x, y;
-    const float scale = 4.0f;
+    const float scale = 1.0f;
 
     /* Center the message and scale it up */
     SDL_GetRenderOutputSize(renderer, &w, &h);
     SDL_SetRenderScale(renderer, scale, scale);
-    x = ((w / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE * SDL_strlen(message)) / 2;
-    y = ((h / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE) / 2;
 
-    /* Draw the message */
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
+    surface.draw(0, 0);
 
-    SDL_RenderGeometry(renderer, NULL, vert, vertLen, NULL, 0);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDebugText(renderer, x, y, message);
     SDL_RenderPresent(renderer);
 
     return SDL_APP_CONTINUE;

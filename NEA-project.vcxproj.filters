@@ -13,10 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\src/core">
+      <UniqueIdentifier>{556f9fd4-536a-487b-8ae7-6fa0dface0a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\chunk.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\world.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\chunk.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\world.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
