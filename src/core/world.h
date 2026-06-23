@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../SDL_Include.h"
+#include "../../core.h"
 #include "chunk.h"
 
 

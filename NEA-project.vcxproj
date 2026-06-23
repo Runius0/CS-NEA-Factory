@@ -127,8 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
+    <ClCompile Include="src\core\tile.cpp" />
     <ClCompile Include="src\core\world.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,9 +143,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="SDL_Include.h" />
+    <ClInclude Include="core.h" />
     <ClInclude Include="src\core\chunk.h" />
+    <ClInclude Include="src\core\tile.h" />
     <ClInclude Include="src\core\world.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\img\FactoryTiles1.png">
+      <DeploymentContent>true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/img</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)/img</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)/img</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/img</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

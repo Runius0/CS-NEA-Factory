@@ -16,8 +16,8 @@ void World::addChunk(int _x, int _y) {
 };
 
 void World::draw(SDL_Renderer* renderer, float _x, float _y) {
-	int chunkX = (int)(_x / CHUNK_SIZE);
-	int chunkY = (int)(_y / CHUNK_SIZE);
+	int chunkX = (int)(_x / CHUNK_SIZE_PX);
+	int chunkY = (int)(_y / CHUNK_SIZE_PX);
 	
 
 

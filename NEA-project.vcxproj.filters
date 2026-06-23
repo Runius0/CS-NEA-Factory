@@ -16,6 +16,9 @@
     <Filter Include="Source Files\src/core">
       <UniqueIdentifier>{556f9fd4-536a-487b-8ae7-6fa0dface0a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\IMG">
+      <UniqueIdentifier>{2cb374d6-c49f-4ecc-82ec-d77bf5c6ef64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -25,6 +28,12 @@
       <Filter>Source Files\src/core</Filter>
     </ClCompile>
     <ClCompile Include="src\core\world.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\tile.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
+    <ClCompile Include="core.cpp">
       <Filter>Source Files\src/core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,8 +47,16 @@
     <ClInclude Include="main.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDL_Include.h">
+    <ClInclude Include="core.h">
       <Filter>Source Files\src/core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\tile.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\img\FactoryTiles1.png">
+      <Filter>Resource Files\IMG</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

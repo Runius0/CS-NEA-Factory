@@ -1,2 +1,6 @@
-﻿  main.cpp
-  NEA-project.vcxproj -> C:\Users\djwat\source\repos\NEA-project\x64\Debug\NEA-project.exe
+﻿  tile.cpp
+C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(12,29): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(12,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(12,50): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(12,50): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  NEA-project.vcxproj -> C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\x64\Debug\NEA-project.exe
