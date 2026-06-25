@@ -13,4 +13,5 @@ class Chunk {
 public:
 	Chunk(int x, int y);
 	void draw(SDL_Renderer* renderer, float x, float y);
+	Tile* getTile(int x, int y);
 };

@@ -36,6 +36,12 @@
     <ClCompile Include="core.cpp">
       <Filter>Source Files\src/core</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\player.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\machine.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -53,9 +59,18 @@
     <ClInclude Include="src\core\tile.h">
       <Filter>Source Files\src/core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\player.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\machine.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="content\img\FactoryTiles1.png">
+      <Filter>Resource Files\IMG</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\img\player.png">
       <Filter>Resource Files\IMG</Filter>
     </CopyFileToFolders>
   </ItemGroup>

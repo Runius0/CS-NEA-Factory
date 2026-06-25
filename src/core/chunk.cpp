@@ -1,14 +1,14 @@
 #include "chunk.h"
 
 Chunk::Chunk(int _x, int _y) {
-	for (int i = 0; i < CHUNK_SIZE; i++) {
-		for (int j = 0; j < CHUNK_SIZE; j++) {
-			tileMap[i][j] = new Tile(i, j);
-		}
-	}
 
 	x = _x;
 	y = _y;
+	for (int i = 0; i < CHUNK_SIZE; i++) {
+		for (int j = 0; j < CHUNK_SIZE; j++) {
+			tileMap[i][j] = new Grass(i, j, i + x*CHUNK_SIZE, j + y * CHUNK_SIZE);
+		}
+	}
 };
 
 void Chunk::draw(SDL_Renderer* renderer, float _x, float _y) {
@@ -24,3 +24,7 @@ void Chunk::draw(SDL_Renderer* renderer, float _x, float _y) {
 		}
 	}
 };
+
+Tile* Chunk::getTile(int _x, int _y) {
+	return tileMap[_x][_y];
+}

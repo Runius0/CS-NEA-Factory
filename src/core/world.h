@@ -16,7 +16,7 @@ public:
 	World();
 
 	void addChunk(int x, int y);
-	// Tile getTile(int _x, int _y);
+	Tile* getTile(int x, int y);
 	//bool isSpaceOccupied(int _x, int _y, int width, int height);
 	void draw(SDL_Renderer* renderer, float x, float y);
 	void tick();

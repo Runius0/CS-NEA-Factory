@@ -130,6 +130,8 @@
     <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
+    <ClCompile Include="src\core\machine.cpp" />
+    <ClCompile Include="src\core\player.cpp" />
     <ClCompile Include="src\core\tile.cpp" />
     <ClCompile Include="src\core\world.cpp" />
   </ItemGroup>
@@ -145,6 +147,8 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="src\core\chunk.h" />
+    <ClInclude Include="src\core\machine.h" />
+    <ClInclude Include="src\core\player.h" />
     <ClInclude Include="src\core\tile.h" />
     <ClInclude Include="src\core\world.h" />
   </ItemGroup>
@@ -155,6 +159,15 @@
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)/img</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)/img</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/img</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\img\player.png">
+      <DeploymentContent>true</DeploymentContent>
+      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">img\%(Filename)%(Extension)</DestinationFileName>
+      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">img\%(Filename)%(Extension)</DestinationFileName>
+      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">img\%(Filename)%(Extension)</DestinationFileName>
+      <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">img\%(Filename)%(Extension)</DestinationFileName>
     </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

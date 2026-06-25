@@ -29,3 +29,9 @@ void World::draw(SDL_Renderer* renderer, float _x, float _y) {
 		}
 	}
 };
+
+Tile* World::getTile(int _x, int _y) {
+	int chunkX = (int)(_x / CHUNK_SIZE);
+	int chunkY = (int)(_y / CHUNK_SIZE);
+	return chunkMap[chunkX - x][chunkY - y]->getTile(_x % CHUNK_SIZE, _y % CHUNK_SIZE);
+}

@@ -2,6 +2,7 @@
 
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
+static Player* player = new Player();
 float x, y = 0;
 
 
@@ -31,7 +32,11 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 {
     if (event->type == SDL_EVENT_KEY_DOWN) {
 
-    } else if (event->type == SDL_EVENT_QUIT) {
+    }
+    else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        // place machine temporary code
+    }
+    else if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
     }
     return SDL_APP_CONTINUE;
@@ -49,18 +54,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     const float scale = 1.0f;
 
     const bool* keyboardState = SDL_GetKeyboardState(NULL);
-    if (keyboardState[SDL_SCANCODE_W]) {
-        y -= 1;
-    }
-    if (keyboardState[SDL_SCANCODE_A]) {
-        x -= 1;
-    }
-    if (keyboardState[SDL_SCANCODE_S]) {
-        y += 1;
-    }
-    if (keyboardState[SDL_SCANCODE_D]) {
-        x += 1;
-    }
+    player->movement(keyboardState);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
@@ -69,7 +63,9 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     SDL_GetRenderOutputSize(renderer, &w, &h);
     SDL_SetRenderScale(renderer, scale, scale);
 
-    surface.draw(renderer, x, y);
+    surface.draw(renderer, player->getX(), player->getY());
+
+    player->draw(renderer);
 
     SDL_RenderPresent(renderer);
 
