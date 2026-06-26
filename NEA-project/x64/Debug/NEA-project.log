@@ -1,29 +1,6 @@
-﻿  main.cpp
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\core.h(2,9): warning C4005: 'SDL_MAIN_USE_CALLBACKS': macro redefinition
-  (compiling source file 'main.cpp')
-      C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\main.h(3,9):
-      see previous definition of 'SDL_MAIN_USE_CALLBACKS'
-  
-  chunk.cpp
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(15,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(16,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(17,33): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(17,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(17,58): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(17,58): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(23,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\chunk.cpp(23,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  conveyor.cpp
+C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\content\data\machine\conveyor.cpp(17,40): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\content\data\machine\conveyor.cpp(17,40): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   machine.cpp
-  player.cpp
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\player.cpp(21,50): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\player.cpp(21,50): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\player.cpp(21,96): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\player.cpp(21,96): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  tile.cpp
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(34,30): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(34,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(34,51): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\src\core\tile.cpp(34,51): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  world.cpp
   Generating Code...
   NEA-project.vcxproj -> C:\Users\djwat\source\repos\NEA-project\CS-NEA-Factory\x64\Debug\NEA-project.exe

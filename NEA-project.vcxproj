@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="content\data\machine\conveyor.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
@@ -144,6 +145,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="content\data\machines.h" />
+    <ClInclude Include="content\data\machine\conveyor.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="src\core\chunk.h" />

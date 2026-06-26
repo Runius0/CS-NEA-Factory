@@ -6,7 +6,7 @@ Chunk::Chunk(int _x, int _y) {
 	y = _y;
 	for (int i = 0; i < CHUNK_SIZE; i++) {
 		for (int j = 0; j < CHUNK_SIZE; j++) {
-			tileMap[i][j] = new Grass(i, j, i + x*CHUNK_SIZE, j + y * CHUNK_SIZE);
+			tileMap[i][j] = new Grass(i, j);
 		}
 	}
 };
@@ -20,11 +20,14 @@ void Chunk::draw(SDL_Renderer* renderer, float _x, float _y) {
 	SDL_RenderFillRect(renderer, &chunkRect);
 	for (int i = 0; i < CHUNK_SIZE; i++) {
 		for (int j = 0; j < CHUNK_SIZE; j++) {
-			tileMap[i][j]->draw(renderer, chunkX + SCREEN_WIDTH / 2, chunkY + SCREEN_HEIGHT / 2);
+			tileMap[i][j]->draw(renderer, chunkX + SCREEN_WIDTH / 2 + i * TILE_SIZE, chunkY + SCREEN_HEIGHT / 2 + j * TILE_SIZE);
 		}
 	}
 };
 
 Tile* Chunk::getTile(int _x, int _y) {
 	return tileMap[_x][_y];
+}
+void Chunk::setTile(Tile* tile, int _x, int _y) {
+	tileMap[_x][_y] = tile;
 }

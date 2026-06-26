@@ -31,7 +31,50 @@ void World::draw(SDL_Renderer* renderer, float _x, float _y) {
 };
 
 Tile* World::getTile(int _x, int _y) {
-	int chunkX = (int)(_x / CHUNK_SIZE);
-	int chunkY = (int)(_y / CHUNK_SIZE);
-	return chunkMap[chunkX - x][chunkY - y]->getTile(_x % CHUNK_SIZE, _y % CHUNK_SIZE);
+	int chunkX = (int)floor((float)_x / CHUNK_SIZE);
+	int chunkY = (int)floor((float)_y / CHUNK_SIZE);
+
+	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - (-_x % CHUNK_SIZE);
+	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - (-_y % CHUNK_SIZE);
+
+	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
+		return NULL;
+	}
+
+	return chunkMap[chunkX - x][chunkY - y]->getTile(tileX, tileY);
+}
+
+void World::setTile(Tile* tile, int _x, int _y) {
+	int chunkX = (int)floor((float)_x / CHUNK_SIZE);
+	int chunkY = (int)floor((float)_y / CHUNK_SIZE);
+
+	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - (-_x % CHUNK_SIZE);
+	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - (-_y % CHUNK_SIZE);
+
+	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
+		return;
+	}
+
+	chunkMap[chunkX - x][chunkY - y]->setTile(tile, tileX, tileY);
+}
+
+Tile* World::getTile(float _x, float _y) {
+	int i_x = (int)floor((float)_x / TILE_SIZE);
+	int i_y = (int)floor((float)_y / TILE_SIZE);
+	int chunkX = (int)floor((float)i_x / CHUNK_SIZE);
+	int chunkY = (int)floor((float)i_y / CHUNK_SIZE);
+
+
+	int tileX = _x >= 0 ? i_x % CHUNK_SIZE : CHUNK_SIZE - (-i_x % CHUNK_SIZE);
+	int tileY = _y >= 0 ? i_y % CHUNK_SIZE : CHUNK_SIZE - (-i_y % CHUNK_SIZE);
+
+	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
+		return NULL;
+	}
+	return chunkMap[chunkX - x][chunkY - y]->getTile(tileX, tileY);
+}
+
+void World::snapToGrid(float* x, float* y) {
+	*x = floorf(*x / TILE_SIZE) * TILE_SIZE;
+	*y = floorf(*y / TILE_SIZE) * TILE_SIZE;
 }

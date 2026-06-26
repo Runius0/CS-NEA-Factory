@@ -19,6 +19,12 @@
     <Filter Include="Resource Files\IMG">
       <UniqueIdentifier>{2cb374d6-c49f-4ecc-82ec-d77bf5c6ef64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\content/data">
+      <UniqueIdentifier>{42e62a23-ed10-49f0-8714-e7193ac475a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\content/data\machine">
+      <UniqueIdentifier>{d60352e0-b9bf-467a-83c1-d92e8372450e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,6 +48,9 @@
     <ClCompile Include="src\core\machine.cpp">
       <Filter>Source Files\src/core</Filter>
     </ClCompile>
+    <ClCompile Include="content\data\machine\conveyor.cpp">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -64,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="src\core\machine.h">
       <Filter>Source Files\src/core</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\machines.h">
+      <Filter>Source Files\content/data</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\machine\conveyor.h">
+      <Filter>Source Files\content/data\machine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

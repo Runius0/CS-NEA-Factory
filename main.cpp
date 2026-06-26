@@ -34,7 +34,19 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        float x, y;
+        SDL_GetMouseState(&x, &y);
+        // get world pos
+        x += player->getX() - SCREEN_WIDTH / 2;
+        y += player->getY() - SCREEN_HEIGHT / 2;
+        // snap to grid
+        surface.snapToGrid(&x, &y);
+        // world x/y
+        int worldX = (int)(x / TILE_SIZE);
+        int worldY = (int)(y / TILE_SIZE);
         // place machine temporary code
+        Machine* newTile = new Conveyor(worldX, worldY);
+        newTile->place(&surface);
     }
     else if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
@@ -49,7 +61,6 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 SDL_AppResult SDL_AppIterate(void* appstate)
 {
 
-    const char* message = "Hello World!";
     int w = 0, h = 0;
     const float scale = 1.0f;
 
@@ -65,6 +76,25 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
     surface.draw(renderer, player->getX(), player->getY());
 
+    // draw cursor
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    float x, y;
+    SDL_GetMouseState(&x, &y);
+    // get world pos
+    x += player->getX() - SCREEN_WIDTH/2;
+    y += player->getY() - SCREEN_HEIGHT / 2;
+    // snap to grid
+    surface.snapToGrid(&x, &y);
+    // remap to screen pos
+    x -= player->getX() - SCREEN_WIDTH / 2;
+    y -= player->getY() - SCREEN_HEIGHT / 2;
+
+    Conveyor::DrawPreview(renderer, x, y);
+
+    SDL_FRect cursorRect = {x, y, TILE_SIZE, TILE_SIZE};
+    SDL_RenderRect(renderer, &cursorRect);
+
+    // draw player
     player->draw(renderer);
 
     SDL_RenderPresent(renderer);

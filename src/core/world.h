@@ -17,7 +17,10 @@ public:
 
 	void addChunk(int x, int y);
 	Tile* getTile(int x, int y);
+	Tile* getTile(float x, float y);
+	void setTile(Tile* tile, int x, int y);
 	//bool isSpaceOccupied(int _x, int _y, int width, int height);
 	void draw(SDL_Renderer* renderer, float x, float y);
+	void snapToGrid(float* x, float* y);
 	void tick();
 };
