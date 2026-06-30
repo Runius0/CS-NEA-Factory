@@ -2,7 +2,6 @@
 #include "../../core.h"
 
 const int TILE_SIZE = 32;
-const int SPRITE_SIZE = 16;
 
 
 class Tile {

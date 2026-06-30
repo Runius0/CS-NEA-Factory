@@ -10,7 +10,8 @@ const int TPS = 20;
 
 // temporary building selection variable
 MACHINE_ID selectedMachine = MACHINE_CONVEYOR;
-
+UIElement hotbar(0, 0, 8, 1);
+int hotbarSlot = 0;
 
 World surface;
 
@@ -29,6 +30,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
 
     loadTextures(renderer);
+    loadItems();
+    hotbar.items[0][0] = new ItemStack(ITEM[1], 3);
+    hotbar.items[1][0] = new ItemStack(ITEM[2], 32);
+    hotbar.items[2][0] = new ItemStack(ITEM[3], 32);
 
     return SDL_APP_CONTINUE;
 }
@@ -41,13 +46,13 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
             player->placingDirection = (Direction)((player->placingDirection + 1) % 4);
         }
         else if (event->key.scancode == SDL_SCANCODE_1) {
-            selectedMachine = MACHINE_CONVEYOR;
+           hotbarSlot = 0;
         }
         else if (event->key.scancode == SDL_SCANCODE_2) {
-            selectedMachine = MACHINE_IMPORTER;
+           hotbarSlot = 1;
         }
         else if (event->key.scancode == SDL_SCANCODE_3) {
-            selectedMachine = MACHINE_EXPORTER;
+           hotbarSlot = 2;
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
@@ -69,29 +74,36 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     int w = 0, h = 0;
     const float scale = 1.0f;
 
+    float x, y;
+    SDL_MouseButtonFlags mouseFlags = SDL_GetMouseState(&x, &y);
 
     const bool* keyboardState = SDL_GetKeyboardState(NULL);
     player->movement(keyboardState);
 
-    // if mouse down, attempt to place building
-    float x, y;
-    if (SDL_GetMouseState(&x, &y) & SDL_BUTTON_MASK(1)) {
+    if (hotbarSlot != -1 && hotbar.items[hotbarSlot][0] != NULL) {
+        // if mouse down, attempt to place building
+    if (mouseFlags & SDL_BUTTON_MASK(1)) {
         // get world pos
-        x += player->getX() - SCREEN_WIDTH / 2;
-        y += player->getY() - SCREEN_HEIGHT / 2;
+        float cX = x + player->getX() - SCREEN_WIDTH / 2;
+        float cY = y + player->getY() - SCREEN_HEIGHT / 2;
         // snap to grid
-        surface.snapToGrid(&x, &y);
+        surface.snapToGrid(&cX, &cY);
         // world x/y
-        int worldX = (int)(x / TILE_SIZE);
-        int worldY = (int)(y / TILE_SIZE);
+        int worldX = (int)(cX / TILE_SIZE);
+        int worldY = (int)(cY / TILE_SIZE);
         // place machine temporary code
         if (Machine::canPlace(&surface, worldX, worldY, 1, 1)) {
-            Machine* newTile = NewMachine(selectedMachine, worldX, worldY, player->placingDirection);
+            Machine* newTile = ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->getNew(worldX, worldY, player->placingDirection);
             newTile->place(&surface);
         }
 
     }
-    if (SDL_GetMouseState(&x, &y) & SDL_BUTTON_MASK(3)) {
+
+    }
+
+    if (mouseFlags & SDL_BUTTON_MASK(3)) {
+        hotbarSlot = -1;
+
         // get world pos
         float cX = x + player->getX() - SCREEN_WIDTH / 2;
         float cY = y + player->getY() - SCREEN_HEIGHT / 2;
@@ -107,8 +119,6 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         }
 
     }
-
-
 
     // increment tick
     f_tick = SDL_GetTicks() / (1000.0f / TPS);
@@ -139,13 +149,18 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     x -= player->getX() - SCREEN_WIDTH / 2;
     y -= player->getY() - SCREEN_HEIGHT / 2;
 
-    DrawMachinePreview(selectedMachine, renderer, x, y, player->placingDirection);
+    if (hotbarSlot != -1 && hotbar.items[hotbarSlot][0] != NULL) {
+        ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->drawPreview(renderer, x, y, player->placingDirection);
+    }
 
     SDL_FRect cursorRect = {x, y, TILE_SIZE, TILE_SIZE};
     SDL_RenderRect(renderer, &cursorRect);
 
     // draw player
     player->draw(renderer);
+
+
+    hotbar.draw(renderer);
 
     SDL_RenderPresent(renderer);
 

@@ -4,12 +4,14 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
 
-const int TEXTURE_AMOUNT = 1;
+const int TEXTURE_AMOUNT = 4;
+const int SPRITE_SIZE = 16;
 enum TEXTURE
 {
 	TEX_TILES1,
     TEX_PLAYER,
-    TEX_UI
+    TEX_UI,
+    TEX_ITEM
 };
 
 enum Direction
@@ -49,11 +51,19 @@ static void loadTextures(SDL_Renderer* renderer) {
     strcat_s(texPath, "img\\UI.png");
     texIn = SDL_IOFromFile(texPath, "r");
     textureList[TEX_UI] = IMG_LoadTexture_IO(renderer, texIn, true);
-    SDL_Log(texPath);
-    SDL_Log(SDL_GetError());
     SDL_SetTextureScaleMode(textureList[TEX_UI], SDL_SCALEMODE_NEAREST);
     if (textureList[TEX_UI] != NULL) {
         SDL_Log("LOADED UI SPRITES");
+    }
+
+    // UI spritesheet
+    strcpy_s(texPath, SDL_GetBasePath());
+    strcat_s(texPath, "img\\items.png");
+    texIn = SDL_IOFromFile(texPath, "r");
+    textureList[TEX_ITEM] = IMG_LoadTexture_IO(renderer, texIn, true);
+    SDL_SetTextureScaleMode(textureList[TEX_ITEM], SDL_SCALEMODE_NEAREST);
+    if (textureList[TEX_ITEM] != NULL) {
+        SDL_Log("LOADED ITEM SPRITES");
     }
 };
 

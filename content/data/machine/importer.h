@@ -1,5 +1,6 @@
 #pragma once
 #include "../../../src/core/machine.h"
+#include "../../../src/core/item.h"
 
 class Importer : public Machine {
 	int frame = 0;

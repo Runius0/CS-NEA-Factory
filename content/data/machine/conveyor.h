@@ -1,5 +1,6 @@
 #pragma once
 #include "../../../src/core/machine.h"
+#include "../../../src/core/item.h"
 
 class Conveyor : public Machine {
 	int frame = 0;
