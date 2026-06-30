@@ -51,6 +51,12 @@
     <ClCompile Include="content\data\machine\conveyor.cpp">
       <Filter>Source Files\content/data\machine</Filter>
     </ClCompile>
+    <ClCompile Include="content\data\machine\exporter.cpp">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClCompile>
+    <ClCompile Include="content\data\machine\importer.cpp">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -80,12 +86,21 @@
     <ClInclude Include="content\data\machine\conveyor.h">
       <Filter>Source Files\content/data\machine</Filter>
     </ClInclude>
+    <ClInclude Include="content\data\machine\exporter.h">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\machine\importer.h">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="content\img\FactoryTiles1.png">
       <Filter>Resource Files\IMG</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="content\img\player.png">
+      <Filter>Resource Files\IMG</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\img\UI.png">
       <Filter>Resource Files\IMG</Filter>
     </CopyFileToFolders>
   </ItemGroup>

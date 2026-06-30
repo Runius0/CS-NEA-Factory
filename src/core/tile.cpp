@@ -9,12 +9,15 @@ Tile::Tile() {
 	worldY = 0;
 }
 
+void Tile::tick(int gameTick) {
+	return;
+}
+
 void Tile::draw(SDL_Renderer* renderer, float _x, float _y) {
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
 	SDL_SetRenderDrawColor(renderer, 64 + (worldX % 32) * 4, 64 + (worldY % 32) * 4, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderRect(renderer, &tileRect);
 }
-
 
 Grass::Grass(int _worldX, int _worldY) {
 	worldX = _worldX;

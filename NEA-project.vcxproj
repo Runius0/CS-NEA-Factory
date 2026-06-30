@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="content\data\machine\conveyor.cpp" />
+    <ClCompile Include="content\data\machine\exporter.cpp" />
+    <ClCompile Include="content\data\machine\importer.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
@@ -147,6 +149,8 @@
   <ItemGroup>
     <ClInclude Include="content\data\machines.h" />
     <ClInclude Include="content\data\machine\conveyor.h" />
+    <ClInclude Include="content\data\machine\exporter.h" />
+    <ClInclude Include="content\data\machine\importer.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="src\core\chunk.h" />
@@ -171,6 +175,14 @@
       <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">img\%(Filename)%(Extension)</DestinationFileName>
       <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">img\%(Filename)%(Extension)</DestinationFileName>
       <DestinationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">img\%(Filename)%(Extension)</DestinationFileName>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="content\img\UI.png">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/img</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)/img</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)/img</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/img</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

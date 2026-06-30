@@ -1,6 +1,8 @@
 #include "machine.h"
 
-Machine::Machine(int _worldX, int _worldY) {
+Machine::Machine(int _worldX, int _worldY, Direction _direction) {
+	solid = true;
+	direction = _direction;
 	worldX = _worldX;
 	worldY = _worldY;
 }
@@ -9,6 +11,9 @@ Machine::Machine(int _worldX, int _worldY) {
 bool Machine::canPlace(World* world, int worldX, int worldY, int width, int height) {
 	for (int i = worldX; i < worldX + width; i++) {
 		for (int j = worldY; j < worldY + height; j++) {
+			if (!world->getTile(i, j)) {
+				return false;
+			}
 			if (world->getTile(i, j)->solid) {
 				return false;
 			}
@@ -33,7 +38,7 @@ void Machine::clear(World* world) {
 	}
 }
 
-void Machine::DrawPreview(SDL_Renderer* renderer, float _x, float _y) {
+void Machine::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction direction) {
 	SDL_SetRenderDrawColor(renderer ,255,255, 255, 128);
 
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };

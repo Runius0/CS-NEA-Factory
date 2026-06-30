@@ -30,12 +30,25 @@ void World::draw(SDL_Renderer* renderer, float _x, float _y) {
 	}
 };
 
+void World::tick(int gameTick) {
+	for (int i = 0; i < std::size(chunkMap); i++) {
+		for (int j = 0; j < std::size(chunkMap[i]); j++) {
+			if (chunkMap[i][j]) {
+				chunkMap[i][j]->tick(gameTick);
+			}
+		}
+	}
+};
+
+
 Tile* World::getTile(int _x, int _y) {
 	int chunkX = (int)floor((float)_x / CHUNK_SIZE);
 	int chunkY = (int)floor((float)_y / CHUNK_SIZE);
 
-	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - (-_x % CHUNK_SIZE);
-	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - (-_y % CHUNK_SIZE);
+
+
+	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _x) % CHUNK_SIZE) - 1;
+	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _y) % CHUNK_SIZE) - 1;
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
 		return NULL;
@@ -48,8 +61,8 @@ void World::setTile(Tile* tile, int _x, int _y) {
 	int chunkX = (int)floor((float)_x / CHUNK_SIZE);
 	int chunkY = (int)floor((float)_y / CHUNK_SIZE);
 
-	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - (-_x % CHUNK_SIZE);
-	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - (-_y % CHUNK_SIZE);
+	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _x) % CHUNK_SIZE) - 1;
+	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _y) % CHUNK_SIZE) - 1;
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
 		return;

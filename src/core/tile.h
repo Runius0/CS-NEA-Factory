@@ -9,15 +9,15 @@ class Tile {
 public:
 	int worldX;
 	int worldY;
-	const bool solid = false;
+	bool solid = false;
 	Tile(int worldX, int worldY);
 	Tile();
+	virtual void tick(int gameTick);
 	virtual void draw(SDL_Renderer* renderer, float x, float y);
 };
 
 class Grass : public Tile {
 	public:
-		const bool solid = false;
 		Grass(int worldX, int worldY);
 		void draw(SDL_Renderer* renderer, float x, float y) override;
 

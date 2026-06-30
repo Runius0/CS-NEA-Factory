@@ -18,6 +18,7 @@ class Player {
 	public:
 		Player();
 		Direction direction;
+		Direction placingDirection;
 		AnimationState animation;
 		int animationFrame;
 		int animationTimer;

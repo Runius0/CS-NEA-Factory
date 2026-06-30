@@ -1,30 +1,28 @@
 #include "conveyor.h"
 
-Conveyor::Conveyor(int _worldX, int _worldY) : Machine(worldX, worldY) {
-	worldX = _worldX;
-	worldY = _worldY;
+Conveyor::Conveyor(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
+	width = 1;
+	height = 1;
 };
 
 void Conveyor::draw(SDL_Renderer* renderer, float _x, float _y) {
-	frameTimer++;
-	if (frameTimer >= 32) {
-		frameTimer = frameTimer % 32;
-		frame++;
-		frame = frame % 4;
-	}
 
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
-	SDL_FRect texRect = { SPRITE_SIZE * 2 + frame * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE };
+	SDL_FRect texRect = {frame * SPRITE_SIZE, SPRITE_SIZE * 4 + SPRITE_SIZE * direction, SPRITE_SIZE, SPRITE_SIZE };
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 
 }
 
+void Conveyor::tick(int gameTick) {
+	frame = gameTick % 4;
+}
 
-void Conveyor::DrawPreview(SDL_Renderer* renderer, float _x, float _y) {
+
+void Conveyor::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction _direction) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 128);
 
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
-	SDL_FRect texRect = { SPRITE_SIZE * 2, 0, SPRITE_SIZE, SPRITE_SIZE };
+	SDL_FRect texRect = { 0, SPRITE_SIZE * 4 + SPRITE_SIZE * _direction, SPRITE_SIZE, SPRITE_SIZE };
 
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 128);
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);

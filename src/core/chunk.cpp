@@ -25,6 +25,15 @@ void Chunk::draw(SDL_Renderer* renderer, float _x, float _y) {
 	}
 };
 
+
+void Chunk::tick(int gameTick) {
+	for (int i = 0; i < CHUNK_SIZE; i++) {
+		for (int j = 0; j < CHUNK_SIZE; j++) {
+			tileMap[i][j]->tick(gameTick);
+		}
+	}
+};
+
 Tile* Chunk::getTile(int _x, int _y) {
 	return tileMap[_x][_y];
 }

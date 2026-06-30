@@ -7,6 +7,7 @@ Player::Player() {
 	animationFrame = 0;
 	animation = idle;
 	direction = Down;
+	placingDirection = Right;
 }
 
 void Player::draw(SDL_Renderer* renderer) {
@@ -57,6 +58,7 @@ void Player::movement(const bool* keyboard) {
 	else {
 		animation = idle;
 	}
+
 }
 
 float Player::getX() {

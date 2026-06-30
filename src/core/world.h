@@ -22,5 +22,5 @@ public:
 	//bool isSpaceOccupied(int _x, int _y, int width, int height);
 	void draw(SDL_Renderer* renderer, float x, float y);
 	void snapToGrid(float* x, float* y);
-	void tick();
+	void tick(int gameTick);
 };
