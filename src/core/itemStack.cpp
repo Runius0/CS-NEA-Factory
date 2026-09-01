@@ -6,7 +6,7 @@ ItemStack::ItemStack(Item* _type, int _amount) {
 }
 
 
-bool ItemStack::operator=(const ItemStack* other) {
+bool ItemStack::operator==(const ItemStack* other) {
 	return (type == other->type);
 }
 
