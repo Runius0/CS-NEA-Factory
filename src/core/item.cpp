@@ -20,7 +20,7 @@ Item::Item() {
 	ID = 255;
 }
 
-void Item::draw(SDL_Renderer* renderer, float x, float y) {
-	SDL_FRect destRect = {x, y, SPRITE_SIZE * 2, SPRITE_SIZE * 2}; // really should put the scaling constant somewhere
+void Item::draw(SDL_Renderer* renderer, float x, float y, int scale) {
+	SDL_FRect destRect = {x, y, SPRITE_SIZE * scale, SPRITE_SIZE * scale}; // really should put the scaling constant somewhere
 	SDL_RenderTexture(renderer, textureList[TEX_ITEM], &sprite, &destRect);
 }

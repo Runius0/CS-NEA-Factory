@@ -26,7 +26,7 @@ void UIElement::draw(SDL_Renderer* renderer) {
 			tileRect = { x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE };
 			SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
 			if (items[i][j] != NULL) {
-				items[i][j]->type->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE);
+				items[i][j]->type->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 2);
 			}
 		}
 	}

@@ -14,6 +14,7 @@ public:
 	Tile();
 	virtual void tick(World* world, int gameTick);
 	virtual void draw(SDL_Renderer* renderer, float x, float y);
+	virtual void drawOverlay(SDL_Renderer* renderer, float x, float y) {};
 };
 
 class Grass : public Tile {

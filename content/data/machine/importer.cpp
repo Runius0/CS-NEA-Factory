@@ -30,38 +30,18 @@ void Importer::draw(SDL_Renderer* renderer, float _x, float _y) {
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
 	SDL_FRect texRect = {frame * SPRITE_SIZE, SPRITE_SIZE * 8 + SPRITE_SIZE * direction, SPRITE_SIZE, SPRITE_SIZE };
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
-
-	switch (direction)
-	{
-	case Right:
-		item1_type->draw(renderer, _x + TILE_SIZE / 2 + item1_progress, _y);
-		item2_type->draw(renderer, _x + item2_progress, _y);
-		break;
-	case Down:
-		item1_type->draw(renderer, _x, _y + TILE_SIZE / 2 + item1_progress);
-		item2_type->draw(renderer, _x, _y + item2_progress);
-		break;
-	case Left:
-		item1_type->draw(renderer, _x + TILE_SIZE / 2 - item1_progress, _y);
-		item2_type->draw(renderer, _x + TILE_SIZE + item2_progress, _y);
-		break;
-	case Up:
-		item1_type->draw(renderer, _x, _y + TILE_SIZE / 2 - item1_progress);
-		item2_type->draw(renderer, _x, _y + TILE_SIZE + item2_progress);
-		break;
-	}
 }
 
 void Importer::tick(World* world, int gameTick) {
 	frame = gameTick % 4;
-	if (item1_progress < 8) {
+	if (item1_progress < 16) {
 		item1_progress++;
 	}
-	if (item2_progress < 8) {
+	if (item2_progress < 16) {
 		item2_progress++;
 	}
 
-	if (item1_progress == 8) {
+	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
 		if (targetTile->solid) {
 			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), false)) {
@@ -69,7 +49,7 @@ void Importer::tick(World* world, int gameTick) {
 			};
 		}
 	}
-	if (item2_progress == 8) {
+	if (item2_progress == 16) {
 		if (item1_progress == 64) {
 			item1_progress = 0;
 			item2_progress = 64;

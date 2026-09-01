@@ -13,6 +13,7 @@ class Conveyor : public Machine {
 	public:
 		Conveyor(int worldX, int worldY, Direction direction);
 		void draw(SDL_Renderer* renderer, float x, float y) override;
+		void drawOverlay(SDL_Renderer* renderer, float x, float y) override;
 		void tick(World* world, int gameTick) override;
 		bool acceptItem(ItemStack* item, bool forced) override;
 		static void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);

@@ -28,6 +28,13 @@ void World::draw(SDL_Renderer* renderer, float _x, float _y) {
 			}
 		}
 	}
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -1; j <= 1; j++) {
+			if ((i - x + chunkX >= 0) && (i - x + chunkX < std::size(chunkMap)) && chunkMap[i - x + chunkX][j - y + chunkY]) {
+				chunkMap[i - x + chunkX][j - y + chunkY]->drawOverlay(renderer, _x, _y);
+			}
+		}
+	}
 };
 
 void World::tick(int gameTick) {
