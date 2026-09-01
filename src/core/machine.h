@@ -17,6 +17,6 @@ class Machine : public Tile {
 		static void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
 
 		// conveyor interaction handlers
-		virtual bool acceptItem(ItemStack* item, bool forced) { return false; };
+		virtual bool acceptItem(ItemStack* item, Direction direction, bool forced) { return false; };
 		virtual ItemStack* extractItem() { return NULL; };
 };

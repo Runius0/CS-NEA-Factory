@@ -1,8 +1,7 @@
 #pragma once
-#include "../../../src/core/machine.h"
-#include "../../../src/core/item.h"
+#include "conveyor.h"
 
-class Exporter : public Machine {
+class Exporter : public Conveyor {
 	int frame = 0;
 	public:
 		Exporter(int worldX, int worldY, Direction direction);

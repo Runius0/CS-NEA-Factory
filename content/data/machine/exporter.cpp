@@ -1,6 +1,6 @@
 #include "exporter.h"
 
-Exporter::Exporter(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
+Exporter::Exporter(int _worldX, int _worldY, Direction direction) : Conveyor(_worldX, _worldY, direction) {
 	width = 1;
 	height = 1;
 
@@ -16,6 +16,16 @@ void Exporter::draw(SDL_Renderer* renderer, float _x, float _y) {
 
 void Exporter::tick(World* world, int gameTick) {
 	frame = gameTick % 4;
+	updateItems(world);
+
+	if (item1_progress == 16) {
+		Tile* targetTile = world->getTile(targetX, targetY);
+		if (targetTile->solid) {
+			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), direction, true)) {
+				item1_progress = 64;
+			};
+		}
+	}
 }
 
 

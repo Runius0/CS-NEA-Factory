@@ -34,26 +34,14 @@ void Importer::draw(SDL_Renderer* renderer, float _x, float _y) {
 
 void Importer::tick(World* world, int gameTick) {
 	frame = gameTick % 4;
-	if (item1_progress < 16) {
-		item1_progress++;
-	}
-	if (item2_progress < 16) {
-		item2_progress++;
-	}
+	updateItems(world);
 
 	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
 		if (targetTile->solid) {
-			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), false)) {
+			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), direction, false)) {
 				item1_progress = 64;
 			};
-		}
-	}
-	if (item2_progress == 16) {
-		if (item1_progress == 64) {
-			item1_progress = 0;
-			item2_progress = 64;
-			item1_type = item2_type;
 		}
 	}
 	if (gameTick % 4 == 0 && item2_progress == 64) {
@@ -63,6 +51,7 @@ void Importer::tick(World* world, int gameTick) {
 			if (newItem != NULL) {
 				item2_progress = 0;
 				item2_type = newItem->type;
+				item2_direction = direction;
 			}
 		}
 
