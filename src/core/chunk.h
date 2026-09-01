@@ -5,6 +5,9 @@
 
 const int CHUNK_SIZE = 32;
 const int CHUNK_SIZE_PX = TILE_SIZE * CHUNK_SIZE;
+
+class World;
+
 class Chunk {
 	Tile* tileMap[CHUNK_SIZE][CHUNK_SIZE];
 
@@ -15,5 +18,5 @@ public:
 	void draw(SDL_Renderer* renderer, float x, float y);
 	Tile* getTile(int x, int y);
 	void setTile(Tile* tile, int x, int y);
-	void tick(int gameTick);
+	void tick(World* world, int gameTick);
 };

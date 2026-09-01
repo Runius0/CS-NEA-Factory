@@ -34,7 +34,7 @@ void World::tick(int gameTick) {
 	for (int i = 0; i < std::size(chunkMap); i++) {
 		for (int j = 0; j < std::size(chunkMap[i]); j++) {
 			if (chunkMap[i][j]) {
-				chunkMap[i][j]->tick(gameTick);
+				chunkMap[i][j]->tick(this, gameTick);
 			}
 		}
 	}

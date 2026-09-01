@@ -3,6 +3,7 @@
 Exporter::Exporter(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
 	width = 1;
 	height = 1;
+
 };
 
 void Exporter::draw(SDL_Renderer* renderer, float _x, float _y) {
@@ -13,7 +14,7 @@ void Exporter::draw(SDL_Renderer* renderer, float _x, float _y) {
 
 }
 
-void Exporter::tick(int gameTick) {
+void Exporter::tick(World* world, int gameTick) {
 	frame = gameTick % 4;
 }
 

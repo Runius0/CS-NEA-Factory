@@ -14,3 +14,5 @@ class Item {
 		Item();
 		void draw(SDL_Renderer* renderer, float x, float y);
 };
+
+extern Item* ITEM[256]; // declared here so classes can access the index

@@ -1,7 +1,6 @@
 #pragma once
 #include "../../src/core/machineItem.h"
 
-extern Item* ITEM[256];
 
 void registerItem(Item* item);
 

@@ -34,6 +34,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     hotbar.items[0][0] = new ItemStack(ITEM[1], 3);
     hotbar.items[1][0] = new ItemStack(ITEM[2], 32);
     hotbar.items[2][0] = new ItemStack(ITEM[3], 32);
+    hotbar.items[3][0] = new ItemStack(ITEM[4], 32);
 
     return SDL_APP_CONTINUE;
 }
@@ -53,6 +54,18 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
         }
         else if (event->key.scancode == SDL_SCANCODE_3) {
            hotbarSlot = 2;
+        }
+        else if (event->key.scancode == SDL_SCANCODE_4) {
+            hotbarSlot = 3;
+        }
+        else if (event->key.scancode == SDL_SCANCODE_5) {
+            hotbarSlot = 4;
+        }
+        else if (event->key.scancode == SDL_SCANCODE_6) {
+            hotbarSlot = 5;
+        }
+        else if (event->key.scancode == SDL_SCANCODE_7) {
+            hotbarSlot = 6;
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {

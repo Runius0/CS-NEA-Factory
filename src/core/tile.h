@@ -3,6 +3,7 @@
 
 const int TILE_SIZE = 32;
 
+class World;
 
 class Tile {
 public:
@@ -11,7 +12,7 @@ public:
 	bool solid = false;
 	Tile(int worldX, int worldY);
 	Tile();
-	virtual void tick(int gameTick);
+	virtual void tick(World* world, int gameTick);
 	virtual void draw(SDL_Renderer* renderer, float x, float y);
 };
 

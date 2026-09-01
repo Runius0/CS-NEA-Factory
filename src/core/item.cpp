@@ -1,5 +1,8 @@
 #include "item.h"
 
+
+Item* ITEM[256];
+
 static int nextID = 1; // ID 0 is no item
 
 Item::Item(char* _name, SDL_FRect _sprite, int _maxStack) {

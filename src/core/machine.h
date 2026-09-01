@@ -1,5 +1,6 @@
 #pragma once
 #include "tile.h"
+#include "itemStack.h"
 
 // to allow the machine to interract with the world
 #include "world.h"
@@ -14,4 +15,8 @@ class Machine : public Tile {
 		void place(World* world); // fill in all necessary tiles
 		static bool canPlace(World* world, int worldX, int worldY, int width, int height);
 		static void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
+
+		// conveyor interaction handlers
+		virtual bool acceptItem(ItemStack* item, bool forced) { return false; };
+		virtual ItemStack* extractItem() { return NULL; };
 };

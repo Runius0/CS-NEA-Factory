@@ -1,4 +1,5 @@
 #include "chunk.h"
+#include "world.h"
 
 Chunk::Chunk(int _x, int _y) {
 
@@ -26,10 +27,10 @@ void Chunk::draw(SDL_Renderer* renderer, float _x, float _y) {
 };
 
 
-void Chunk::tick(int gameTick) {
+void Chunk::tick(World* world, int gameTick) {
 	for (int i = 0; i < CHUNK_SIZE; i++) {
 		for (int j = 0; j < CHUNK_SIZE; j++) {
-			tileMap[i][j]->tick(gameTick);
+			tileMap[i][j]->tick(world, gameTick);
 		}
 	}
 };
