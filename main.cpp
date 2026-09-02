@@ -45,12 +45,19 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     loadTextures(renderer);
     loadItems();
     hotbar.items[0][0] = new ItemStack(ITEM[1], 50);
-    hotbar.items[1][0] = new ItemStack(ITEM[2], 32);
-    hotbar.items[2][0] = new ItemStack(ITEM[3], 32);
-    hotbar.items[3][0] = new ItemStack(ITEM[4], 32);
-    hotbar.items[4][0] = new ItemStack(ITEM[5], 32);
+    hotbar.items[1][0] = new ItemStack(ITEM[2], 50);
+    hotbar.items[2][0] = new ItemStack(ITEM[3], 50);
+    hotbar.items[3][0] = new ItemStack(ITEM[4], 50);
+    hotbar.items[4][0] = new ItemStack(ITEM[5], 50);
 
-    cursorItem = new ItemStack(ITEM[2], 5);
+    mainInventory.insertItem(ITEM[1], 50);
+    mainInventory.insertItem(ITEM[1], 50);
+    mainInventory.insertItem(ITEM[2], 50);
+    mainInventory.insertItem(ITEM[3], 50);
+    mainInventory.insertItem(ITEM[4], 50);
+    mainInventory.insertItem(ITEM[5], 50);
+
+    cursorItem = NULL;
 
     return SDL_APP_CONTINUE;
 }
@@ -143,7 +150,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                         hotbar.setItem(temp, slotX, slotY);
                     }
                 }
-                else if (hotbar.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
+                else if (cursorItem != NULL && hotbar.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
                     hotbar.setItem(new ItemStack(cursorItem->type, 1), slotX, slotY);
                     cursorItem->take(1);
                     if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
@@ -161,7 +168,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                         mainInventory.setItem(temp, slotX, slotY);
                     }
                 }
-                else if (mainInventory.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
+                else if (cursorItem != NULL && mainInventory.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
                     mainInventory.setItem(new ItemStack(cursorItem->type, 1), slotX, slotY);
                     cursorItem->take(1);
                     if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
@@ -191,7 +198,7 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
             int worldX = (int)(cX / TILE_SIZE);
             int worldY = (int)(cY / TILE_SIZE);
             // place machine temporary code
-            if (Machine::canPlace(&surface, worldX, worldY, 1, 1)) {
+            if (hotbar.items[hotbarSlot][0]->type->placeable && Machine::canPlace(&surface, worldX, worldY, 1, 1)) {
                 Machine* newTile = ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->getNew(worldX, worldY, player->placingDirection);
                 newTile->place(&surface);
                 hotbar.items[hotbarSlot][0]->take(1);
@@ -219,7 +226,7 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
         if (toDestroy->solid) {
             int ID = ((Machine*)(toDestroy))->ID;
             Item* itemType = ITEM[((Machine*)(toDestroy))->ID];
-            mainInventory.insertItem(itemType, hotbar.insertItem(itemType, 1));
+            mainInventory.insertItem(itemType, 1 - hotbar.insertItem(itemType, 1));
             ((Machine*)(toDestroy))->clear(&surface);
         }
 
@@ -274,6 +281,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
         mainInventory.draw(renderer, x, y);
         hotbar.draw(renderer, x, y);
+        drawUIBackground(renderer, 320, 32, 256, 384);
 
         if (cursorItem != NULL) {
             cursorItem->draw(renderer, x, y, 2);

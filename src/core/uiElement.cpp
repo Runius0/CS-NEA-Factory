@@ -1,5 +1,47 @@
 #include "uiElement.h"
 
+void drawUIBackground(SDL_Renderer* renderer, float x, float y, float width, float height) {
+
+	SDL_FRect tileRect, texRect;
+	// draw border
+	// top
+	texRect = { SPRITE_SIZE, SPRITE_SIZE - 1, SPRITE_SIZE, 1 };
+	tileRect = { x, y - 1 * UI_SCALE * UI_SLOT_SCALE, width, 1 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// bottom
+	texRect = { SPRITE_SIZE, SPRITE_SIZE * 2, SPRITE_SIZE, 3 };
+	tileRect = { x, y + height, width, 3 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// left
+	texRect = { SPRITE_SIZE - 1, SPRITE_SIZE, 1, SPRITE_SIZE };
+	tileRect = { x - 1 * UI_SCALE * UI_SLOT_SCALE, y, 1 * UI_SCALE * UI_SLOT_SCALE, height };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// right
+	texRect = { SPRITE_SIZE * 2, SPRITE_SIZE, 1, SPRITE_SIZE };
+	tileRect = { x + width, y, 1 * UI_SCALE * UI_SLOT_SCALE, height };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// bottom-left
+	texRect = { SPRITE_SIZE - 1, SPRITE_SIZE * 2, 1, 2 };
+	tileRect = { x - 1 * UI_SCALE * UI_SLOT_SCALE, y + height, 1 * UI_SCALE * UI_SLOT_SCALE, 2 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// bottom-right
+	texRect = { SPRITE_SIZE * 2, SPRITE_SIZE * 2, 1, 2 };
+	tileRect = { x + width, y + height, 1 * UI_SCALE * UI_SLOT_SCALE, 2 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	//centre
+	tileRect = { x, y, width, height };
+	SDL_SetRenderDrawColor(renderer, 74, 84, 98, 255);
+	SDL_RenderFillRect(renderer, &tileRect);
+
+}
+
+
 UIElement::UIElement(float _x, float _y, int _width, int _height) {
 	x = _x;
 	y = _y;

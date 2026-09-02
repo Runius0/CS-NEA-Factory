@@ -3,6 +3,7 @@
 
 MachineItem::MachineItem(MACHINE_ID _machine, char* _name, SDL_FRect _sprite, int _maxStack) : Item(_name, _sprite, _maxStack) {
 	machine = _machine;
+	placeable = true;
 }
 
 Machine* MachineItem::getNew(int x, int y, Direction direction) {

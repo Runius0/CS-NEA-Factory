@@ -9,6 +9,7 @@ class Item {
 	public:
 		int ID;
 		int maxStack;
+		bool placeable = false;
 		char name[32]; // 32 letters for your name, that's all you get
 		Item(char* name, SDL_FRect sprite, int maxStack);
 		Item();

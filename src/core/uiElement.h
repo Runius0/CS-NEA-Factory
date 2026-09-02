@@ -22,3 +22,5 @@ class UIElement {
 		bool getSlotValid(float x, float y, int* slotX, int* slotY);
 		// ADD INTERRACTION FUNCTIONS HERE
 };
+
+void drawUIBackground(SDL_Renderer* renderer, float x, float y, float width, float height); // UI element drawing Utility
