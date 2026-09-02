@@ -3,7 +3,7 @@
 Conveyor::Conveyor(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
 	width = 1;
 	height = 1;
-
+	ID = 1;
 	switch (direction)
 	{
 	case Right:

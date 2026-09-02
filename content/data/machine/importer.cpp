@@ -3,6 +3,7 @@
 Importer::Importer(int _worldX, int _worldY, Direction direction) : Conveyor(_worldX, _worldY, direction) {
 	width = 1;
 	height = 1;
+	ID = 3;
 
 	switch (direction)
 	{

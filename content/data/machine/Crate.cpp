@@ -3,6 +3,7 @@
 Crate::Crate(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
 	width = 1;
 	height = 1;
+	ID = 4;
 };
 
 void Crate::draw(SDL_Renderer* renderer, float _x, float _y) {

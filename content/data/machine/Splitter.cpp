@@ -3,6 +3,7 @@
 Splitter::Splitter(int _worldX, int _worldY, Direction direction) : Conveyor(_worldX, _worldY, direction) {
 	width = 1;
 	height = 1;
+	ID = 5;
 
 	switch (direction)
 	{

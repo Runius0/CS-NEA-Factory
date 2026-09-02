@@ -121,3 +121,28 @@ void UIElement::draw(SDL_Renderer* renderer, float mouseX, float mouseY) {
 
 
 }
+
+int UIElement::insertItem(Item* type, int amount) {
+	int amountRemaining = amount;
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			if (items[i][j] != NULL && items[i][j]->type == type) {
+				amountRemaining -= items[i][j]->add(amountRemaining);
+			}
+			if (amountRemaining == 0) {
+				return amount;
+			}
+		}
+	}
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			if (items[i][j] == NULL) {
+				items[i][j] = new ItemStack(type, amountRemaining);
+				return amount;
+			}
+		}
+	}
+	return amount - amountRemaining;
+
+	
+};

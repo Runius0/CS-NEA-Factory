@@ -29,6 +29,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     surface.addChunk(0, 0);
     surface.addChunk(-1, -1);
+    surface.addChunk(-1, 0);
     surface.addChunk(0, -1);
 
     /* Create the window */
@@ -43,7 +44,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     loadTextures(renderer);
     loadItems();
-    hotbar.items[0][0] = new ItemStack(ITEM[1], 3);
+    hotbar.items[0][0] = new ItemStack(ITEM[1], 50);
     hotbar.items[1][0] = new ItemStack(ITEM[2], 32);
     hotbar.items[2][0] = new ItemStack(ITEM[3], 32);
     hotbar.items[3][0] = new ItemStack(ITEM[4], 32);
@@ -117,8 +118,11 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
             if (Machine::canPlace(&surface, worldX, worldY, 1, 1)) {
                 Machine* newTile = ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->getNew(worldX, worldY, player->placingDirection);
                 newTile->place(&surface);
+                hotbar.items[hotbarSlot][0]->take(1);
+                if (hotbar.items[hotbarSlot][0]->getAmount() == 0) {
+                    hotbar.items[hotbarSlot][0] = 0;
+                }
             }
-
         }
 
     }
@@ -137,6 +141,9 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
         // destroy machine temporary code
         Tile* toDestroy = surface.getTile(worldX, worldY);
         if (toDestroy->solid) {
+            int ID = ((Machine*)(toDestroy))->ID;
+            Item* itemType = ITEM[((Machine*)(toDestroy))->ID];
+            mainInventory.insertItem(itemType, hotbar.insertItem(itemType, 1));
             ((Machine*)(toDestroy))->clear(&surface);
         }
 

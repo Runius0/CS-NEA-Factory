@@ -10,6 +10,7 @@ class Machine : public Tile {
 		Direction direction;
 		int width = 1;
 		int height = 1;
+		int ID = 0;
 		Machine(int worldX, int worldY, Direction direction);
 		void clear(World* world); // delete machine from world
 		void place(World* world); // fill in all necessary tiles

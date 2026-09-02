@@ -16,5 +16,7 @@ class UIElement {
 		UIElement(float x, float y, int width, int height);
 		void draw(SDL_Renderer* renderer);
 		void draw(SDL_Renderer* renderer, float mouseX, float mouseY);
+		int insertItem(Item* type, int amount);
+		ItemStack getSlot(float x, float y, int* slotX, int* slotY)
 		// ADD INTERRACTION FUNCTIONS HERE
 };
