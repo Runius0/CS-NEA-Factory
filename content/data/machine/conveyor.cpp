@@ -75,10 +75,10 @@ void Conveyor::drawOverlay(SDL_Renderer* renderer, float _x, float _y) {
 
 void Conveyor::updateItems(World* world) {
 	if (item1_progress < 16) {
-		item1_progress++;
+		item1_progress+= 2;
 	}
 	if (item2_progress < 16) {
-		item2_progress++;
+		item2_progress+= 2;
 	}
 	if (item2_progress == 16) {
 		if (item1_progress == 64) {
@@ -97,14 +97,14 @@ void Conveyor::tick(World* world, int gameTick) {
 	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
 		if (targetTile->solid) {
-			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), direction, false)) {
+			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), targetX, targetY, direction, false)) {
 				item1_progress = 64;
 			};
 		}
 	}
 }
 
-bool Conveyor::acceptItem(ItemStack* item, Direction direction, bool forced) {
+bool Conveyor::acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) {
 	if (item->getAmount() != 1 || item2_progress != 64) {
 		return false;
 	}

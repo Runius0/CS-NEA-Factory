@@ -133,6 +133,7 @@
     <ClCompile Include="content\data\machine\Crate.cpp" />
     <ClCompile Include="content\data\machine\exporter.cpp" />
     <ClCompile Include="content\data\machine\importer.cpp" />
+    <ClCompile Include="content\data\machine\Splitter.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="content\data\machine\Crate.h" />
     <ClInclude Include="content\data\machine\exporter.h" />
     <ClInclude Include="content\data\machine\importer.h" />
+    <ClInclude Include="content\data\machine\Splitter.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="src\core\chunk.h" />

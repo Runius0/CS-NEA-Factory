@@ -39,7 +39,7 @@ void Importer::tick(World* world, int gameTick) {
 	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
 		if (targetTile->solid) {
-			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), direction, false)) {
+			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), targetX, targetY, direction, false)) {
 				item1_progress = 64;
 			};
 		}

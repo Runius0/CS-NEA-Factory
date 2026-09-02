@@ -2,12 +2,14 @@
 #include "machine/conveyor.h"
 #include "machine/importer.h"
 #include "machine/exporter.h"
+#include "machine/Splitter.h"
 #include "machine/Crate.h"
 
 enum MACHINE_ID {
 	MACHINE_CONVEYOR,
 	MACHINE_IMPORTER,
 	MACHINE_EXPORTER,
+	MACHINE_SPLITTER,
 	MACHINE_CRATE
 };
 

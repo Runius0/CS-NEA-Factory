@@ -26,8 +26,8 @@ Grass::Grass(int _worldX, int _worldY) {
 }
 
 void Grass::draw(SDL_Renderer* renderer, float _x, float _y) {
-	int tileX = worldX % 2;
-	int tileY = worldY % 2;
+	int tileX = SDL_abs(worldX) % 2;
+	int tileY = SDL_abs(worldY) % 2;
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
 	SDL_FRect texRect = { tileX * SPRITE_SIZE, tileY * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE };
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
