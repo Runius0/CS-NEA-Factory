@@ -32,15 +32,27 @@ Splitter::Splitter(int _worldX, int _worldY, Direction direction) : Conveyor(_wo
 
 void Splitter::draw(SDL_Renderer* renderer, float _x, float _y) {
 
-	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
-	if (width == 2) {
-		tileRect.w = TILE_SIZE * 2;
+	SDL_FRect tileRect = { _x, _y, TILE_SIZE * width, TILE_SIZE * height};
+	SDL_FRect texRect;
+	switch (direction)
+	{
+	case Right:
+		texRect = { (float)(frame + 4) * SPRITE_SIZE, SPRITE_SIZE * 8, SPRITE_SIZE, SPRITE_SIZE * 2 };
+		SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
+		break;
+	case Down:
+		texRect = { (float)frame * 2 * SPRITE_SIZE, SPRITE_SIZE * 13, SPRITE_SIZE * 2, SPRITE_SIZE };
+		SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
+		break;
+	case Left:
+		texRect = { (float)(frame + 4) * SPRITE_SIZE, SPRITE_SIZE * 10, SPRITE_SIZE, SPRITE_SIZE * 2 };
+		SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
+		break;
+	case Up:
+		texRect = { (float)frame * 2 * SPRITE_SIZE, SPRITE_SIZE * 12, SPRITE_SIZE * 2, SPRITE_SIZE };
+		SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
+		break;
 	}
-	else {
-		tileRect.h = TILE_SIZE * 2;
-	}
-	SDL_FRect texRect = { frame * SPRITE_SIZE, SPRITE_SIZE * 8 + SPRITE_SIZE * direction, SPRITE_SIZE, SPRITE_SIZE };
-	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 }
 
 void Splitter::drawOverlay(SDL_Renderer* renderer, float _x, float _y) {
@@ -238,7 +250,7 @@ void Splitter::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 128);
 
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
-	SDL_FRect texRect = { 0, SPRITE_SIZE * 8 + SPRITE_SIZE * _direction, SPRITE_SIZE, SPRITE_SIZE };
+	SDL_FRect texRect;
 
 	if (_direction % 2 == 1) {
 		tileRect.w = TILE_SIZE * 2;
@@ -246,6 +258,23 @@ void Splitter::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction
 	else {
 		tileRect.h = TILE_SIZE * 2;
 	}
+
+	switch (_direction)
+	{
+	case Right:
+		texRect = { 4 * SPRITE_SIZE, SPRITE_SIZE * 8, SPRITE_SIZE, SPRITE_SIZE * 2 };
+		break;
+	case Down:
+		texRect = { 0, SPRITE_SIZE * 13, SPRITE_SIZE * 2, SPRITE_SIZE };
+		break;
+	case Left:
+		texRect = { 4 * SPRITE_SIZE, SPRITE_SIZE * 10, SPRITE_SIZE, SPRITE_SIZE * 2 };
+		break;
+	case Up:
+		texRect = { 0, SPRITE_SIZE * 12, SPRITE_SIZE * 2, SPRITE_SIZE };
+		break;
+	}
+
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 128);
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 255);
