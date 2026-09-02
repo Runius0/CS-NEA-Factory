@@ -41,3 +41,20 @@ bool ItemStack::takeStrict(int val) {
 	amount -= val;
 	return true;
 }
+
+
+void ItemStack::draw(SDL_Renderer* renderer, float x, float y, int scale) {
+	type->draw(renderer, x, y, scale);
+	float numStartY = y + SPRITE_SIZE*scale - 7*scale;
+	int rollingNumber = amount;
+	SDL_FRect tileRect, texRect;
+	int i = 1;
+	while (rollingNumber > 0)
+	{
+		texRect = { SPRITE_SIZE * 3 + (float)(rollingNumber % 10)*5, SPRITE_SIZE, 5, 7};
+		tileRect = { x + SPRITE_SIZE*scale - i * 5*scale, numStartY, (float)5 * scale, (float)7 * scale };
+		SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+		i++;
+		rollingNumber /= 10;
+	}
+};

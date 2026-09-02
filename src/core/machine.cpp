@@ -33,9 +33,7 @@ void Machine::place(World* world) {
 void Machine::clear(World* world) {
 	for (int i = worldX; i < worldX + width; i++) {
 		for (int j = worldY; j < worldY + height; j++) {
-			int tileX = i >= 0 ? i % CHUNK_SIZE : CHUNK_SIZE - ((-1 - i) % CHUNK_SIZE) - 1;
-			int tileY = j >= 0 ? j % CHUNK_SIZE : CHUNK_SIZE - ((-1 - j) % CHUNK_SIZE) - 1;
-			world->setTile(new Grass(tileX, tileY), i, j);
+			world->setTile(new Grass(i, j), i, j);
 		}
 	}
 }

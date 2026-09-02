@@ -49,9 +49,14 @@ void Chunk::drawOverlay(SDL_Renderer* renderer, float _x, float _y) {
 
 
 void Chunk::tick(World* world, int gameTick) {
+	int chunk_tileX = (x * CHUNK_SIZE);
+	int chunk_tileY = (y * CHUNK_SIZE);
+
 	for (int i = 0; i < CHUNK_SIZE; i++) {
 		for (int j = 0; j < CHUNK_SIZE; j++) {
-			tileMap[i][j]->tick(world, gameTick);
+			if (chunk_tileX + i == tileMap[i][j]->worldX && chunk_tileY + j == tileMap[i][j]->worldY) {
+				tileMap[i][j]->tick(world, gameTick);
+			}
 		}
 	}
 };

@@ -103,7 +103,7 @@ void Splitter::drawOverlay(SDL_Renderer* renderer, float _x, float _y) {
 		}
 	}
 	if (item2_progress_2 != 64) {
-		switch (item2_direction)
+		switch (item2_direction_2)
 		{
 		case Right:
 			item2_type_2->draw(renderer, x - TILE_SIZE / 2 + item2_progress_2, y);

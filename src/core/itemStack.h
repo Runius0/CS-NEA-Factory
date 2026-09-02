@@ -14,4 +14,5 @@ class ItemStack {
 		int add(int amount); // returns the amount of items actually added to the stack
 		int take(int amount); // returns the amount of items taken from the stack
 		bool takeStrict(int amount); // returns success, will not take unless required items are available
+		void draw(SDL_Renderer* renderer, float x, float y, int scale = 1);
 };

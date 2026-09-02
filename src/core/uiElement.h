@@ -15,5 +15,6 @@ class UIElement {
 		ItemStack*** items; // 2D array of pointers to itemStacks contained within the inventory
 		UIElement(float x, float y, int width, int height);
 		void draw(SDL_Renderer* renderer);
+		void draw(SDL_Renderer* renderer, float mouseX, float mouseY);
 		// ADD INTERRACTION FUNCTIONS HERE
 };

@@ -26,7 +26,7 @@ void UIElement::draw(SDL_Renderer* renderer) {
 			tileRect = { x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE };
 			SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
 			if (items[i][j] != NULL) {
-				items[i][j]->type->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 2);
+				items[i][j]->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 2);
 			}
 		}
 	}
@@ -61,4 +61,63 @@ void UIElement::draw(SDL_Renderer* renderer) {
 	texRect = { SPRITE_SIZE * 2, SPRITE_SIZE * 2, 1, 2 };
 	tileRect = { x + width * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + height * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 1 * UI_SCALE * UI_SLOT_SCALE, 2 * UI_SCALE * UI_SLOT_SCALE };
 	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+}
+
+
+void UIElement::draw(SDL_Renderer* renderer, float mouseX, float mouseY) {
+
+	// draw slots
+	SDL_FRect tileRect, texRect;
+	texRect = { SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE };
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			tileRect = { x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE };
+			SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+			if (items[i][j] != NULL) {
+				items[i][j]->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 2);
+			}
+		}
+	}
+
+	// draw border
+	// top
+	texRect = { SPRITE_SIZE, SPRITE_SIZE - 1, SPRITE_SIZE, 1 };
+	tileRect = { x, y - 1 * UI_SCALE * UI_SLOT_SCALE, (float)(width * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE), 1 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// bottom
+	texRect = { SPRITE_SIZE, SPRITE_SIZE * 2, SPRITE_SIZE, 3 };
+	tileRect = { x, y + height * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, (float)(width * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE), 3 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// left
+	texRect = { SPRITE_SIZE - 1, SPRITE_SIZE, 1, SPRITE_SIZE };
+	tileRect = { x - 1 * UI_SCALE * UI_SLOT_SCALE, y, 1 * UI_SCALE * UI_SLOT_SCALE, (float)(height * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE) };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// right
+	texRect = { SPRITE_SIZE * 2, SPRITE_SIZE, 1, SPRITE_SIZE };
+	tileRect = { x + width * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y, 1 * UI_SCALE * UI_SLOT_SCALE, (float)(height * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE) };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// bottom-left
+	texRect = { SPRITE_SIZE - 1, SPRITE_SIZE * 2, 1, 2 };
+	tileRect = { x - 1 * UI_SCALE * UI_SLOT_SCALE, y + height * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 1 * UI_SCALE * UI_SLOT_SCALE, 2 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	// bottom-right
+	texRect = { SPRITE_SIZE * 2, SPRITE_SIZE * 2, 1, 2 };
+	tileRect = { x + width * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + height * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 1 * UI_SCALE * UI_SLOT_SCALE, 2 * UI_SCALE * UI_SLOT_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+	int slotX = (int)SDL_floorf((mouseX - x) / (SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE));
+	int slotY = (int)SDL_floorf((mouseY - y) / (SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE));
+	if (slotX < 0 || slotY < 0 || slotX >= width || slotY >= height) {
+		return;
+	}
+	texRect = { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE };
+	tileRect = { x + slotX * SPRITE_SIZE * UI_SCALE, y + slotY * SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
+
+
 }
