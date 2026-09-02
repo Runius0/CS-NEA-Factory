@@ -9,7 +9,7 @@ class ItemStack {
 		Item* type;
 		ItemStack(Item* type, int amount);
 
-		bool operator==(const ItemStack* other);
+		bool operator==(const ItemStack other);
 		int getAmount();
 		int add(int amount); // returns the amount of items actually added to the stack
 		int take(int amount); // returns the amount of items taken from the stack

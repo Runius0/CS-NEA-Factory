@@ -122,6 +122,33 @@ void UIElement::draw(SDL_Renderer* renderer, float mouseX, float mouseY) {
 
 }
 
+
+ItemStack* UIElement::getSlot(float _x, float _y, int* _slotX, int* _slotY) {
+	int slotX = (int)SDL_floorf((_x - x) / (SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE));
+	int slotY = (int)SDL_floorf((_y - y) / (SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE));
+	if (slotX < 0 || slotY < 0 || slotX >= width || slotY >= height) {
+		return NULL;
+	}
+	*_slotX = slotX;
+	*_slotY = slotY;
+	return items[slotX][slotY];
+};
+
+bool UIElement::getSlotValid(float _x, float _y, int* _slotX, int* _slotY) {
+	int slotX = (int)SDL_floorf((_x - x) / (SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE));
+	int slotY = (int)SDL_floorf((_y - y) / (SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE));
+	if (slotX < 0 || slotY < 0 || slotX >= width || slotY >= height) {
+		return false;
+	}
+	*_slotX = slotX;
+	*_slotY = slotY;
+	return true;
+};
+
+void UIElement::setItem(ItemStack* itemStack, int slotX, int slotY) {
+	items[slotX][slotY] = itemStack;
+};
+
 int UIElement::insertItem(Item* type, int amount) {
 	int amountRemaining = amount;
 	for (int i = 0; i < width; i++) {
