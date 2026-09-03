@@ -84,6 +84,12 @@
     <ClCompile Include="content\data\machine\Splitter.cpp">
       <Filter>Source Files\content/data\machine</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Recipe.cpp">
+      <Filter>Source Files\src/core</Filter>
+    </ClCompile>
+    <ClCompile Include="content\data\recipes.cpp">
+      <Filter>Source Files\content/data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -139,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="content\data\machine\Splitter.h">
       <Filter>Source Files\content/data\machine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Recipe.h">
+      <Filter>Source Files\src/core</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\recipes.h">
+      <Filter>Source Files\content/data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

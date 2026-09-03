@@ -10,3 +10,4 @@
 // content
 #include "content/data/machines.h"
 #include "content/data/items.h"
+#include "content/data/recipes.h"

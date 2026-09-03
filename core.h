@@ -67,6 +67,8 @@ static void loadTextures(SDL_Renderer* renderer) {
     }
 };
 
+extern SDL_FRect* font[256];
+void loadFont();
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;

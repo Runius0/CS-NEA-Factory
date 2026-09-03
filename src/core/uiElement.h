@@ -24,3 +24,5 @@ class UIElement {
 };
 
 void drawUIBackground(SDL_Renderer* renderer, float x, float y, float width, float height); // UI element drawing Utility
+void drawTextString(SDL_Renderer* renderer, float x, float y, char* string, int stringLength);
+void drawTextStrings(SDL_Renderer* renderer, float x, float y, char** string, int lineCount, int maxStringLength);

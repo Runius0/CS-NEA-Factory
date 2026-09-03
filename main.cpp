@@ -20,6 +20,7 @@ UIElement hotbar(0, 0, 8, 1);
 int hotbarSlot = 0;
 UIElement mainInventory(0, 64, 8, 4);
 bool inventoryOpen = false;
+bool craftsOpen = false;
 
 World surface;
 
@@ -44,6 +45,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     loadTextures(renderer);
     loadItems();
+    loadFont();
+    loadRecipes();
     hotbar.items[0][0] = new ItemStack(ITEM[1], 50);
     hotbar.items[1][0] = new ItemStack(ITEM[2], 50);
     hotbar.items[2][0] = new ItemStack(ITEM[3], 50);
@@ -95,6 +98,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
         }
         else if (event->key.scancode == SDL_SCANCODE_E) {
             inventoryOpen = !inventoryOpen;
+            craftsOpen = inventoryOpen;
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
@@ -236,6 +240,106 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
 
 void ProcessMenuInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFlags, const bool* keyboardState) {
 }
+
+void ProcessCraftsMenu(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFlags, const bool* keyboardState) {
+    drawUIBackground(renderer, 320, 32, 256, 384);
+    SDL_SetRenderDrawColor(renderer, 36, 34, 52, 255);
+    SDL_FRect recipesArea = { 328, 128, 240, 280 };
+    SDL_RenderFillRect(renderer, &recipesArea);
+    for (int i = 0; i < numRecipes[CRAFT]; i++) {
+        int x = 332 + (i%6) * 40;
+        int y = 132 + (i/6) * 40;
+        drawUIBackground(renderer, x, y, 32, 32);
+        recipeRegistry[CRAFT][i]->getResult()->draw(renderer, x, y, 2);
+    }
+    if (mouseX > 328 && mouseX < 568 ) {
+        int slotX = (mouseX - 328) / 40;
+        int slotY = (mouseY - 128) / 40;
+        int slotID = slotX + slotY * 6;
+        if (slotID < numRecipes[CRAFT]) {
+            SDL_FRect cursorIcon = { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE };
+            SDL_FRect drawPos = { 332 + slotX * 40, 132 + slotY * 40, 32, 32 };
+            SDL_RenderTexture(renderer, textureList[TEX_UI], &cursorIcon, &drawPos);
+
+            Recipe* recipe = recipeRegistry[CRAFT][slotID];
+            char* recipeText[12];
+            int ingredientNumber = 1;
+
+            char itemAmountString[5];
+            int amount = recipe->getResult()->getAmount();
+            int amountDigits = SDL_log10(amount) + 1;
+            for (int i = 0; i < amountDigits; i++) {
+                itemAmountString[amountDigits - i - 1] = (amount % 10) + 48;
+                amount /= 10;
+            }
+
+            // insane C string concatenation fuckery wizard magic (100% consistent and blazingly fast)
+            recipeText[0] = new char[40];
+            memcpy(recipeText[0], itemAmountString, amountDigits);
+            memcpy(recipeText[0]+amountDigits, "x ", 2);
+            memcpy(recipeText[0]+amountDigits+2, recipe->getResult()->type->name, 32);
+
+            recipeText[1] = new char[40];
+            memcpy(recipeText[1], "", 1);
+
+            recipeText[2] = new char[40];
+            memcpy(recipeText[2], "INGREDIENTS", 12);
+
+            ItemStack** Ingredients = recipe->getIngredients();
+            int ingredientNum = 0;
+
+            while (Ingredients[ingredientNum] != NULL) {
+                recipeText[ingredientNum + 3] = new char[40];
+
+                amount = Ingredients[ingredientNum]->getAmount();
+                amountDigits = SDL_log10(amount) + 1;
+                for (int i = 0; i < amountDigits; i++) {
+                    itemAmountString[amountDigits - i - 1] = (amount % 10) + 48;
+                    amount /= 10;
+                }
+
+                memcpy(recipeText[ingredientNum + 3], itemAmountString, amountDigits);
+                memcpy(recipeText[ingredientNum + 3] + amountDigits, "x ", 2);
+                memcpy(recipeText[ingredientNum + 3] + amountDigits + 2, Ingredients[ingredientNum]->type->name, 32);
+
+                ingredientNum++;
+            }
+
+            recipeText[ingredientNum + 3] = new char[40];
+            memcpy(recipeText[ingredientNum + 3], "", 1);
+
+
+
+            recipeText[ingredientNum + 4] = new char[40];
+            memcpy(recipeText[ingredientNum + 4], "TIME ", 5);
+
+            amount = recipe->getTime() / TPS;
+            amountDigits = SDL_log10(amount) + 1;
+            if (amount == 0) {
+                amountDigits = 1; // this will cause an error anywhere else in the code but this is the only place it's likely to occur, so only fix here for now.
+            }
+            for (int i = 0; i < amountDigits; i++) {
+                itemAmountString[amountDigits - i - 1] = (amount % 10) + 48;
+                amount /= 10;
+            }
+
+            memcpy(recipeText[ingredientNum + 4] + 5, itemAmountString, amountDigits);
+
+            int decimalAmount = (recipe->getTime() % TPS) * 5;
+            itemAmountString[0] = '.'; // add decimal point hardcoded as we know the length of the decimal
+            for (int i = 0; i < 2; i++) {
+                itemAmountString[2 - i] = (decimalAmount % 10) + 48;
+                decimalAmount /= 10;
+            }
+            memcpy(recipeText[ingredientNum + 4] + amountDigits + 5, itemAmountString, 3);
+            memcpy(recipeText[ingredientNum + 4] + amountDigits + 8, "", 1);
+
+
+            drawTextStrings(renderer, mouseX, mouseY + 24, (char**)recipeText, ingredientNum + 5, 40 );
+        }
+    }
+}
+
 /* This function runs once per frame, and is the heart of the program. */
 SDL_AppResult SDL_AppIterate(void* appstate)
 {
@@ -281,7 +385,10 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
         mainInventory.draw(renderer, x, y);
         hotbar.draw(renderer, x, y);
-        drawUIBackground(renderer, 320, 32, 256, 384);
+
+        if (craftsOpen) {
+            ProcessCraftsMenu(x, y, mouseFlags, keyboardState);
+        }
 
         if (cursorItem != NULL) {
             cursorItem->draw(renderer, x, y, 2);

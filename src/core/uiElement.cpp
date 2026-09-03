@@ -41,6 +41,28 @@ void drawUIBackground(SDL_Renderer* renderer, float x, float y, float width, flo
 
 }
 
+void drawTextString(SDL_Renderer* renderer, float x, float y, char* string, int stringLength) {
+	int realTextLength = 0;
+	while (realTextLength < stringLength && string[realTextLength] != 0) { realTextLength++; }
+	drawUIBackground(renderer, x- UI_SCALE * UI_SLOT_SCALE, y- UI_SCALE * UI_SLOT_SCALE, realTextLength*4 * UI_SCALE * UI_SLOT_SCALE + 3 * UI_SCALE * UI_SLOT_SCALE, 9 * UI_SCALE * UI_SLOT_SCALE);
+	SDL_FRect charRect;
+	for (int i = 0; i < realTextLength; i++) {
+		charRect = {x + i*4 * UI_SCALE * UI_SLOT_SCALE, y, 5 * UI_SCALE * UI_SLOT_SCALE , 7 * UI_SCALE * UI_SLOT_SCALE };
+		SDL_RenderTexture(renderer, textureList[TEX_UI], font[string[i]], &charRect);
+	}
+};
+
+void drawTextStrings(SDL_Renderer* renderer, float x, float y, char** string, int lineCount, int maxStringLength) {
+	drawUIBackground(renderer, x - UI_SCALE * UI_SLOT_SCALE, y - UI_SCALE * UI_SLOT_SCALE, maxStringLength * 4 * UI_SCALE * UI_SLOT_SCALE + 3 * UI_SCALE * UI_SLOT_SCALE, (7 * lineCount + 2) * UI_SCALE * UI_SLOT_SCALE);
+	SDL_FRect charRect;
+	for (int j = 0; j < lineCount; j++) {
+		for (int i = 0; i < maxStringLength; i++) {
+			if (string[j][i] == 0) { break; }
+			charRect = { x + i * 4 * UI_SCALE * UI_SLOT_SCALE, (y + j * 7 * UI_SCALE * UI_SLOT_SCALE), 5 * UI_SCALE * UI_SLOT_SCALE , 7 * UI_SCALE * UI_SLOT_SCALE };
+			SDL_RenderTexture(renderer, textureList[TEX_UI], font[string[j][i]], &charRect);
+		}
+	}
+};
 
 UIElement::UIElement(float _x, float _y, int _width, int _height) {
 	x = _x;
@@ -161,7 +183,9 @@ void UIElement::draw(SDL_Renderer* renderer, float mouseX, float mouseY) {
 	tileRect = { x + slotX * SPRITE_SIZE * UI_SCALE, y + slotY * SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
 	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
 
-
+	if (items[slotX][slotY] != NULL) {
+		drawTextString(renderer, mouseX, mouseY + 24, items[slotX][slotY]->type->name, 32);
+	}
 }
 
 

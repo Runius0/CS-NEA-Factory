@@ -134,6 +134,7 @@
     <ClCompile Include="content\data\machine\exporter.cpp" />
     <ClCompile Include="content\data\machine\importer.cpp" />
     <ClCompile Include="content\data\machine\Splitter.cpp" />
+    <ClCompile Include="content\data\recipes.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="src\core\machine.cpp" />
     <ClCompile Include="src\core\machineItem.cpp" />
     <ClCompile Include="src\core\player.cpp" />
+    <ClCompile Include="src\core\Recipe.cpp" />
     <ClCompile Include="src\core\tile.cpp" />
     <ClCompile Include="src\core\uiElement.cpp" />
     <ClCompile Include="src\core\world.cpp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="content\data\machine\exporter.h" />
     <ClInclude Include="content\data\machine\importer.h" />
     <ClInclude Include="content\data\machine\Splitter.h" />
+    <ClInclude Include="content\data\recipes.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="src\core\chunk.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="src\core\machine.h" />
     <ClInclude Include="src\core\machineItem.h" />
     <ClInclude Include="src\core\player.h" />
+    <ClInclude Include="src\core\Recipe.h" />
     <ClInclude Include="src\core\tile.h" />
     <ClInclude Include="src\core\uiElement.h" />
     <ClInclude Include="src\core\world.h" />
