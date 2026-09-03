@@ -243,6 +243,36 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
 
 }
 
+
+bool checkPlayerCanCraft(Recipe* recipe) {
+    ItemStack** Ingredients = recipe->getIngredients();
+    int ingredientNum = 0;
+
+    while (Ingredients[ingredientNum] != NULL) {
+        ItemStack* ingredient = Ingredients[ingredientNum];
+        if (mainInventory.countItem(ingredient->type) + hotbar.countItem(ingredient->type) < ingredient->getAmount()) {
+            return false;
+        }
+        ingredientNum++;
+    }
+    return true;
+
+}
+
+void completeCraft(Recipe* recipe) {
+    if (!checkPlayerCanCraft(recipe)) { return; }
+    ItemStack** Ingredients = recipe->getIngredients();
+    int ingredientNum = 0;
+
+    while (Ingredients[ingredientNum] != NULL) {
+        ItemStack* ingredient = Ingredients[ingredientNum];
+        hotbar.takeItem(ingredient->type, ingredient->getAmount() - mainInventory.takeItem(ingredient->type, ingredient->getAmount()));
+        ingredientNum++;
+    }
+
+    hotbar.insertItem(recipe->getResult()->type, recipe->getResult()->getAmount() - mainInventory.insertItem(recipe->getResult()->type, recipe->getResult()->getAmount()));
+}
+
 void ProcessMenuInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFlags, const bool* keyboardState) {
 }
 
@@ -357,12 +387,13 @@ void ProcessCraftsMenu(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFla
                     playerCraftProgress = 0;
                 }
                 if (!checkPlayerCanCraft(recipe)) {
+                    playerCraftProgress = 0;
                     return;
                 }
                 playerCraftProgress+= deltaTick;
                 if (playerCraftProgress >= maxProgress) {
                     playerCraftProgress = 0;
-                    // finish craft
+                    completeCraft(recipe);
                 }
             }
             else {
@@ -373,16 +404,6 @@ void ProcessCraftsMenu(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFla
             playerCraftProgress = 0;
         }
     }
-}
-
-bool checkPlayerCanCraft(Recipe* recipe) {
-    ItemStack** Ingredients = recipe->getIngredients();
-    int ingredientNum = 0;
-
-    while (Ingredients[ingredientNum] != NULL) {
-        ingredientNum++;
-    }
-
 }
 
 /* This function runs once per frame, and is the heart of the program. */

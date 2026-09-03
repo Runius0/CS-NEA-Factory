@@ -239,3 +239,32 @@ int UIElement::insertItem(Item* type, int amount) {
 
 	
 };
+
+int UIElement::countItem(Item* type) {
+	int count = 0;
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			if (items[i][j] != NULL && items[i][j]->type == type) {
+				count += items[i][j]->getAmount();
+			}
+		}
+	}
+	return count;
+}
+
+int UIElement::takeItem(Item* type, int amount) {
+	int amountRemaining = amount;
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			if (items[i][j] != NULL && items[i][j]->type == type) {
+				amountRemaining -= items[i][j]->take(amountRemaining);
+				if (items[i][j]->getAmount() == 0) { items[i][j] = NULL; }
+			}
+			if (amountRemaining == 0) {
+				return amount;
+			}
+		}
+	}
+	return amount - amountRemaining;
+
+}
