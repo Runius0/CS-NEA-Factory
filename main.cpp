@@ -5,8 +5,13 @@ static SDL_Renderer* renderer = NULL;
 static Player* player = new Player();
 float x, y = 0;
 int tick = 0;
+float pf_tick = 0;
 float f_tick = 0;
+float deltaTick = 0;
 const int TPS = 20;
+
+float playerCraftProgress = 0;
+int playerSelectedCraft = -1;
 
 static SDL_Surface* screenTint;
 static SDL_Renderer* tintRenderer;
@@ -252,17 +257,17 @@ void ProcessCraftsMenu(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFla
         drawUIBackground(renderer, x, y, 32, 32);
         recipeRegistry[CRAFT][i]->getResult()->draw(renderer, x, y, 2);
     }
-    if (mouseX > 328 && mouseX < 568 ) {
+    if (mouseX > 328 && mouseX < 568 && mouseY > 132) {
         int slotX = (mouseX - 328) / 40;
         int slotY = (mouseY - 128) / 40;
         int slotID = slotX + slotY * 6;
-        if (slotID < numRecipes[CRAFT]) {
+        if (slotID >= 0 && slotID < numRecipes[CRAFT]) {
             SDL_FRect cursorIcon = { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE };
             SDL_FRect drawPos = { 332 + slotX * 40, 132 + slotY * 40, 32, 32 };
             SDL_RenderTexture(renderer, textureList[TEX_UI], &cursorIcon, &drawPos);
-
+            // TODO: fix the MASSIVE memory leak this stupid code causes (mostly just clear up the created arrays)
             Recipe* recipe = recipeRegistry[CRAFT][slotID];
-            char* recipeText[12];
+            char* recipeText[20];
             int ingredientNumber = 1;
 
             char itemAmountString[5];
@@ -336,8 +341,48 @@ void ProcessCraftsMenu(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFla
 
 
             drawTextStrings(renderer, mouseX, mouseY + 24, (char**)recipeText, ingredientNum + 5, 40 );
+
+            float maxProgress = recipe->getTime();
+
+            SDL_FillSurfaceRect(screenTint, NULL, SDL_MapRGBA(SDL_GetPixelFormatDetails(SDL_PIXELFORMAT_ABGR4444), NULL, 255, 255, 255, 128));
+            SDL_FRect progressTint = { 332 + slotX * 40, 164 + slotY * 40 - 32.0f * (playerCraftProgress / maxProgress), 32, 32.0f * (playerCraftProgress/maxProgress)};
+            SDL_Texture* tint = SDL_CreateTextureFromSurface(renderer, screenTint);
+            SDL_RenderTexture(renderer, tint, NULL, &progressTint);
+            SDL_DestroyTexture(tint);
+
+
+            if (mouseFlags & SDL_BUTTON_MASK(1)) {
+                if (playerSelectedCraft != slotID) {
+                    playerSelectedCraft = slotID;
+                    playerCraftProgress = 0;
+                }
+                if (!checkPlayerCanCraft(recipe)) {
+                    return;
+                }
+                playerCraftProgress+= deltaTick;
+                if (playerCraftProgress >= maxProgress) {
+                    playerCraftProgress = 0;
+                    // finish craft
+                }
+            }
+            else {
+                playerCraftProgress = 0;
+            }
+        }
+        else {
+            playerCraftProgress = 0;
         }
     }
+}
+
+bool checkPlayerCanCraft(Recipe* recipe) {
+    ItemStack** Ingredients = recipe->getIngredients();
+    int ingredientNum = 0;
+
+    while (Ingredients[ingredientNum] != NULL) {
+        ingredientNum++;
+    }
+
 }
 
 /* This function runs once per frame, and is the heart of the program. */
@@ -355,12 +400,14 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         ProcessPlayerInput(x, y, mouseFlags, keyboardState);
     }
     // increment tick
+    pf_tick = f_tick;
     f_tick = SDL_GetTicks() / (1000.0f / TPS);
     if (f_tick - tick >= 1) {
         tick++;
         surface.tick(tick);
     }
 
+    deltaTick = f_tick - pf_tick;
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
