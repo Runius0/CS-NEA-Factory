@@ -19,7 +19,7 @@ void loadRecipes() {
 	ingredients[0] = new ItemStack(ITEM[10], 2);
 	ingredients[1] = new ItemStack(ITEM[11], 1);
 	ingredients[2] = NULL;
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[1], 1), 20)); // CRAFT: CONVEYOR
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[1], 4), 20)); // CRAFT: CONVEYOR
 
 	ingredients[0] = new ItemStack(ITEM[1], 1);
 	ingredients[1] = new ItemStack(ITEM[10], 1);

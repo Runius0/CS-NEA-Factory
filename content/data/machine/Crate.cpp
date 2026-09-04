@@ -23,6 +23,7 @@ ItemStack* Crate::extractItem() {
 			return new ItemStack(itemType, 1);
 		}
 	}
+	return NULL;
 }
 
 bool Crate::acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) {
