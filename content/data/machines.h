@@ -5,6 +5,7 @@
 #include "machine/Splitter.h"
 #include "machine/Crate.h"
 #include "machine/furnace.h"
+#include "machine/resourceGenerators.h"
 
 enum MACHINE_ID {
 	MACHINE_CONVEYOR,
@@ -12,7 +13,8 @@ enum MACHINE_ID {
 	MACHINE_EXPORTER,
 	MACHINE_SPLITTER,
 	MACHINE_CRATE,
-	MACHINE_FURNACE
+	MACHINE_FURNACE,
+	MACHINE_TIN_GENERATOR
 };
 
 void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float y, Direction direction);

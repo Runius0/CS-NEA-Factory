@@ -134,6 +134,7 @@
     <ClCompile Include="content\data\machine\exporter.cpp" />
     <ClCompile Include="content\data\machine\furnace.cpp" />
     <ClCompile Include="content\data\machine\importer.cpp" />
+    <ClCompile Include="content\data\machine\resourceGenerators.cpp" />
     <ClCompile Include="content\data\machine\Splitter.cpp" />
     <ClCompile Include="content\data\recipes.cpp" />
     <ClCompile Include="core.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="content\data\machine\exporter.h" />
     <ClInclude Include="content\data\machine\furnace.h" />
     <ClInclude Include="content\data\machine\importer.h" />
+    <ClInclude Include="content\data\machine\resourceGenerators.h" />
     <ClInclude Include="content\data\machine\Splitter.h" />
     <ClInclude Include="content\data\recipes.h" />
     <ClInclude Include="main.h" />

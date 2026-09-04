@@ -1,6 +1,7 @@
 #pragma once
 #include "../../src/core/machineItem.h"
 
+const int FIRST_ITEM_ID = 10; // first non-machine item ID
 
 void registerItem(Item* item);
 
