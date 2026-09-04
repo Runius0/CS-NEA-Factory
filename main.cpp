@@ -145,6 +145,10 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                     mainInventory.setItem(cursorItem, slotX, slotY);
                     cursorItem = NULL;
                 }
+
+                if (machineMenuOpen) {
+                    openedMachine->clickInventory(&hotbar, &mainInventory, &cursorItem, 320, 32, event->button.x, event->button.y);
+                }
             }
             else {
                 // get world pos
@@ -234,13 +238,6 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
                 hotbar.items[hotbarSlot][0]->take(1);
                 if (hotbar.items[hotbarSlot][0]->getAmount() == 0) {
                     hotbar.items[hotbarSlot][0] = 0;
-                }
-            }
-            else if (surface.getTile(worldX, worldY)->solid) {
-                Machine* tile = (Machine*)surface.getTile(worldX, worldY);
-                if (tile->interract()) {
-                    inventoryOpen = true;
-                    // set UI target to the machine
                 }
             }
         }
@@ -486,7 +483,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
             ProcessCraftsMenu(x, y, mouseFlags, keyboardState);
         }
         if (machineMenuOpen) {
-            openedMachine->processInventory(renderer, &hotbar, &mainInventory, &cursorItem, 320, 32, x, y);
+            openedMachine->renderInventory(renderer, 320, 32, x, y);
         }
 
         if (cursorItem != NULL) {
