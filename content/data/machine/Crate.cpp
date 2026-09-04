@@ -4,6 +4,7 @@ Crate::Crate(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _
 	width = 1;
 	height = 1;
 	ID = 4;
+	inventory = new UIElement(0, 0, 2, 2);
 };
 
 void Crate::draw(SDL_Renderer* renderer, float _x, float _y) {
@@ -15,9 +16,21 @@ void Crate::draw(SDL_Renderer* renderer, float _x, float _y) {
 }
 
 ItemStack* Crate::extractItem() {
-	return new ItemStack(ITEM[ID], 1);
+	for (int i = 0; i < 4; i++) {
+		if (inventory->items[i % 2][i / 2] != NULL) {
+			Item* itemType = inventory->items[i % 2][i / 2]->type;
+			inventory->takeItem(itemType, 1);
+			return new ItemStack(itemType, 1);
+		}
+	}
 }
 
+bool Crate::acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) {
+	if (forced && inventory->insertItem(item->type, 1)) {
+		return true;
+	}
+	return false;
+};
 
 void Crate::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction _direction) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 128);
@@ -29,3 +42,26 @@ void Crate::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction _d
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 255);
 }
+
+
+void Crate::renderInventory(SDL_Renderer* renderer, float x, float y, float mouseX, float mouseY) {
+	inventory->setPos(x, y);
+	inventory->draw(renderer, mouseX, mouseY);
+}
+
+
+void Crate::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack** cursorItem, float x, float y, float mouseX, float mouseY) {
+	inventory->setPos(x, y);
+	int slotX, slotY;
+	if (inventory->getSlotValid(mouseX, mouseY, &slotX, &slotY)) {
+		if (*cursorItem == NULL || inventory->items[slotX][slotY] == NULL) {
+			ItemStack* temp = *cursorItem;
+			*cursorItem = inventory->items[slotX][slotY];
+			inventory->setItem(temp, slotX, slotY);
+		}
+		else if (**cursorItem == *inventory->items[slotX][slotY]) {
+			(*cursorItem)->take(inventory->items[slotX][slotY]->add((*cursorItem)->getAmount()));
+		}
+	}
+
+};

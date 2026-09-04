@@ -18,6 +18,7 @@ class UIElement {
 		void draw(SDL_Renderer* renderer, float mouseX, float mouseY);
 		int insertItem(Item* type, int amount);
 		void setItem(ItemStack* itemStack, int slotX, int slotY);
+		void setPos(float x, float y);
 		int countItem(Item* type);
 		int takeItem(Item* type, int amount);
 		ItemStack* getSlot(float x, float y, int* slotX, int* slotY);

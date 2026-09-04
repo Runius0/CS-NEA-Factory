@@ -240,6 +240,11 @@ int UIElement::insertItem(Item* type, int amount) {
 	
 };
 
+void UIElement::setPos(float _x, float _y) {
+	x = _x;
+	y = _y;
+}
+
 int UIElement::countItem(Item* type) {
 	int count = 0;
 	for (int i = 0; i < width; i++) {
