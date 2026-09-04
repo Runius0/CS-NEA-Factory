@@ -46,4 +46,13 @@ void loadRecipes() {
 	ingredients[0] = new ItemStack(ITEM[6], 2);
 	ingredients[1] = NULL;
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[7], 1), 2));
+
+
+	ingredients[0] = new ItemStack(ITEM[7], 2);
+	ingredients[1] = NULL;
+	registerRecipe(SMELT, new Recipe(ingredients, new ItemStack(ITEM[6], 1), 80));
+
+	ingredients[0] = new ItemStack(ITEM[4], 1);
+	ingredients[1] = NULL;
+	registerRecipe(SMELT, new Recipe(ingredients, new ItemStack(ITEM[5], 1), 20));
 }

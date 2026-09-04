@@ -132,6 +132,7 @@
     <ClCompile Include="content\data\machine\conveyor.cpp" />
     <ClCompile Include="content\data\machine\Crate.cpp" />
     <ClCompile Include="content\data\machine\exporter.cpp" />
+    <ClCompile Include="content\data\machine\furnace.cpp" />
     <ClCompile Include="content\data\machine\importer.cpp" />
     <ClCompile Include="content\data\machine\Splitter.cpp" />
     <ClCompile Include="content\data\recipes.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="content\data\machine\conveyor.h" />
     <ClInclude Include="content\data\machine\Crate.h" />
     <ClInclude Include="content\data\machine\exporter.h" />
+    <ClInclude Include="content\data\machine\furnace.h" />
     <ClInclude Include="content\data\machine\importer.h" />
     <ClInclude Include="content\data\machine\Splitter.h" />
     <ClInclude Include="content\data\recipes.h" />

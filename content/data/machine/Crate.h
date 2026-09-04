@@ -3,7 +3,6 @@
 #include "../../../src/core/item.h"
 
 class Crate : public Machine {
-	int frame = 0;
 public:
 	Crate(int worldX, int worldY, Direction direction);
 	void draw(SDL_Renderer* renderer, float x, float y) override;

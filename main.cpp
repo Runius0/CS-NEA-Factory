@@ -13,6 +13,9 @@ const int TPS = 20;
 float playerCraftProgress = 0;
 int playerSelectedCraft = -1;
 
+bool machineMenuOpen = false;
+Machine* openedMachine;
+
 static SDL_Surface* screenTint;
 static SDL_Renderer* tintRenderer;
 
@@ -143,6 +146,24 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                     cursorItem = NULL;
                 }
             }
+            else {
+                // get world pos
+                float cX = event->button.x + player->getX() - SCREEN_WIDTH / 2;
+                float cY = event->button.y + player->getY() - SCREEN_HEIGHT / 2;
+                // snap to grid
+                surface.snapToGrid(&cX, &cY);
+                // world x/y
+                int worldX = (int)(cX / TILE_SIZE);
+                int worldY = (int)(cY / TILE_SIZE);
+                if (surface.getTile(worldX, worldY)->solid) {
+                    Machine* tile = (Machine*)surface.getTile(worldX, worldY);
+                    if (tile->interract()) {
+                        inventoryOpen = true;
+                        openedMachine = tile;
+                        machineMenuOpen = true;
+                    }
+                }
+            }
         } if (event->button.button == SDL_BUTTON_RIGHT) {
             if (inventoryOpen) {
                 int slotX, slotY;
@@ -213,6 +234,13 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
                 hotbar.items[hotbarSlot][0]->take(1);
                 if (hotbar.items[hotbarSlot][0]->getAmount() == 0) {
                     hotbar.items[hotbarSlot][0] = 0;
+                }
+            }
+            else if (surface.getTile(worldX, worldY)->solid) {
+                Machine* tile = (Machine*)surface.getTile(worldX, worldY);
+                if (tile->interract()) {
+                    inventoryOpen = true;
+                    // set UI target to the machine
                 }
             }
         }
@@ -456,6 +484,9 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
         if (craftsOpen) {
             ProcessCraftsMenu(x, y, mouseFlags, keyboardState);
+        }
+        if (machineMenuOpen) {
+            openedMachine->processInventory(renderer, &hotbar, &mainInventory, &cursorItem, 320, 32, x, y);
         }
 
         if (cursorItem != NULL) {

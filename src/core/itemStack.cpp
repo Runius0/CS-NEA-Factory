@@ -14,6 +14,10 @@ int ItemStack::getAmount() {
 	return amount;
 }
 
+int ItemStack::getSpace() {
+	return type->maxStack - amount;
+}
+
 int ItemStack::add(int val) {
 	int itemSpace = type->maxStack - amount;
 	amount += val;
@@ -22,6 +26,15 @@ int ItemStack::add(int val) {
 		return itemSpace;
 	}
 	return val;
+}
+
+
+bool ItemStack::addStrict(int val) {
+	if (val + amount > type->maxStack) {
+		return false;
+	}
+	amount += val;
+	return true;
 }
 
 int ItemStack::take(int val) {

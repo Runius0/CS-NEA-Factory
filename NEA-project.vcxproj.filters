@@ -90,6 +90,9 @@
     <ClCompile Include="content\data\recipes.cpp">
       <Filter>Source Files\content/data</Filter>
     </ClCompile>
+    <ClCompile Include="content\data\machine\furnace.cpp">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="content\data\recipes.h">
       <Filter>Source Files\content/data</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\machine\furnace.h">
+      <Filter>Source Files\content/data\machine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

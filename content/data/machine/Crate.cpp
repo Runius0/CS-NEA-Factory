@@ -15,7 +15,7 @@ void Crate::draw(SDL_Renderer* renderer, float _x, float _y) {
 }
 
 ItemStack* Crate::extractItem() {
-	return new ItemStack(ITEM[5], 1);
+	return new ItemStack(ITEM[ID], 1);
 }
 
 

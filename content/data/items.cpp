@@ -12,6 +12,7 @@ void loadItems() {
 	registerItem(new MachineItem(MACHINE_IMPORTER, (char*)"IMPORTER", { SPRITE_SIZE * 1, 0, SPRITE_SIZE, SPRITE_SIZE}, 50));
 	registerItem(new MachineItem(MACHINE_CRATE, (char*)"CRATE", { SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new MachineItem(MACHINE_SPLITTER, (char*)"SPLITTER", { 0, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE }, 50));
+	registerItem(new MachineItem(MACHINE_FURNACE, (char*)"FURNACE", { SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE}, 50));
 	registerItem(new Item((char*)"RAW TEST", { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"COOKED TEST", { SPRITE_SIZE * 4, 0, SPRITE_SIZE, SPRITE_SIZE }, 50));
 }
