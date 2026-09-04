@@ -98,12 +98,18 @@ void Furnace::renderInventory(SDL_Renderer* renderer, float x, float y, float mo
 	if (rx > 16 && rx < 48 && ry > 32 && ry < 64) {
 		dstRect = { x + 16, y + 32, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
 		SDL_RenderTexture(renderer, textureList[TEX_UI], &srcRect, &dstRect);
+		if (inputItem != NULL) {
+			drawTextString(renderer, mouseX, mouseY + 24, inputItem->type->name, 32);
+		}
 
 	}
 
 	if (rx > 144 && rx < 176 && ry > 32 && ry < 64) {
 		dstRect = { x + 144, y + 32, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
 		SDL_RenderTexture(renderer, textureList[TEX_UI], &srcRect, &dstRect);
+		if (outputItem != NULL) {
+			drawTextString(renderer, mouseX, mouseY + 24, outputItem->type->name, 32);
+		}
 
 	}
 }

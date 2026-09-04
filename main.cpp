@@ -394,6 +394,11 @@ void ProcessCraftsMenu(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFla
 
             drawTextStrings(renderer, mouseX, mouseY + 24, (char**)recipeText, ingredientNum + 5, 40 );
 
+            // clear up memory here because otherwise it's the biggest memory leak in the entire program
+            for (int i = 0; i < ingredientNum + 5; i++) {
+                delete[] recipeText[i];
+            }
+
             float maxProgress = recipe->getTime();
 
             SDL_FillSurfaceRect(screenTint, NULL, SDL_MapRGBA(SDL_GetPixelFormatDetails(SDL_PIXELFORMAT_ABGR4444), NULL, 255, 255, 255, 128));
