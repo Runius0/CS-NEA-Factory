@@ -55,10 +55,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     loadItems();
     loadFont();
     loadRecipes();
-    hotbar.items[0][0] = new ItemStack(ITEM[1], 10);
+    hotbar.items[0][0] = new ItemStack(ITEM[1], 15);
     hotbar.items[1][0] = new ItemStack(ITEM[2], 5);
     hotbar.items[2][0] = new ItemStack(ITEM[3], 5);
-    hotbar.items[3][0] = new ItemStack(ITEM[4], 5);
+    hotbar.items[3][0] = new ItemStack(ITEM[4], 2);
 
     mainInventory.insertItem(ITEM[6], 1);
     mainInventory.insertItem(ITEM[7], 1);

@@ -62,6 +62,9 @@ void Crate::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, 
 		}
 		else if (**cursorItem == *inventory->items[slotX][slotY]) {
 			(*cursorItem)->take(inventory->items[slotX][slotY]->add((*cursorItem)->getAmount()));
+			if ((*cursorItem)->getAmount() == 0) {
+				(*cursorItem) = NULL;
+			}
 		}
 	}
 
