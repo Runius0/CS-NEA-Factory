@@ -38,12 +38,12 @@ void loadRecipes() {
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[5], 2), 40));
 
 	ingredients[0] = new ItemStack(ITEM[10], 5);
-	ingredients[0] = new ItemStack(ITEM[11], 3);
-	ingredients[3] = NULL;
+	ingredients[1] = new ItemStack(ITEM[11], 3);
+	ingredients[2] = NULL;
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[6], 1), 40));
 
 	ingredients[0] = new ItemStack(ITEM[10], 5);
-	ingredients[0] = new ItemStack(ITEM[11], 10);
-	ingredients[3] = NULL;
+	ingredients[1] = new ItemStack(ITEM[11], 10);
+	ingredients[2] = NULL;
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[7], 1), 40));
 }

@@ -9,7 +9,7 @@ Generator::Generator(int _worldX, int _worldY, Direction direction, Item* genera
 void Generator::draw(SDL_Renderer* renderer, float _x, float _y) {
 
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
-	SDL_FRect texRect = { SPRITE_SIZE * 4, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE };
+	SDL_FRect texRect = { SPRITE_SIZE * 5, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE };
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 
 }
@@ -32,7 +32,7 @@ void Generator::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Directio
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 128);
 
 	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
-	SDL_FRect texRect = { SPRITE_SIZE * 4, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE };
+	SDL_FRect texRect = { SPRITE_SIZE * 5, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE };
 
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 128);
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);

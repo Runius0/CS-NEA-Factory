@@ -23,6 +23,9 @@ void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float 
 	case MACHINE_FURNACE:
 		Furnace::DrawPreview(renderer, x, y, direction);
 		break;
+	case MACHINE_TIN_GENERATOR:
+		return TinGenerator::DrawPreview(renderer, x, y, direction);
+		break;
 	default:
 		break;
 	}
@@ -48,6 +51,9 @@ Machine* NewMachine(MACHINE_ID type, int x, int y, Direction direction) {
 		break;
 	case MACHINE_FURNACE:
 		return new Furnace(x, y, direction);
+		break;
+	case MACHINE_TIN_GENERATOR:
+		return new TinGenerator(x, y, direction);
 		break;
 	default:
 		return NULL;
