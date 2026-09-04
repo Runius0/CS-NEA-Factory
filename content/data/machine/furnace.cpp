@@ -63,7 +63,7 @@ ItemStack* Furnace::extractItem() {
 		outputItem = NULL;
 	}
 
-	return new ItemStack(ITEM[ID], 1);
+	return toReturn;
 }
 
 void Furnace::renderInventory(SDL_Renderer* renderer, float x, float y, float mouseX, float mouseY) {

@@ -107,6 +107,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
         else if (event->key.scancode == SDL_SCANCODE_E) {
             inventoryOpen = !inventoryOpen;
             craftsOpen = inventoryOpen;
+            machineMenuOpen = false;
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
