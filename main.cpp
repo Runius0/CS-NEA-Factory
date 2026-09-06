@@ -62,6 +62,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     mainInventory.insertItem(ITEM[6], 1);
     mainInventory.insertItem(ITEM[7], 1);
+    mainInventory.insertItem(ITEM[10], 6);
+    mainInventory.insertItem(ITEM[11], 3);
 
 
     cursorItem = NULL;
