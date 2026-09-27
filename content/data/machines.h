@@ -17,6 +17,7 @@ enum MACHINE_ID {
 	MACHINE_TIN_GENERATOR
 };
 
+void loadMachines();
 void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float y, Direction direction);
 
 Machine* NewMachine(MACHINE_ID type, int x, int y, Direction direction);

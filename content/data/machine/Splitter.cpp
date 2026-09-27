@@ -1,10 +1,12 @@
 #include "splitter.h"
 
-Splitter::Splitter(int _worldX, int _worldY, Direction direction) : Conveyor(_worldX, _worldY, direction) {
+Splitter::Splitter() : Conveyor() {
 	width = 1;
-	height = 1;
-	ID = 5;
+	height = 2;
+};
 
+void Splitter::init(int _worldX, int _worldY, Direction direction) {
+	Conveyor::init(_worldX, _worldY, direction);
 	switch (direction)
 	{
 	case Right:
@@ -28,6 +30,14 @@ Splitter::Splitter(int _worldX, int _worldY, Direction direction) : Conveyor(_wo
 		width = 2;
 		break;
 	}
+
+}
+
+Machine* Splitter::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Splitter();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
 };
 
 void Splitter::draw(SDL_Renderer* renderer, float _x, float _y) {

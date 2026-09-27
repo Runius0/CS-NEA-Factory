@@ -1,10 +1,20 @@
 #include "Crate.h"
 
-Crate::Crate(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
+Crate::Crate() : Machine() {
 	width = 1;
 	height = 1;
-	ID = 4;
+};
+
+void Crate::init(int _worldX, int _worldY, Direction direction) {
+	Machine::init(_worldX, _worldY, direction);
 	inventory = new UIElement(0, 0, 2, 2);
+};
+
+Machine* Crate::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Crate();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
 };
 
 void Crate::draw(SDL_Renderer* renderer, float _x, float _y) {

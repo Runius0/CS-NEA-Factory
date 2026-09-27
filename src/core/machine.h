@@ -12,11 +12,15 @@ class Machine : public Tile {
 		int width = 1;
 		int height = 1;
 		int ID = 0;
-		Machine(int worldX, int worldY, Direction direction);
+		int itemID = 0;
+		Machine();
+		virtual void init(int worldX, int worldY, Direction direction);// this one is called whenever a machine is instantiated, essentially acting in place of the constructor
+		virtual Machine* copy(int worldX, int worldY, Direction direction); 
+
 		void clear(World* world); // delete machine from world
 		void place(World* world); // fill in all necessary tiles
-		static bool canPlace(World* world, int worldX, int worldY, int width, int height);
-		static void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
+		bool canPlace(World* world, int worldX, int worldY, Direction direction);
+		virtual void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
 
 		virtual bool interract() {
 			return false;
@@ -29,3 +33,5 @@ class Machine : public Tile {
 		virtual bool acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) { return false; };
 		virtual ItemStack* extractItem() { return NULL; };
 };
+
+extern Machine* MACHINE[256];

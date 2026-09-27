@@ -1,8 +1,26 @@
 #pragma once
 #include "machines.h"
 
+static int MachineID = 0;
+void registerMachine(Machine* machine) {
+	machine->ID = MachineID;
+	MACHINE[MachineID] = machine;
+	MachineID++;
+}
+
+void loadMachines() {
+	registerMachine(new Conveyor());
+	registerMachine(new Exporter());
+	registerMachine(new Importer());
+	registerMachine(new Splitter());
+	registerMachine(new Crate());
+	registerMachine(new Furnace());
+	registerMachine(new TinGenerator());
+}
 
 void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float y, Direction direction) {
+	MACHINE[type]->DrawPreview(renderer, x, y, direction);
+	/*
 	switch (type)
 	{
 	case MACHINE_CONVEYOR:
@@ -28,10 +46,12 @@ void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float 
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 Machine* NewMachine(MACHINE_ID type, int x, int y, Direction direction) {
+	return MACHINE[type]->copy(x, y, direction);
+	/*
 	switch (type)
 	{
 	case MACHINE_CONVEYOR:
@@ -59,5 +79,5 @@ Machine* NewMachine(MACHINE_ID type, int x, int y, Direction direction) {
 		return NULL;
 		break;
 	}
-
+	*/
 }

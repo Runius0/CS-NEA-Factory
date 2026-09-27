@@ -1,6 +1,6 @@
 #include "resourceGenerators.h"
 
-Generator::Generator(int _worldX, int _worldY, Direction direction, Item* generationItem) : Machine(_worldX, _worldY, direction) {
+Generator::Generator(Item* generationItem) : Machine() {
 	width = 1;
 	height = 1;
 	itemType = generationItem;
@@ -39,6 +39,13 @@ void Generator::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Directio
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 255);
 }
 
-TinGenerator::TinGenerator(int _worldX, int _worldY, Direction direction) : Generator(_worldX, _worldY, direction, ITEM[8]) {
-	ID = 7;
+TinGenerator::TinGenerator() : Generator(ITEM[8]) {
+}
+
+Machine* TinGenerator::copy(int _worldX, int _worldY, Direction direction) {
+
+	Machine* out = new TinGenerator();
+	out->init(_worldX, _worldY, direction);
+	out->ID = ID;
+	return out;
 }

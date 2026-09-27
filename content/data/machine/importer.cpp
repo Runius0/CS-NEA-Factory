@@ -1,10 +1,13 @@
 #include "importer.h"
 
-Importer::Importer(int _worldX, int _worldY, Direction direction) : Conveyor(_worldX, _worldY, direction) {
+Importer::Importer() : Conveyor() {
 	width = 1;
 	height = 1;
-	ID = 3;
 
+};
+
+void Importer::init(int _worldX, int _worldY, Direction direction) {
+	Conveyor::init(_worldX, _worldY, direction);
 	switch (direction)
 	{
 	case Right:
@@ -24,6 +27,13 @@ Importer::Importer(int _worldX, int _worldY, Direction direction) : Conveyor(_wo
 		extractionY = _worldY + 1;
 		break;
 	}
+};
+
+Machine* Importer::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Importer();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
 };
 
 void Importer::draw(SDL_Renderer* renderer, float _x, float _y) {

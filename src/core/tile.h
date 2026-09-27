@@ -9,7 +9,9 @@ class Tile {
 public:
 	int worldX;
 	int worldY;
+	int itemID = 0; // ID of the item which placed the obect, 0 means it was not placed
 	bool solid = false;
+	bool replaceable = true;
 	Tile(int worldX, int worldY);
 	Tile();
 	virtual void tick(World* world, int gameTick);

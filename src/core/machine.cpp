@@ -1,20 +1,48 @@
 #include "machine.h"
 
-Machine::Machine(int _worldX, int _worldY, Direction _direction) {
+Machine* MACHINE[256];
+
+Machine::Machine() {
 	solid = true;
+	replaceable = false;
+}
+
+void Machine::init(int _worldX, int _worldY, Direction _direction) {
 	direction = _direction;
 	worldX = _worldX;
 	worldY = _worldY;
-}
+};
 
+Machine* Machine::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Machine();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
+};
 
-bool Machine::canPlace(World* world, int worldX, int worldY, int width, int height) {
+bool Machine::canPlace(World* world, int worldX, int worldY, Direction direction) {
+	// if rotated, then check rotated
+	if (direction % 2 == 1) {
+		for (int i = worldX; i < worldX + height; i++) {
+			for (int j = worldY; j < worldY + width; j++) {
+				if (!world->getTile(i, j)) {
+					return false;
+				}
+				if (!world->getTile(i, j)->replaceable) {
+					return false;
+				}
+			}
+		}
+		return true;
+
+	}
+
 	for (int i = worldX; i < worldX + width; i++) {
 		for (int j = worldY; j < worldY + height; j++) {
 			if (!world->getTile(i, j)) {
 				return false;
 			}
-			if (world->getTile(i, j)->solid) {
+			if (!world->getTile(i, j)->replaceable) {
 				return false;
 			}
 		}

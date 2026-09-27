@@ -1,9 +1,12 @@
 #include "conveyor.h"
 
-Conveyor::Conveyor(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, direction) {
+Conveyor::Conveyor() : Machine() {
 	width = 1;
 	height = 1;
-	ID = 1;
+};
+
+void Conveyor::init(int _worldX, int _worldY, Direction direction) {
+	Machine::init(_worldX, _worldY, direction);
 	switch (direction)
 	{
 	case Right:
@@ -23,6 +26,13 @@ Conveyor::Conveyor(int _worldX, int _worldY, Direction direction) : Machine(_wor
 		targetY = _worldY - 1;
 		break;
 	}
+};
+
+Machine* Conveyor::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Conveyor();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
 };
 
 void Conveyor::draw(SDL_Renderer* renderer, float _x, float _y) {

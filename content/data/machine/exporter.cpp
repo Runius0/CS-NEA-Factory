@@ -1,9 +1,15 @@
 #include "exporter.h"
 
-Exporter::Exporter(int _worldX, int _worldY, Direction direction) : Conveyor(_worldX, _worldY, direction) {
+Exporter::Exporter() : Conveyor() {
 	width = 1;
 	height = 1;
-	ID = 2;
+};
+
+Machine* Exporter::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Exporter();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
 };
 
 void Exporter::draw(SDL_Renderer* renderer, float _x, float _y) {

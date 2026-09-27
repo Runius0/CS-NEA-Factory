@@ -52,6 +52,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
 
     loadTextures(renderer);
+    loadMachines();
     loadItems();
     loadFont();
     loadRecipes();
@@ -230,8 +231,8 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
             // world x/y
             int worldX = (int)(cX / TILE_SIZE);
             int worldY = (int)(cY / TILE_SIZE);
-            // place machine temporary code
-            if (hotbar.items[hotbarSlot][0]->type->placeable && Machine::canPlace(&surface, worldX, worldY, 1, 1)) {
+            // TEMPORARILY REMOVED PLACEMENT CHECK AS MADE NON-STATIC
+            if (hotbar.items[hotbarSlot][0]->type->placeable) {
                 Machine* newTile = ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->getNew(worldX, worldY, player->placingDirection);
                 newTile->place(&surface);
                 hotbar.items[hotbarSlot][0]->take(1);
@@ -258,7 +259,7 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
         Tile* toDestroy = surface.getTile(worldX, worldY);
         if (toDestroy->solid) {
             int ID = ((Machine*)(toDestroy))->ID;
-            Item* itemType = ITEM[((Machine*)(toDestroy))->ID];
+            Item* itemType = ITEM[((Machine*)(toDestroy))->ID + 1];
             mainInventory.insertItem(itemType, 1 - hotbar.insertItem(itemType, 1));
             ((Machine*)(toDestroy))->clear(&surface);
         }

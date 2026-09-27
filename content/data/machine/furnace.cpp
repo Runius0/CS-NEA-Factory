@@ -1,12 +1,12 @@
 #include "furnace.h"
 
-Furnace::Furnace(int _worldX, int _worldY, Direction direction) : Machine(_worldX, _worldY, Right) {
+Furnace::Furnace() : Machine() {
 	width = 2;
 	height = 2;
-	ID = 6;
 	inputItem = NULL;
 	outputItem = NULL;
 };
+
 
 void Furnace::draw(SDL_Renderer* renderer, float _x, float _y) {
 
@@ -15,6 +15,13 @@ void Furnace::draw(SDL_Renderer* renderer, float _x, float _y) {
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 
 }
+
+Machine* Furnace::copy(int _worldX, int _worldY, Direction _direction) {
+	Machine* out = new Furnace();
+	out->init(_worldX, _worldY, _direction);
+	out->ID = ID;
+	return out;
+};
 
 void Furnace::tick(World* world, int gameTick) {
 	if (inputItem != NULL && currentRecipe == NULL) {

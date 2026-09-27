@@ -5,9 +5,11 @@
 class Crate : public Machine {
 	UIElement* inventory;
 public:
-	Crate(int worldX, int worldY, Direction direction);
+	Crate();
+	void init(int worldX, int worldY, Direction direction);
+	Machine* copy(int worldX, int worldY, Direction direction);
 	void draw(SDL_Renderer* renderer, float x, float y) override;
-	static void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
+	void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
 	bool acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) override;
 	ItemStack* extractItem() override;
 
