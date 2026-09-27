@@ -12,7 +12,6 @@ class Machine : public Tile {
 		int width = 1;
 		int height = 1;
 		int ID = 0;
-		int itemID = 0;
 		Machine();
 		virtual void init(int worldX, int worldY, Direction direction);// this one is called whenever a machine is instantiated, essentially acting in place of the constructor
 		virtual Machine* copy(int worldX, int worldY, Direction direction); 

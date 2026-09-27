@@ -13,3 +13,16 @@ Machine* MachineItem::getNew(int x, int y, Direction direction) {
 void MachineItem::drawPreview(SDL_Renderer* renderer, float x, float y, Direction direction) {
 	DrawMachinePreview(machine, renderer, x, y, direction);
 };
+
+bool MachineItem::interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo) {
+	if (MACHINE[machine]->canPlace(world, worldX, worldY, playerInfo->placingDirection)) {
+		Machine* placed = NewMachine(machine, worldX, worldY, playerInfo->placingDirection);
+		placed->itemID = ID;
+		placed->place(world);
+		(*stackSize)--;
+		return true;
+	}
+	else {
+		return false;
+	}
+}

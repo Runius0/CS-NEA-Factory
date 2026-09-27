@@ -7,6 +7,7 @@ Splitter::Splitter() : Conveyor() {
 
 void Splitter::init(int _worldX, int _worldY, Direction direction) {
 	Conveyor::init(_worldX, _worldY, direction);
+	height = 1;
 	switch (direction)
 	{
 	case Right:

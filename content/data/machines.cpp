@@ -10,8 +10,8 @@ void registerMachine(Machine* machine) {
 
 void loadMachines() {
 	registerMachine(new Conveyor());
-	registerMachine(new Exporter());
 	registerMachine(new Importer());
+	registerMachine(new Exporter());
 	registerMachine(new Splitter());
 	registerMachine(new Crate());
 	registerMachine(new Furnace());

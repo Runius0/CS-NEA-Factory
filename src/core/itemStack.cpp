@@ -71,3 +71,7 @@ void ItemStack::draw(SDL_Renderer* renderer, float x, float y, int scale) {
 		rollingNumber /= 10;
 	}
 };
+
+bool ItemStack::interact(World* world, int worldX, int worldY, Player* playerInfo) {
+	return type->interact(world, worldX, worldY, &amount, playerInfo);
+}

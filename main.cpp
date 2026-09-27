@@ -231,15 +231,8 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
             // world x/y
             int worldX = (int)(cX / TILE_SIZE);
             int worldY = (int)(cY / TILE_SIZE);
-            // TEMPORARILY REMOVED PLACEMENT CHECK AS MADE NON-STATIC
-            if (hotbar.items[hotbarSlot][0]->type->placeable) {
-                Machine* newTile = ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->getNew(worldX, worldY, player->placingDirection);
-                newTile->place(&surface);
-                hotbar.items[hotbarSlot][0]->take(1);
-                if (hotbar.items[hotbarSlot][0]->getAmount() == 0) {
-                    hotbar.items[hotbarSlot][0] = 0;
-                }
-            }
+
+            hotbar.items[hotbarSlot][0]->interact(&surface, worldX, worldY, player);
         }
 
     }
@@ -257,9 +250,9 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
         int worldY = (int)(cY / TILE_SIZE);
         // destroy machine temporary code
         Tile* toDestroy = surface.getTile(worldX, worldY);
-        if (toDestroy->solid) {
-            int ID = ((Machine*)(toDestroy))->ID;
-            Item* itemType = ITEM[((Machine*)(toDestroy))->ID + 1];
+        if (toDestroy->itemID != 0) {
+            int ID = toDestroy->itemID;
+            Item* itemType = ITEM[ID];
             mainInventory.insertItem(itemType, 1 - hotbar.insertItem(itemType, 1));
             ((Machine*)(toDestroy))->clear(&surface);
         }

@@ -1,6 +1,7 @@
 #pragma once
 #include "../../core.h"
-
+#include "world.h"
+#include "player.h"
 
 
 class Item {
@@ -14,6 +15,7 @@ class Item {
 		Item(char* name, SDL_FRect sprite, int maxStack);
 		Item();
 		void draw(SDL_Renderer* renderer, float x, float y, int scale = 1);
+		virtual bool interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo) { return false; };
 };
 
 extern Item* ITEM[256]; // declared here so classes can access the index

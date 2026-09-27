@@ -16,5 +16,6 @@ class ItemStack {
 		int take(int amount); // returns the amount of items taken from the stack
 		bool addStrict(int val);
 		bool takeStrict(int amount); // returns success, will not take unless required items are available
+		bool interact(World* world, int worldX, int worldY, Player* playerInfo);
 		void draw(SDL_Renderer* renderer, float x, float y, int scale = 1);
 };
