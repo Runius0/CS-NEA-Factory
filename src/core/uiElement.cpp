@@ -75,7 +75,7 @@ UIElement::UIElement(float _x, float _y, int _width, int _height) {
 	for (int i = 0; i < width; i++) {
 		items[i] = new ItemStack * [height];
 		for (int j = 0; j < height; j++) {
-			items[i][j] = NULL;
+			items[i][j] = new ItemStack(NULL, 0);
 		}
 	}
 }
@@ -89,7 +89,7 @@ void UIElement::draw(SDL_Renderer* renderer) {
 		for (int j = 0; j < height; j++) {
 			tileRect = { x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE };
 			SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
-			if (items[i][j] != NULL) {
+			if (!items[i][j]->isNull()) {
 				items[i][j]->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 2);
 			}
 		}
@@ -137,7 +137,7 @@ void UIElement::draw(SDL_Renderer* renderer, float mouseX, float mouseY) {
 		for (int j = 0; j < height; j++) {
 			tileRect = { x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE };
 			SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
-			if (items[i][j] != NULL) {
+			if (!items[i][j]->isNull()) {
 				items[i][j]->draw(renderer, x + i * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, y + j * SPRITE_SIZE * UI_SCALE * UI_SLOT_SCALE, 2);
 			}
 		}
@@ -183,7 +183,7 @@ void UIElement::draw(SDL_Renderer* renderer, float mouseX, float mouseY) {
 	tileRect = { x + slotX * SPRITE_SIZE * UI_SCALE, y + slotY * SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
 	SDL_RenderTexture(renderer, textureList[TEX_UI], &texRect, &tileRect);
 
-	if (items[slotX][slotY] != NULL) {
+	if (!items[slotX][slotY]->isNull()) {
 		drawTextString(renderer, mouseX, mouseY + 24, items[slotX][slotY]->type->name, 32);
 	}
 }
@@ -219,9 +219,7 @@ int UIElement::insertItem(Item* type, int amount) {
 	int amountRemaining = amount;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			if (items[i][j] != NULL && items[i][j]->type == type) {
-				amountRemaining -= items[i][j]->add(amountRemaining);
-			}
+			amountRemaining -= items[i][j]->add(amountRemaining, type);
 			if (amountRemaining == 0) {
 				return amount;
 			}
@@ -229,8 +227,8 @@ int UIElement::insertItem(Item* type, int amount) {
 	}
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			if (items[i][j] == NULL) {
-				items[i][j] = new ItemStack(type, amountRemaining);
+			if (items[i][j]->isNull()) {
+				items[i][j]->add(amountRemaining, type);
 				return amount;
 			}
 		}
@@ -249,7 +247,7 @@ int UIElement::countItem(Item* type) {
 	int count = 0;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			if (items[i][j] != NULL && items[i][j]->type == type) {
+			if (!items[i][j]->isNull() && items[i][j]->type == type) {
 				count += items[i][j]->getAmount();
 			}
 		}
@@ -261,9 +259,8 @@ int UIElement::takeItem(Item* type, int amount) {
 	int amountRemaining = amount;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			if (items[i][j] != NULL && items[i][j]->type == type) {
+			if (!items[i][j]->isNull() && items[i][j]->type == type) {
 				amountRemaining -= items[i][j]->take(amountRemaining);
-				if (items[i][j]->getAmount() == 0) { items[i][j] = NULL; }
 			}
 			if (amountRemaining == 0) {
 				return amount;

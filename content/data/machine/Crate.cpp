@@ -61,20 +61,17 @@ void Crate::renderInventory(SDL_Renderer* renderer, float x, float y, float mous
 }
 
 
-void Crate::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack** cursorItem, float x, float y, float mouseX, float mouseY) {
+void Crate::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack* cursorItem, float x, float y, float mouseX, float mouseY) {
 	inventory->setPos(x, y);
 	int slotX, slotY;
 	if (inventory->getSlotValid(mouseX, mouseY, &slotX, &slotY)) {
-		if (*cursorItem == NULL || inventory->items[slotX][slotY] == NULL) {
-			ItemStack* temp = *cursorItem;
-			*cursorItem = inventory->items[slotX][slotY];
+		if (cursorItem->isNull() || inventory->items[slotX][slotY] == NULL) {
+			ItemStack* temp = new ItemStack(*cursorItem);
+			cursorItem->add(inventory->items[slotX][slotY]->getAmount(), inventory->items[slotX][slotY]->type);
 			inventory->setItem(temp, slotX, slotY);
 		}
-		else if (**cursorItem == *inventory->items[slotX][slotY]) {
-			(*cursorItem)->take(inventory->items[slotX][slotY]->add((*cursorItem)->getAmount()));
-			if ((*cursorItem)->getAmount() == 0) {
-				(*cursorItem) = NULL;
-			}
+		else if (*cursorItem == *inventory->items[slotX][slotY]) {
+			cursorItem->take(inventory->items[slotX][slotY]->add(cursorItem->getAmount()));
 		}
 	}
 

@@ -26,7 +26,7 @@ class Machine : public Tile {
 		} // return true if machine has an inventory, else return false
 
 		virtual void renderInventory(SDL_Renderer* renderer, float x, float y, float mouseX, float mouseY) {};
-		virtual void clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack** cursorItem, float x, float y, float mouseX, float mouseY) {};
+		virtual void clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack* cursorItem, float x, float y, float mouseX, float mouseY) {};
 
 		// conveyor interaction handlers
 		virtual bool acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) { return false; };

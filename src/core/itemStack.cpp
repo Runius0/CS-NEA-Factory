@@ -5,6 +5,10 @@ ItemStack::ItemStack(Item* _type, int _amount) {
 	type = _type;
 }
 
+ItemStack::ItemStack() {
+	amount = 0;
+	type = NULL;
+}
 
 bool ItemStack::operator==(const ItemStack other) {
 	return (type == other.type);
@@ -13,9 +17,16 @@ bool ItemStack::operator==(const ItemStack other) {
 int ItemStack::getAmount() {
 	return amount;
 }
+void ItemStack::setAmount(int val) {
+	amount = val;
+}
 
 int ItemStack::getSpace() {
 	return type->maxStack - amount;
+}
+
+bool ItemStack::isNull() {
+	return (amount == 0 || type == NULL);
 }
 
 int ItemStack::add(int val) {
@@ -28,8 +39,29 @@ int ItemStack::add(int val) {
 	return val;
 }
 
+int ItemStack::add(int val, Item* _type) {
+	if (_type != type && !isNull()) { return 0; }
+	type = _type;
+	int itemSpace = type->maxStack - amount;
+	amount += val;
+	if (val > itemSpace) {
+		amount = type->maxStack;
+		return itemSpace;
+	}
+	return val;
+}
+
 
 bool ItemStack::addStrict(int val) {
+	if (val + amount > type->maxStack) {
+		return false;
+	}
+	amount += val;
+	return true;
+}
+bool ItemStack::addStrict(int val, Item* _type) {
+	if (_type != type && !isNull()) { return 0; }
+	type = _type;
 	if (val + amount > type->maxStack) {
 		return false;
 	}
@@ -57,6 +89,7 @@ bool ItemStack::takeStrict(int val) {
 
 
 void ItemStack::draw(SDL_Renderer* renderer, float x, float y, int scale) {
+	if (isNull()) { return; }
 	type->draw(renderer, x, y, scale);
 	float numStartY = y + SPRITE_SIZE*scale - 7*scale;
 	int rollingNumber = amount;
@@ -73,5 +106,6 @@ void ItemStack::draw(SDL_Renderer* renderer, float x, float y, int scale) {
 };
 
 bool ItemStack::interact(World* world, int worldX, int worldY, Player* playerInfo) {
+	if (isNull()) { return false; }
 	return type->interact(world, worldX, worldY, &amount, playerInfo);
 }

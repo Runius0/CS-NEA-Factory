@@ -122,32 +122,29 @@ void Furnace::renderInventory(SDL_Renderer* renderer, float x, float y, float mo
 }
 
 
-void Furnace::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack** cursorItem, float x, float y, float mouseX, float mouseY) {
+void Furnace::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack* cursorItem, float x, float y, float mouseX, float mouseY) {
 	float rx = mouseX - x;
 	float ry = mouseY - y;
 	if (rx > 16 && rx < 48 && ry > 32 && ry < 64) {
-		if (inputItem != NULL && *cursorItem != NULL && *inputItem == **cursorItem) {
-			(*cursorItem)->take(inputItem->add((*cursorItem)->getAmount()));
-			if ((*cursorItem)->getAmount() == 0) {
-				*cursorItem = NULL;
-			}
+		if (inputItem != NULL && !cursorItem->isNull() && *inputItem == *cursorItem) {
+			cursorItem->take(inputItem->add(cursorItem->getAmount()));
 		}
 		else {
-			ItemStack* temp = *cursorItem;
-			*cursorItem = inputItem;
+			ItemStack* temp = new ItemStack(*cursorItem);
+			cursorItem->add(inputItem->getAmount(), inputItem->type);
 			inputItem = temp;
 		}
 	}
 
 	if (rx > 144 && rx < 176 && ry > 32 && ry < 64) {
-		if (outputItem != NULL && *cursorItem != NULL && *outputItem == **cursorItem) {
-			outputItem->take((*cursorItem)->add(outputItem->getAmount()));
+		if (outputItem != NULL && !cursorItem->isNull() && *outputItem == *cursorItem) {
+			outputItem->take(cursorItem->add(outputItem->getAmount()));
 			if (outputItem->getAmount() == 0) {
 				outputItem = NULL;
 			}
 		}
-		else if (*cursorItem == NULL) {
-			*cursorItem = outputItem;
+		else if (cursorItem->isNull()) {
+			cursorItem->add(outputItem->getAmount(), outputItem->type);
 			outputItem = NULL;
 		}
 	}

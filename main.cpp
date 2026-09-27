@@ -19,7 +19,7 @@ Machine* openedMachine;
 static SDL_Surface* screenTint;
 static SDL_Renderer* tintRenderer;
 
-ItemStack* cursorItem;
+ItemStack cursorItem;
 
 
 // temporary building selection variable
@@ -67,7 +67,6 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     mainInventory.insertItem(ITEM[11], 3);
 
 
-    cursorItem = NULL;
 
     return SDL_APP_CONTINUE;
 }
@@ -115,35 +114,35 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                 int slotX, slotY;
                 ItemStack* temp = hotbar.getSlot(event->button.x, event->button.y, &slotX, &slotY);
                 if (temp != NULL) {
-                    if (cursorItem != NULL && *temp == *cursorItem) {
-                        cursorItem->take(temp->add(cursorItem->getAmount()));
-                        if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
+                    if (!cursorItem.isNull() && *temp == cursorItem) {
+                        cursorItem.take(temp->add(cursorItem.getAmount()));
                         hotbar.setItem(temp, slotX, slotY);
                     }
                     else {
-                        hotbar.setItem(cursorItem, slotX, slotY);
-                        cursorItem = temp;
+                        hotbar.setItem(new ItemStack(cursorItem.type, cursorItem.getAmount()), slotX, slotY);
+                        cursorItem.setAmount(temp->getAmount());
+                        cursorItem.type = temp->type;
                     }
                 }
                 else if (hotbar.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
-                    hotbar.setItem(cursorItem, slotX, slotY);
-                    cursorItem = NULL;
+                    hotbar.setItem(new ItemStack(cursorItem.type, cursorItem.getAmount()), slotX, slotY);
+                    cursorItem.take(cursorItem.getAmount());
                 }
                 temp = mainInventory.getSlot(event->button.x, event->button.y, &slotX, &slotY);
                 if (temp != NULL) {
-                    if (cursorItem != NULL && *temp == *cursorItem) {
-                        cursorItem->take(temp->add(cursorItem->getAmount()));
-                        if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
-                        mainInventory.setItem(temp, slotX, slotY);
+                    if (!cursorItem.isNull() && *temp == cursorItem) {
+                        cursorItem.take(temp->add(cursorItem.getAmount()));
+                        //mainInventory.setItem(temp, slotX, slotY);
                     }
                     else {
-                        mainInventory.setItem(cursorItem, slotX, slotY);
-                        cursorItem = temp;
+                        mainInventory.setItem(new ItemStack(cursorItem.type, cursorItem.getAmount()), slotX, slotY);
+                        cursorItem.setAmount(temp->getAmount());
+                        cursorItem.type = temp->type;
                     }
                 }
                 else if (mainInventory.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
-                    mainInventory.setItem(cursorItem, slotX, slotY);
-                    cursorItem = NULL;
+                    mainInventory.setItem(new ItemStack(cursorItem.type, cursorItem.getAmount()), slotX, slotY);
+                    cursorItem.take(cursorItem.getAmount());
                 }
 
                 if (machineMenuOpen) {
@@ -173,39 +172,32 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                 int slotX, slotY;
                 ItemStack* temp = hotbar.getSlot(event->button.x, event->button.y, &slotX, &slotY);
                 if (temp != NULL) {
-                    if (cursorItem != NULL && *temp == *cursorItem) {
-                        cursorItem->take(temp->add(1));
-                        if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
-                        hotbar.setItem(temp, slotX, slotY);
+                    if (!cursorItem.isNull() && *temp == cursorItem) {
+                        cursorItem.take(temp->add(1));
                     }
-                    else if (cursorItem == NULL) {
-                        cursorItem = new ItemStack(temp->type, temp->getAmount()/2);
-                        temp->take(cursorItem->getAmount());
+                    else if (cursorItem.isNull()) {
+                        temp->take(cursorItem.add(temp->getAmount() / 2, temp->type));
                         hotbar.setItem(temp, slotX, slotY);
                     }
                 }
-                else if (cursorItem != NULL && hotbar.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
-                    hotbar.setItem(new ItemStack(cursorItem->type, 1), slotX, slotY);
-                    cursorItem->take(1);
-                    if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
+                else if (!cursorItem.isNull() && hotbar.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
+                    hotbar.setItem(new ItemStack(cursorItem.type, 1), slotX, slotY);
+                    cursorItem.take(1);
                 }
                 temp = mainInventory.getSlot(event->button.x, event->button.y, &slotX, &slotY);
                 if (temp != NULL) {
-                    if (cursorItem != NULL && *temp == *cursorItem) {
-                        cursorItem->take(temp->add(1));
-                        if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
+                    if (!cursorItem.isNull() && *temp == cursorItem) {
+                        cursorItem.take(temp->add(1));
                         mainInventory.setItem(temp, slotX, slotY);
                     }
-                    else if (cursorItem == NULL) {
-                        cursorItem = new ItemStack(temp->type, temp->getAmount() / 2);
-                        temp->take(cursorItem->getAmount());
+                    else if (cursorItem.isNull()) {
+                        temp->take(cursorItem.add(temp->getAmount() / 2, temp->type));
                         mainInventory.setItem(temp, slotX, slotY);
                     }
                 }
-                else if (cursorItem != NULL && mainInventory.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
-                    mainInventory.setItem(new ItemStack(cursorItem->type, 1), slotX, slotY);
-                    cursorItem->take(1);
-                    if (cursorItem->getAmount() == 0) { cursorItem = NULL; }
+                else if (!cursorItem.isNull() && mainInventory.getSlotValid(event->button.x, event->button.y, &slotX, &slotY)) {
+                    mainInventory.setItem(new ItemStack(cursorItem.type, 1), slotX, slotY);
+                    cursorItem.take(1);
                 }
             }
         }
@@ -484,8 +476,8 @@ SDL_AppResult SDL_AppIterate(void* appstate)
             openedMachine->renderInventory(renderer, 320, 32, x, y);
         }
 
-        if (cursorItem != NULL) {
-            cursorItem->draw(renderer, x, y, 2);
+        if (!cursorItem.isNull()) {
+            cursorItem.draw(renderer, x, y, 2);
         }
     }
     else {
@@ -501,7 +493,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         x -= player->getX() - SCREEN_WIDTH / 2;
         y -= player->getY() - SCREEN_HEIGHT / 2;
 
-        if (hotbarSlot != -1 && hotbar.items[hotbarSlot][0] != NULL) {
+        if (hotbarSlot != -1 && !hotbar.items[hotbarSlot][0]->isNull()) {
             ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->drawPreview(renderer, x, y, player->placingDirection);
         }
 
