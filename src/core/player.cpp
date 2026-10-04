@@ -8,6 +8,7 @@ Player::Player() {
 	animation = idle;
 	direction = Down;
 	placingDirection = Right;
+	actionable = true;
 }
 
 void Player::draw(SDL_Renderer* renderer) {
@@ -16,7 +17,10 @@ void Player::draw(SDL_Renderer* renderer) {
 		animationTimer = FRAME_LENGTH;
 		animationFrame++;
 	}
-	animationFrame = animationFrame % animationLengths[animation];
+	if (animationFrame >= animationLengths[animation]) {
+		animationFrame -= animationLengths[animation];
+		actionable = true;
+	}
 
 	SDL_FRect screenRect = { SCREEN_WIDTH / 2 - TILE_SIZE/2, SCREEN_HEIGHT / 2 - TILE_SIZE/2, TILE_SIZE, TILE_SIZE};
 	SDL_FRect imageRect = { direction * SPRITE_SIZE + animationFrame * SPRITE_SIZE * 4, animation * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE };
@@ -24,7 +28,15 @@ void Player::draw(SDL_Renderer* renderer) {
 	SDL_RenderTexture(renderer, textureList[TEX_PLAYER], &imageRect, &screenRect);
 }
 
+void Player::setAnimation(AnimationState anim) {
+	animationTimer = FRAME_LENGTH;
+	animationFrame = 0;
+	animation = anim;
+	actionable = false;
+}
+
 void Player::movement(const bool* keyboard) {
+	if (!actionable) { return; }
 	// get movement on each axis
 	int HorizontalInput = (int)keyboard[SDL_SCANCODE_D] - (int)keyboard[SDL_SCANCODE_A];
 	int VerticalInput = (int)keyboard[SDL_SCANCODE_S] - (int)keyboard[SDL_SCANCODE_W];

@@ -5,6 +5,7 @@
 #include "machine/Splitter.h"
 #include "machine/Crate.h"
 #include "machine/furnace.h"
+#include "machine/platform.h"
 #include "machine/resourceGenerators.h"
 
 enum MACHINE_ID {
@@ -14,7 +15,8 @@ enum MACHINE_ID {
 	MACHINE_SPLITTER,
 	MACHINE_CRATE,
 	MACHINE_FURNACE,
-	MACHINE_TIN_GENERATOR
+	MACHINE_TIN_GENERATOR,
+	MACHINE_PLATFORM
 };
 
 void loadMachines();

@@ -17,7 +17,7 @@ public:
 	ItemStack* extractItem() override;
 
 	void tick(World* world, int gameTick) override;
-	bool interract() override { return true; }
+	bool interract(Player* player) override { return true; }
 	void renderInventory(SDL_Renderer* renderer, float x, float y, float mouseX, float mouseY) override;
 	void clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack* cursorItem, float x, float y, float mouseX, float mouseY) override;
 };

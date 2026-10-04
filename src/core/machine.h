@@ -21,7 +21,7 @@ class Machine : public Tile {
 		bool canPlace(World* world, int worldX, int worldY, Direction direction);
 		virtual void DrawPreview(SDL_Renderer* renderer, float x, float y, Direction direction);
 
-		virtual bool interract() {
+		virtual bool interract(Player* player) {
 			return false;
 		} // return true if machine has an inventory, else return false
 

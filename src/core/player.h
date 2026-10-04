@@ -6,15 +6,17 @@
 
 enum AnimationState {
 	idle,
-	walk
+	walk,
+	descend
 };
 
-const int animationLengths[] = {1, 4};
+const int animationLengths[] = {1, 4, 10};
 const int FRAME_LENGTH = 64;
 
 class Player {
 	float x;
 	float y;
+	bool actionable;
 	public:
 		Player();
 		Direction direction;
@@ -24,6 +26,7 @@ class Player {
 		int animationTimer;
 		void draw(SDL_Renderer* renderer);
 		void movement(const bool* keyboardState);
+		void setAnimation(AnimationState anim);
 		float getX();
 		float getY();
 };

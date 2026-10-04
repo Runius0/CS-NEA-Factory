@@ -66,6 +66,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     mainInventory.insertItem(ITEM[10], 6);
     mainInventory.insertItem(ITEM[11], 3);
 
+    Machine* descendPlatform = NewMachine(MACHINE_PLATFORM, 4, 4, Right);
+    descendPlatform->place(&surface);
 
 
     return SDL_APP_CONTINUE;
@@ -160,7 +162,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                 int worldY = (int)(cY / TILE_SIZE);
                 if (surface.getTile(worldX, worldY)->solid) {
                     Machine* tile = (Machine*)surface.getTile(worldX, worldY);
-                    if (tile->interract()) {
+                    if (tile->interract(player)) {
                         inventoryOpen = true;
                         openedMachine = tile;
                         machineMenuOpen = true;

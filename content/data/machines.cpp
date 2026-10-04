@@ -16,6 +16,7 @@ void loadMachines() {
 	registerMachine(new Crate());
 	registerMachine(new Furnace());
 	registerMachine(new TinGenerator());
+	registerMachine(new SurfacePlatform());
 }
 
 void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float y, Direction direction) {
