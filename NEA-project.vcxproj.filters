@@ -28,6 +28,9 @@
     <Filter Include="Source Files\content/data\item">
       <UniqueIdentifier>{da751360-6c21-4822-84b9-a0dcf67268f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src/caves">
+      <UniqueIdentifier>{25c52bef-c4a0-4130-82b2-3e5b1357d85f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

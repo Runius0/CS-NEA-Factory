@@ -31,18 +31,26 @@ bool inventoryOpen = false;
 bool craftsOpen = false;
 
 World surface;
+World caves;
+World* currentWorld;
+
+// need to keep track of from main so can initiate transition
+SurfacePlatform* descendPlatform;
+CavesPlatform* ascendPlatform;
 
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 {
+    currentWorld = &surface;
 
     surface.addChunk(0, 0);
     surface.addChunk(-1, -1);
     surface.addChunk(-1, 0);
     surface.addChunk(0, -1);
+    caves.addChunk(0, 0);
 
     /* Create the window */
-    if (!SDL_CreateWindowAndRenderer("Hello World", 800, 600, 0, &window, &renderer)) {
+    if (!SDL_CreateWindowAndRenderer("Hello World", SCREEN_WIDTH, SCREEN_HEIGHT, 0, &window, &renderer)) {
         SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
@@ -66,8 +74,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     mainInventory.insertItem(ITEM[10], 6);
     mainInventory.insertItem(ITEM[11], 3);
 
-    Machine* descendPlatform = NewMachine(MACHINE_PLATFORM, 4, 4, Right);
+    descendPlatform = (SurfacePlatform*)NewMachine(MACHINE_PLATFORM, 4, 4, Right);
     descendPlatform->place(&surface);
+    ascendPlatform = (CavesPlatform*)NewMachine(MACHINE_PLATFORM_CAVE, 4, 4, Right);
+    ascendPlatform->place(&caves);
 
 
     return SDL_APP_CONTINUE;
@@ -156,12 +166,12 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                 float cX = event->button.x + player->getX() - SCREEN_WIDTH / 2;
                 float cY = event->button.y + player->getY() - SCREEN_HEIGHT / 2;
                 // snap to grid
-                surface.snapToGrid(&cX, &cY);
+                currentWorld->snapToGrid(&cX, &cY);
                 // world x/y
                 int worldX = (int)(cX / TILE_SIZE);
                 int worldY = (int)(cY / TILE_SIZE);
-                if (surface.getTile(worldX, worldY)->solid) {
-                    Machine* tile = (Machine*)surface.getTile(worldX, worldY);
+                if (currentWorld->getTile(worldX, worldY)->solid) {
+                    Machine* tile = (Machine*)currentWorld->getTile(worldX, worldY);
                     if (tile->interract(player)) {
                         inventoryOpen = true;
                         openedMachine = tile;
@@ -221,12 +231,12 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
             float cX = mouseX + player->getX() - SCREEN_WIDTH / 2;
             float cY = mouseY + player->getY() - SCREEN_HEIGHT / 2;
             // snap to grid
-            surface.snapToGrid(&cX, &cY);
+            currentWorld->snapToGrid(&cX, &cY);
             // world x/y
             int worldX = (int)(cX / TILE_SIZE);
             int worldY = (int)(cY / TILE_SIZE);
 
-            hotbar.items[hotbarSlot][0]->interact(&surface, worldX, worldY, player);
+            hotbar.items[hotbarSlot][0]->interact(currentWorld, worldX, worldY, player);
         }
 
     }
@@ -238,17 +248,17 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
         float cX = mouseX + player->getX() - SCREEN_WIDTH / 2;
         float cY = mouseY + player->getY() - SCREEN_HEIGHT / 2;
         // snap to grid
-        surface.snapToGrid(&cX, &cY);
+        currentWorld->snapToGrid(&cX, &cY);
         // world x/y
         int worldX = (int)(cX / TILE_SIZE);
         int worldY = (int)(cY / TILE_SIZE);
         // destroy machine temporary code
-        Tile* toDestroy = surface.getTile(worldX, worldY);
+        Tile* toDestroy = currentWorld->getTile(worldX, worldY);
         if (toDestroy->itemID != 0) {
             int ID = toDestroy->itemID;
             Item* itemType = ITEM[ID];
             mainInventory.insertItem(itemType, 1 - hotbar.insertItem(itemType, 1));
-            ((Machine*)(toDestroy))->clear(&surface);
+            ((Machine*)(toDestroy))->clear(currentWorld);
         }
 
     }
@@ -442,7 +452,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     f_tick = SDL_GetTicks() / (1000.0f / TPS);
     if (f_tick - tick >= 1) {
         tick++;
-        surface.tick(tick);
+        currentWorld->tick(tick);
     }
 
     deltaTick = f_tick - pf_tick;
@@ -454,7 +464,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     SDL_GetRenderOutputSize(renderer, &w, &h);
     SDL_SetRenderScale(renderer, scale, scale);
 
-    surface.draw(renderer, player->getX(), player->getY());
+    currentWorld->draw(renderer, player->getX(), player->getY());
 
     // draw player
     player->draw(renderer);
@@ -490,7 +500,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         x += player->getX() - SCREEN_WIDTH / 2;
         y += player->getY() - SCREEN_HEIGHT / 2;
         // snap to grid
-        surface.snapToGrid(&x, &y);
+        currentWorld->snapToGrid(&x, &y);
         // remap to screen pos
         x -= player->getX() - SCREEN_WIDTH / 2;
         y -= player->getY() - SCREEN_HEIGHT / 2;
@@ -506,6 +516,27 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
     }
 
+    // Ascend / Descend screen wipes
+    if (player->state == s_descend) {
+        if (player->stateTimer > 100) {
+            SDL_FRect wipeRect = { 0, SCREEN_HEIGHT + 100 - player->stateTimer, SCREEN_WIDTH, SCREEN_HEIGHT };
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+            SDL_RenderFillRect(renderer, &wipeRect);
+        }
+        if (player->stateTimer >= 100 + SCREEN_HEIGHT) {
+            player->setState(s_descend_out);
+            currentWorld = &caves;
+            ascendPlatform->currentState = s_descend_out;
+            ascendPlatform->vel = descendPlatform->vel;
+            ascendPlatform->depth = -descendPlatform->depth;
+            ascendPlatform->targetPlayer = descendPlatform->targetPlayer;
+        }
+    }
+    if (player->state == s_descend_out) {
+        SDL_FRect wipeRect = { 0, 0 - player->stateTimer, SCREEN_WIDTH, SCREEN_HEIGHT };
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderFillRect(renderer, &wipeRect);
+    }
 
     SDL_RenderPresent(renderer);
 

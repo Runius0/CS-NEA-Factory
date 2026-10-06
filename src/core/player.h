@@ -5,19 +5,29 @@
 #include "tile.h"
 
 enum AnimationState {
-	idle,
-	walk,
-	descend
+	a_idle,
+	a_walk,
+	a_hide
 };
 
-const int animationLengths[] = {1, 4, 10};
+enum PlayerState {
+	s_normal,
+	s_ascend,
+	s_descend,
+	s_ascend_out,
+	s_descend_out
+};
+
+const int animationLengths[] = {1, 4, 500};
 const int FRAME_LENGTH = 64;
 
 class Player {
 	float x;
 	float y;
-	bool actionable;
 	public:
+		PlayerState state;
+		float stateTimer;
+		bool actionable;
 		Player();
 		Direction direction;
 		Direction placingDirection;
@@ -27,6 +37,8 @@ class Player {
 		void draw(SDL_Renderer* renderer);
 		void movement(const bool* keyboardState);
 		void setAnimation(AnimationState anim);
+		void setPos(int X, int Y);
+		void setState(PlayerState state);
 		float getX();
 		float getY();
 };

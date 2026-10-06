@@ -5,13 +5,14 @@ Player::Player() {
 	y = 0;
 	animationTimer = FRAME_LENGTH;
 	animationFrame = 0;
-	animation = idle;
+	animation = a_idle;
 	direction = Down;
 	placingDirection = Right;
 	actionable = true;
 }
 
 void Player::draw(SDL_Renderer* renderer) {
+	stateTimer++;
 	animationTimer--;
 	if (animationTimer <= 0) {
 		animationTimer = FRAME_LENGTH;
@@ -35,6 +36,15 @@ void Player::setAnimation(AnimationState anim) {
 	actionable = false;
 }
 
+void Player::setPos(int _x, int _y) {
+	x = _x;
+	y = _y;
+}
+
+void Player::setState(PlayerState _state) {
+	state = _state;
+	stateTimer = 0;
+}
 void Player::movement(const bool* keyboard) {
 	if (!actionable) { return; }
 	// get movement on each axis
@@ -65,10 +75,10 @@ void Player::movement(const bool* keyboard) {
 	}
 
 	if (hasMoved) {
-		animation = walk;
+		animation = a_walk;
 	}
 	else {
-		animation = idle;
+		animation = a_idle;
 	}
 
 }
