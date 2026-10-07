@@ -11,6 +11,8 @@ Chunk::Chunk(int _x, int _y) {
 		}
 	}
 };
+Chunk::Chunk() {
+};
 
 void Chunk::draw(SDL_Renderer* renderer, float _x, float _y) {
 	int chunkX = (x * CHUNK_SIZE_PX) - _x;

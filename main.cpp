@@ -31,7 +31,7 @@ bool inventoryOpen = false;
 bool craftsOpen = false;
 
 World surface;
-World caves;
+CaveWorld caves;
 World* currentWorld;
 
 // need to keep track of from main so can initiate transition

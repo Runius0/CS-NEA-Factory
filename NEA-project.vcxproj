@@ -140,6 +140,8 @@
     <ClCompile Include="content\data\recipes.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\caves\BasicCaveTiles.cpp" />
+    <ClCompile Include="src\caves\caveWorld.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
     <ClCompile Include="src\core\item.cpp" />
     <ClCompile Include="src\core\itemStack.cpp" />
@@ -173,6 +175,8 @@
     <ClInclude Include="content\data\recipes.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="core.h" />
+    <ClInclude Include="src\caves\BasicCaveTiles.h" />
+    <ClInclude Include="src\caves\caveWorld.h" />
     <ClInclude Include="src\core\chunk.h" />
     <ClInclude Include="src\core\item.h" />
     <ClInclude Include="src\core\itemStack.h" />

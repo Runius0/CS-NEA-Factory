@@ -6,16 +6,17 @@
 
 
 class World {
-	Chunk* chunkMap[11][11];
 
+protected:
 	// coordinates of top left chunk
 	int x;
 	int y;
+	Chunk* chunkMap[11][11];
 public:
 	// functions
 	World();
 
-	void addChunk(int x, int y);
+	virtual void addChunk(int x, int y);
 	Tile* getTile(int x, int y);
 	Tile* getTile(float x, float y);
 	void setTile(Tile* tile, int x, int y);

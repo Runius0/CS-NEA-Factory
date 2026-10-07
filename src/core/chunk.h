@@ -9,10 +9,12 @@ const int CHUNK_SIZE_PX = TILE_SIZE * CHUNK_SIZE;
 class World;
 
 class Chunk {
+protected:
 	Tile* tileMap[CHUNK_SIZE][CHUNK_SIZE];
 
 	int x;
 	int y;
+	Chunk();
 public:
 	Chunk(int x, int y);
 	void draw(SDL_Renderer* renderer, float x, float y);

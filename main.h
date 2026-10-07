@@ -7,6 +7,8 @@
 #include "src/core/player.h"
 #include "src/core/uiElement.h"
 
+#include "src/caves/caveWorld.h"
+
 // content
 #include "content/data/machines.h"
 #include "content/data/items.h"
