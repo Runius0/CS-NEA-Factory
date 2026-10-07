@@ -5,6 +5,7 @@ Furnace::Furnace() : Machine() {
 	height = 2;
 	inputItem = NULL;
 	outputItem = NULL;
+	solid = true;
 };
 
 

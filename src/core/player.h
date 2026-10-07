@@ -3,6 +3,7 @@
 
 // needed for tile size const, so we can size and place player correctly
 #include "tile.h"
+#include "world.h"
 
 enum AnimationState {
 	a_idle,
@@ -19,7 +20,7 @@ enum PlayerState {
 };
 
 const int animationLengths[] = {1, 4, 500};
-const int FRAME_LENGTH = 64;
+const float FRAME_LENGTH = 3;
 
 class Player {
 	float x;
@@ -33,9 +34,9 @@ class Player {
 		Direction placingDirection;
 		AnimationState animation;
 		int animationFrame;
-		int animationTimer;
+		float animationTimer;
 		void draw(SDL_Renderer* renderer);
-		void movement(const bool* keyboardState);
+		void movement(const bool* keyboardState, float deltaTick, World* world);
 		void setAnimation(AnimationState anim);
 		void setPos(int X, int Y);
 		void setState(PlayerState state);

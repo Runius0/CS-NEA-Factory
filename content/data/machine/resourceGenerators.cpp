@@ -4,6 +4,7 @@ Generator::Generator(Item* generationItem) : Machine() {
 	width = 1;
 	height = 1;
 	itemType = generationItem;
+	solid = true;
 };
 
 void Generator::draw(SDL_Renderer* renderer, float _x, float _y) {

@@ -3,7 +3,7 @@
 Machine* MACHINE[256];
 
 Machine::Machine() {
-	solid = true;
+	interactable = true;
 	replaceable = false;
 }
 

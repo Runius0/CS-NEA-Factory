@@ -12,7 +12,7 @@ CaveChunk::CaveChunk(int _x, int _y) : Chunk() {
 	y = _y;
 	for (int i = 0; i < CHUNK_SIZE; i++) {
 		for (int j = 0; j < CHUNK_SIZE; j++) {
-			if (j > 8) {
+			if (i > 2 && i + j < 40 && j > 6) { // test generation
 				tileMap[i][j] = new CaveDirt(i + x * CHUNK_SIZE, j + y * CHUNK_SIZE);
 			}
 			else {

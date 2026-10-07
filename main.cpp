@@ -170,7 +170,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                 // world x/y
                 int worldX = (int)(cX / TILE_SIZE);
                 int worldY = (int)(cY / TILE_SIZE);
-                if (currentWorld->getTile(worldX, worldY)->solid) {
+                if (currentWorld->getTile(worldX, worldY)->interactable) {
                     Machine* tile = (Machine*)currentWorld->getTile(worldX, worldY);
                     if (tile->interract(player)) {
                         inventoryOpen = true;
@@ -222,7 +222,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 
 
 void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFlags, const bool* keyboardState) {
-    player->movement(keyboardState);
+    player->movement(keyboardState, deltaTick, currentWorld);
 
     if (hotbarSlot != -1 && hotbar.items[hotbarSlot][0] != NULL) {
         // if mouse down, attempt to place building
@@ -464,7 +464,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     SDL_GetRenderOutputSize(renderer, &w, &h);
     SDL_SetRenderScale(renderer, scale, scale);
 
-    currentWorld->draw(renderer, player->getX(), player->getY());
+    currentWorld->draw(renderer, SDL_floorf(player->getX()), SDL_floorf(player->getY()));
 
     // draw player
     player->draw(renderer);
@@ -518,12 +518,12 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
     // Ascend / Descend screen wipes
     if (player->state == s_descend) {
-        if (player->stateTimer > 100) {
-            SDL_FRect wipeRect = { 0, SCREEN_HEIGHT + 100 - player->stateTimer, SCREEN_WIDTH, SCREEN_HEIGHT };
+        if (player->stateTimer > 5) {
+            SDL_FRect wipeRect = { 0, SCREEN_HEIGHT + 200 - player->stateTimer*40, SCREEN_WIDTH, SCREEN_HEIGHT };
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
             SDL_RenderFillRect(renderer, &wipeRect);
         }
-        if (player->stateTimer >= 100 + SCREEN_HEIGHT) {
+        if (player->stateTimer >= 5 + SCREEN_HEIGHT/40) {
             player->setState(s_descend_out);
             currentWorld = &caves;
             ascendPlatform->currentState = s_descend_out;
@@ -533,7 +533,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         }
     }
     if (player->state == s_descend_out) {
-        SDL_FRect wipeRect = { 0, 0 - player->stateTimer, SCREEN_WIDTH, SCREEN_HEIGHT };
+        SDL_FRect wipeRect = { 0, 0 - player->stateTimer*40, SCREEN_WIDTH, SCREEN_HEIGHT };
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderFillRect(renderer, &wipeRect);
     }
