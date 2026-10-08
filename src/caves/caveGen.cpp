@@ -112,7 +112,7 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 		switch ((exitDirection + dir - Up + 4) % 4)
 		{
 		case 0: // up
-			//generateRoom(depth + 1, x + exitOffset, y-1, Up, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
+			generateRoom(depth + 1, x + exitOffset, y-1, Up, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
 			break;
 		case 1: // right
 			generateRoom(depth + 1, x + width, y + exitOffset, Right, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
