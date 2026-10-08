@@ -46,7 +46,7 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 	int offX, offY;
 	Uint8 tileType;
 	for (int y = 1 - height; y <= 0; y++) {
-		for (int x = width - 1; x << width >= 0; x--) {
+		for (int x = 0; x < width; x++) {
 			getCoords(x, y, dir, &offX, &offY);
 			SDL_ReadU8(file, &tileType);
 			switch (tileType)
@@ -107,10 +107,10 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 			generateRoom(depth + 1, x + exitOffset, y-1, Up, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
 			break;
 		case 1: // right
-			generateRoom(depth + 1, x + 1, y + exitOffset, Right, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
+			generateRoom(depth + 1, x + width + 1, y + exitOffset, Right, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
 			break;
 		case 2: // down
-			generateRoom(depth + 1, x + exitOffset, y + 1, Down, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
+			//generateRoom(depth + 1, x + exitOffset, y + height + 1, Down, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
 			break;
 		case 3: // left
 			generateRoom(depth + 1, x - 1, y + exitOffset, Left, SDL_IOFromFile("content/rooms/corridorS.crm", "r"), world);
