@@ -31,6 +31,9 @@
     <Filter Include="Source Files\src/caves">
       <UniqueIdentifier>{25c52bef-c4a0-4130-82b2-3e5b1357d85f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\rooms">
+      <UniqueIdentifier>{b772e967-e998-4fe0-8b35-f13673cb5c00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -106,6 +109,9 @@
       <Filter>Source Files\src/caves</Filter>
     </ClCompile>
     <ClCompile Include="src\caves\BasicCaveTiles.cpp">
+      <Filter>Source Files\src/caves</Filter>
+    </ClCompile>
+    <ClCompile Include="src\caves\caveGen.cpp">
       <Filter>Source Files\src/caves</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,6 +191,9 @@
     <ClInclude Include="src\caves\BasicCaveTiles.h">
       <Filter>Source Files\src/caves</Filter>
     </ClInclude>
+    <ClInclude Include="src\caves\caveGen.h">
+      <Filter>Source Files\src/caves</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="content\img\FactoryTiles1.png">
@@ -198,6 +207,12 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="content\img\items.png">
       <Filter>Resource Files\IMG</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\rooms\special\start.crm">
+      <Filter>Resource Files\rooms</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\rooms\corridorS.crm">
+      <Filter>Resource Files\rooms</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

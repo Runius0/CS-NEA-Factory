@@ -524,6 +524,8 @@ SDL_AppResult SDL_AppIterate(void* appstate)
             SDL_RenderFillRect(renderer, &wipeRect);
         }
         if (player->stateTimer >= 5 + SCREEN_HEIGHT/40) {
+            generateCaves(&caves, ascendPlatform);
+
             player->setState(s_descend_out);
             currentWorld = &caves;
             ascendPlatform->currentState = s_descend_out;

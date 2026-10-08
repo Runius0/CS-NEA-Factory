@@ -12,12 +12,21 @@ CaveChunk::CaveChunk(int _x, int _y) : Chunk() {
 	y = _y;
 	for (int i = 0; i < CHUNK_SIZE; i++) {
 		for (int j = 0; j < CHUNK_SIZE; j++) {
-			if (i > 2 && i + j < 40 && j > 6) { // test generation
-				tileMap[i][j] = new CaveDirt(i + x * CHUNK_SIZE, j + y * CHUNK_SIZE);
-			}
-			else {
-				tileMap[i][j] = new CaveWall(i + x * CHUNK_SIZE, j + y * CHUNK_SIZE);
-			}
+			tileMap[i][j] = new CaveWall(i + x * CHUNK_SIZE, j + y * CHUNK_SIZE);
 		}
 	}
 };
+
+void CaveWorld::setTile(Tile* tile, int _x, int _y) {
+	int chunkX = (int)floor((float)_x / CHUNK_SIZE);
+	int chunkY = (int)floor((float)_y / CHUNK_SIZE);
+
+	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _x) % CHUNK_SIZE) - 1;
+	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _y) % CHUNK_SIZE) - 1;
+
+	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
+		chunkMap[chunkX - x][chunkY - y] = new CaveChunk(chunkX, chunkY);
+	}
+
+	chunkMap[chunkX - x][chunkY - y]->setTile(tile, tileX, tileY);
+}
