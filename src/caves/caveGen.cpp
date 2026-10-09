@@ -1,16 +1,17 @@
 #include "caveGen.h"
 
-// TODO: function that randomly picks a room to generate
-
 
 const char* getRoomString() {
-	switch (SDL_rand(3))
+
+
+	switch (SDL_rand(4))
 	{
 	case 0:
-		return "content/rooms/corridorS.crm";
 	case 1:
-		return "content/rooms/bendL.crm";
+		return "content/rooms/corridorS.crm";
 	case 2:
+		return "content/rooms/bendL.crm";
+	case 3:
 		return "content/rooms/bendR.crm";
 	default:
 		return "content/rooms/corridorS.crm";
@@ -41,7 +42,7 @@ void getCoords(int x, int y, Direction dir, int* out_x, int* out_y) {
 }
 
 void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, CaveWorld* world) {
-	if (depth > 4) { return; }
+	if (depth > 5) { return; }
 
 	Uint8 width, height;
 	int startX = _x;
@@ -95,12 +96,12 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 		y = _y - offset;
 		break;
 	case Down:
-		x = _x - offset;
+		x = _x - width + offset + 1;
 		y = _y;
 		break;
 	case Left:
-		x = _x - width;
-		y = _y - offset + 1;
+		x = _x - height + 1;
+		y = _y - width + offset + 1;
 		break;
 	case Up:
 		x = _x - offset;
@@ -121,20 +122,21 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 	SDL_ReadU8(file, &exitOffset);
 
 
-
 	while (!(exitDirection == 0 && exitOffset == 0)) {
 		switch ((exitDirection + dir - Up + 4) % 4)
 		{
 		case 0: // up
-			//generateRoom(depth + 1, x + exitOffset, y-1, Up, SDL_IOFromFile(getRoomString(), "r"), world);
+			generateRoom(depth + 1, x + exitOffset, y-1, Up, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		case 1: // right
-			generateRoom(depth + 1, x + width + 2, y + exitOffset, Right, SDL_IOFromFile(getRoomString(), "r"), world);
+			if (dir == Down) { exitOffset = width - exitOffset; }
+			generateRoom(depth + 1, x + width, y + exitOffset, Right, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		case 2: // down
 			generateRoom(depth + 1, x + exitOffset, y + height, Down, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		case 3: // left
+			if (dir == Down) { exitOffset = width - exitOffset; }
 			generateRoom(depth + 1, x-1, y + exitOffset, Left, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		}
