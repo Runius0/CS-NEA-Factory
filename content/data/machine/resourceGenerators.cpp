@@ -5,6 +5,7 @@ Generator::Generator(Item* generationItem) : Machine() {
 	height = 1;
 	itemType = generationItem;
 	solid = true;
+	usesItems = true;
 };
 
 void Generator::draw(SDL_Renderer* renderer, float _x, float _y) {

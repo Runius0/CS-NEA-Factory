@@ -4,6 +4,7 @@ Crate::Crate() : Machine() {
 	width = 1;
 	height = 1;
 	solid = true;
+	usesItems = true;
 };
 
 void Crate::init(int _worldX, int _worldY, Direction direction) {
@@ -28,7 +29,7 @@ void Crate::draw(SDL_Renderer* renderer, float _x, float _y) {
 
 ItemStack* Crate::extractItem() {
 	for (int i = 0; i < 4; i++) {
-		if (inventory->items[i % 2][i / 2] != NULL) {
+		if (!inventory->items[i % 2][i / 2]->isNull()) {
 			Item* itemType = inventory->items[i % 2][i / 2]->type;
 			inventory->takeItem(itemType, 1);
 			return new ItemStack(itemType, 1);
@@ -66,10 +67,14 @@ void Crate::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, 
 	inventory->setPos(x, y);
 	int slotX, slotY;
 	if (inventory->getSlotValid(mouseX, mouseY, &slotX, &slotY)) {
-		if (cursorItem->isNull() || inventory->items[slotX][slotY] == NULL) {
+		if (cursorItem->isNull()) {
+			cursorItem->add(inventory->items[slotX][slotY]->take(inventory->items[slotX][slotY]->getAmount()), inventory->items[slotX][slotY]->type);
+		}
+		else if (inventory->items[slotX][slotY]->isNull()) {
 			ItemStack* temp = new ItemStack(*cursorItem);
-			cursorItem->add(inventory->items[slotX][slotY]->getAmount(), inventory->items[slotX][slotY]->type);
+			cursorItem->take(cursorItem->getAmount());
 			inventory->setItem(temp, slotX, slotY);
+
 		}
 		else if (*cursorItem == *inventory->items[slotX][slotY]) {
 			cursorItem->take(inventory->items[slotX][slotY]->add(cursorItem->getAmount()));

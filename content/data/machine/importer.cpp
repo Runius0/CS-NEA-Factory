@@ -49,7 +49,7 @@ void Importer::tick(World* world, int gameTick) {
 
 	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
-		if (targetTile->solid) {
+		if (targetTile->usesItems) {
 			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), targetX, targetY, direction, false)) {
 				item1_progress = 64;
 			};
@@ -57,7 +57,7 @@ void Importer::tick(World* world, int gameTick) {
 	}
 	if (gameTick % 4 == 0 && item2_progress == 64) {
 		Tile* targetTile = world->getTile(extractionX, extractionY);
-		if (targetTile->solid) {
+		if (targetTile->usesItems) {
 			ItemStack* newItem = ((Machine*)targetTile)->extractItem();
 			if (newItem != NULL) {
 				item2_progress = 0;

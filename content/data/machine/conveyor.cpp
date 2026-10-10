@@ -3,6 +3,7 @@
 Conveyor::Conveyor() : Machine() {
 	width = 1;
 	height = 1;
+	usesItems = true;
 };
 
 void Conveyor::init(int _worldX, int _worldY, Direction direction) {
@@ -106,7 +107,7 @@ void Conveyor::tick(World* world, int gameTick) {
 
 	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
-		if (targetTile->solid) {
+		if (targetTile->usesItems) {
 			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), targetX, targetY, direction, false)) {
 				item1_progress = 64;
 			};

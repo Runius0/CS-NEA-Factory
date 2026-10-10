@@ -13,6 +13,7 @@ public:
 	bool solid = false;
 	bool replaceable = true;
 	bool interactable = false;
+	bool usesItems = false; // whether the tile has item interraction functions or not
 	Tile(int worldX, int worldY);
 	Tile();
 	virtual void tick(World* world, int gameTick);
