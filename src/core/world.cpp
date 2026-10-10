@@ -16,8 +16,8 @@ void World::addChunk(int _x, int _y) {
 };
 
 void World::draw(SDL_Renderer* renderer, float _x, float _y) {
-	int chunkX = (int)(_x / CHUNK_SIZE_PX);
-	int chunkY = (int)(_y / CHUNK_SIZE_PX);
+	int chunkX = SDL_floorf(_x / CHUNK_SIZE_PX);
+	int chunkY = SDL_floorf(_y / CHUNK_SIZE_PX);
 	
 
 
@@ -70,6 +70,9 @@ void World::setTile(Tile* tile, int _x, int _y) {
 
 	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _x) % CHUNK_SIZE) - 1;
 	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _y) % CHUNK_SIZE) - 1;
+	// modulus can fuck up in negative chunks, dirty fix
+	if (tileX == CHUNK_SIZE) { tileX = 0; }
+	if (tileY == CHUNK_SIZE) { tileY = 0; }
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
 		return;
@@ -81,12 +84,17 @@ void World::setTile(Tile* tile, int _x, int _y) {
 Tile* World::getTile(float _x, float _y) {
 	int i_x = (int)floor((float)_x / TILE_SIZE);
 	int i_y = (int)floor((float)_y / TILE_SIZE);
+
 	int chunkX = (int)floor((float)i_x / CHUNK_SIZE);
 	int chunkY = (int)floor((float)i_y / CHUNK_SIZE);
 
 
 	int tileX = _x >= 0 ? i_x % CHUNK_SIZE : CHUNK_SIZE - (-i_x % CHUNK_SIZE);
 	int tileY = _y >= 0 ? i_y % CHUNK_SIZE : CHUNK_SIZE - (-i_y % CHUNK_SIZE);
+
+	// modulus can fuck up in negative chunks, dirty fix
+	if (tileX == CHUNK_SIZE) { tileX = 0; }
+	if (tileY == CHUNK_SIZE) { tileY = 0; }
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
 		return NULL;

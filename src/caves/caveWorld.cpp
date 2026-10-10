@@ -23,6 +23,9 @@ void CaveWorld::setTile(Tile* tile, int _x, int _y) {
 
 	int tileX = _x >= 0 ? _x % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _x) % CHUNK_SIZE) - 1;
 	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _y) % CHUNK_SIZE) - 1;
+	// modulus can fuck up in negative chunks, dirty fix
+	if (tileX == CHUNK_SIZE) { tileX = 0; }
+	if (tileY == CHUNK_SIZE) { tileY = 0; }
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
 		chunkMap[chunkX - x][chunkY - y] = new CaveChunk(chunkX, chunkY);
