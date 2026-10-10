@@ -36,7 +36,9 @@ u8 height;
 u8 entrance_x;
 Tile Tiles [width * height];
 Landmark specials[while(std::mem::read_unsigned($, 3) != 0x000000)];
-    Exit exits[while(std::mem::read_unsigned($, 3) != 0x000000)];
+padding[3];
+    Exit exits[while(std::mem::read_unsigned($, 2) != 0x000000)];
+padding[2];
 };
 
 Room roomObj @ 0x00;
