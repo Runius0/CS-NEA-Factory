@@ -20,7 +20,8 @@ class ItemStack {
 		bool addStrict(int val);
 		bool addStrict(int val, Item* type);
 		bool takeStrict(int amount); // returns success, will not take unless required items are available
-		bool interact(World* world, int worldX, int worldY, Player* playerInfo);
+		bool interact(World* world, int worldX, int worldY, Player* playerInfo, Item** result);
 		bool isNull();
 		void draw(SDL_Renderer* renderer, float x, float y, int scale = 1);
+		void tick(float deltaTick, Player* holder);
 };

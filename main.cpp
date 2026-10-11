@@ -68,6 +68,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     hotbar.items[1][0] = new ItemStack(ITEM[2], 5);
     hotbar.items[2][0] = new ItemStack(ITEM[3], 5);
     hotbar.items[3][0] = new ItemStack(ITEM[4], 2);
+    hotbar.items[4][0] = new ItemStack(ITEM[12], 2);
 
     mainInventory.insertItem(ITEM[6], 1);
     mainInventory.insertItem(ITEM[7], 1);
@@ -236,7 +237,12 @@ void ProcessPlayerInput(float mouseX, float mouseY, SDL_MouseButtonFlags mouseFl
             int worldX = (int)(cX / TILE_SIZE);
             int worldY = (int)(cY / TILE_SIZE);
 
-            hotbar.items[hotbarSlot][0]->interact(currentWorld, worldX, worldY, player);
+            Item* result = NULL;
+
+            hotbar.items[hotbarSlot][0]->interact(currentWorld, worldX, worldY, player, &result);
+            if (result) {
+                mainInventory.insertItem(result, 1 - hotbar.insertItem(result, 1));
+            }
         }
 
     }
@@ -443,10 +449,6 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     float x, y;
     SDL_MouseButtonFlags mouseFlags = SDL_GetMouseState(&x, &y);
 
-    const bool* keyboardState = SDL_GetKeyboardState(NULL);
-    if (!inventoryOpen) {
-        ProcessPlayerInput(x, y, mouseFlags, keyboardState);
-    }
     // increment tick
     pf_tick = f_tick;
     f_tick = SDL_GetTicks() / (1000.0f / TPS);
@@ -456,6 +458,14 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     }
 
     deltaTick = f_tick - pf_tick;
+
+    const bool* keyboardState = SDL_GetKeyboardState(NULL);
+    if (!inventoryOpen) {
+        ProcessPlayerInput(x, y, mouseFlags, keyboardState);
+    }
+
+    hotbar.tick(deltaTick, player);
+    mainInventory.tick(deltaTick, player);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
@@ -505,7 +515,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         x -= player->getX() - SCREEN_WIDTH / 2;
         y -= player->getY() - SCREEN_HEIGHT / 2;
 
-        if (hotbarSlot != -1 && !hotbar.items[hotbarSlot][0]->isNull()) {
+        if (hotbarSlot != -1 && !hotbar.items[hotbarSlot][0]->isNull() && hotbar.items[hotbarSlot][0]->type->placeable) {
             ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->drawPreview(renderer, x, y, player->placingDirection);
         }
 

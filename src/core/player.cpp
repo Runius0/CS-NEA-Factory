@@ -37,16 +37,22 @@ void Player::setState(PlayerState _state) {
 	state = _state;
 	stateTimer = 0;
 }
+
+void Player::setAnimSpeed(float speed) {
+	animSpeed = speed;
+}
+
 void Player::movement(const bool* keyboard, float deltaTick, World* world) {
 	stateTimer += deltaTick;
 	animationTimer -= deltaTick;
 	if (animationTimer <= 0) {
-		animationTimer = FRAME_LENGTH;
+		animationTimer = FRAME_LENGTH / animSpeed;
 		animationFrame++;
 	}
 	if (animationFrame >= animationLengths[animation]) {
 		animationFrame -= animationLengths[animation];
 		actionable = true;
+		animSpeed = 1;
 	}
 
 	if (!actionable) { return; }

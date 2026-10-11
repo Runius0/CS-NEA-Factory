@@ -143,6 +143,8 @@
     <ClCompile Include="src\caves\BasicCaveTiles.cpp" />
     <ClCompile Include="src\caves\caveGen.cpp" />
     <ClCompile Include="src\caves\caveWorld.cpp" />
+    <ClCompile Include="src\caves\oreRock.cpp" />
+    <ClCompile Include="src\caves\pickaxe.cpp" />
     <ClCompile Include="src\core\chunk.cpp" />
     <ClCompile Include="src\core\item.cpp" />
     <ClCompile Include="src\core\itemStack.cpp" />
@@ -179,6 +181,8 @@
     <ClInclude Include="src\caves\BasicCaveTiles.h" />
     <ClInclude Include="src\caves\caveGen.h" />
     <ClInclude Include="src\caves\caveWorld.h" />
+    <ClInclude Include="src\caves\oreRock.h" />
+    <ClInclude Include="src\caves\pickaxe.h" />
     <ClInclude Include="src\core\chunk.h" />
     <ClInclude Include="src\core\item.h" />
     <ClInclude Include="src\core\itemStack.h" />

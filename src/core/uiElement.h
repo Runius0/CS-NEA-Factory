@@ -23,6 +23,7 @@ class UIElement {
 		int takeItem(Item* type, int amount);
 		ItemStack* getSlot(float x, float y, int* slotX, int* slotY);
 		bool getSlotValid(float x, float y, int* slotX, int* slotY);
+		void tick(float deltaTick, Player* holder);
 		// ADD INTERRACTION FUNCTIONS HERE
 };
 

@@ -14,7 +14,7 @@ void MachineItem::drawPreview(SDL_Renderer* renderer, float x, float y, Directio
 	DrawMachinePreview(machine, renderer, x, y, direction);
 };
 
-bool MachineItem::interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo) {
+bool MachineItem::interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo, Item** result) {
 	if (MACHINE[machine]->canPlace(world, worldX, worldY, playerInfo->placingDirection)) {
 		Machine* placed = NewMachine(machine, worldX, worldY, playerInfo->placingDirection);
 		placed->itemID = ID;

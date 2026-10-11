@@ -105,7 +105,13 @@ void ItemStack::draw(SDL_Renderer* renderer, float x, float y, int scale) {
 	}
 };
 
-bool ItemStack::interact(World* world, int worldX, int worldY, Player* playerInfo) {
+bool ItemStack::interact(World* world, int worldX, int worldY, Player* playerInfo, Item** result) {
 	if (isNull()) { return false; }
-	return type->interact(world, worldX, worldY, &amount, playerInfo);
+	return type->interact(world, worldX, worldY, &amount, playerInfo, result);
 }
+
+void ItemStack::tick(float deltaTick, Player* holder) {
+	if (type->needsTicking) {
+		type->tick(deltaTick, holder);
+	}
+};

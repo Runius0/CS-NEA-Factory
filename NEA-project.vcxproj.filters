@@ -34,6 +34,9 @@
     <Filter Include="Resource Files\rooms">
       <UniqueIdentifier>{b772e967-e998-4fe0-8b35-f13673cb5c00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src/caves\items">
+      <UniqueIdentifier>{b6849f60-ab82-4f60-b217-6fea1c2e6efa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,6 +117,12 @@
     <ClCompile Include="src\caves\caveGen.cpp">
       <Filter>Source Files\src/caves</Filter>
     </ClCompile>
+    <ClCompile Include="src\caves\pickaxe.cpp">
+      <Filter>Source Files\src/caves\items</Filter>
+    </ClCompile>
+    <ClCompile Include="src\caves\oreRock.cpp">
+      <Filter>Source Files\src/caves</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -192,6 +201,12 @@
       <Filter>Source Files\src/caves</Filter>
     </ClInclude>
     <ClInclude Include="src\caves\caveGen.h">
+      <Filter>Source Files\src/caves</Filter>
+    </ClInclude>
+    <ClInclude Include="src\caves\pickaxe.h">
+      <Filter>Source Files\src/caves\items</Filter>
+    </ClInclude>
+    <ClInclude Include="src\caves\oreRock.h">
       <Filter>Source Files\src/caves</Filter>
     </ClInclude>
   </ItemGroup>

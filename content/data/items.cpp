@@ -18,6 +18,7 @@ void loadItems() {
 	registerItem(new Item((char*)"TIN BLOCK", { SPRITE_SIZE, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"TIN SHEET", { SPRITE_SIZE * 2, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, 20));
 	registerItem(new Item((char*)"TIN GEAR", { SPRITE_SIZE * 3, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, 20));
+	registerItem(new Pickaxe(10, (char*)"STARTER PICKAXE", { SPRITE_SIZE * 5, 0, SPRITE_SIZE, SPRITE_SIZE }, 1));
 	registerItem(new Item((char*)"RAW TEST", { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"COOKED TEST", { SPRITE_SIZE * 4, 0, SPRITE_SIZE, SPRITE_SIZE }, 50));
 }

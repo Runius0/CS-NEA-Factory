@@ -270,3 +270,13 @@ int UIElement::takeItem(Item* type, int amount) {
 	return amount - amountRemaining;
 
 }
+
+void UIElement::tick(float deltaTick, Player* holder) {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			if (!items[i][j]->isNull()) {
+				items[i][j]->tick(deltaTick, holder);
+			}
+		}
+	}
+};

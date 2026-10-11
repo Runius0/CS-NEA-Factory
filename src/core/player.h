@@ -25,6 +25,7 @@ const float FRAME_LENGTH = 3;
 class Player {
 	float x;
 	float y;
+	float animSpeed = 1;
 	public:
 		PlayerState state;
 		float stateTimer;
@@ -40,6 +41,7 @@ class Player {
 		void setAnimation(AnimationState anim);
 		void setPos(int X, int Y);
 		void setState(PlayerState state);
+		void setAnimSpeed(float speed);
 		float getX();
 		float getY();
 };

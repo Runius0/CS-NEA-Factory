@@ -7,8 +7,9 @@ const char* getRoomString() {
 	switch (SDL_rand(5))
 	{
 	case 0:
-	case 1:
 		return "content/rooms/corridorS.crm";
+	case 1:
+		return "content/rooms/corridorSpecial.crm";
 	case 2:
 		return "content/rooms/bendL.crm";
 	case 3:
@@ -116,7 +117,16 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 	SDL_ReadU8(file, &specialY);
 	SDL_ReadU8(file, &specialType);
 	while (!(specialX == 0 && specialY == 0 && specialType == 0)) {
+		if (dir % 2 == 0) {
+			int temp = specialX;
+			specialX = specialY;
+			specialY = temp;
+		}
 		// spawn specials
+		world->setTile(new OreRock(specialX + x, specialY + y, { SPRITE_SIZE * 10, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, ITEM[8]), specialX + x, specialY + y);
+		SDL_ReadU8(file, &specialX);
+		SDL_ReadU8(file, &specialY);
+		SDL_ReadU8(file, &specialType);
 	}
 
 	Uint8 exitDirection, exitOffset;
