@@ -68,7 +68,7 @@ void Player::movement(const bool* keyboard, float deltaTick, World* world) {
 		hasMoved = true;
 	}
 
-	if (world->getTile(x, y + TILE_SIZE / 2)->solid) {
+	if (world->getTile(x, y + TILE_SIZE / 2)->flags & T_SOLID) {
 		x = oldX;
 	}
 
@@ -83,7 +83,7 @@ void Player::movement(const bool* keyboard, float deltaTick, World* world) {
 		hasMoved = true;
 	}
 
-	if (world->getTile(x, y + TILE_SIZE / 2)->solid) {
+	if (world->getTile(x, y + TILE_SIZE / 2)->flags & T_SOLID) {
 		y = oldY;
 	}
 

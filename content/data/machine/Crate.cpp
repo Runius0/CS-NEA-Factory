@@ -3,8 +3,7 @@
 Crate::Crate() : Machine() {
 	width = 1;
 	height = 1;
-	solid = true;
-	usesItems = true;
+	flags |= T_SOLID || T_USESITEMS;
 };
 
 void Crate::init(int _worldX, int _worldY, Direction direction) {

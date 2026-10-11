@@ -17,6 +17,11 @@ CaveChunk::CaveChunk(int _x, int _y) : Chunk() {
 	}
 };
 
+
+Tile* CaveWorld::getDefaultTile(int x, int y) {
+	return new CaveDirt(x, y);
+};
+
 void CaveWorld::setTile(Tile* tile, int _x, int _y) {
 	int chunkX = (int)floor((float)_x / CHUNK_SIZE);
 	int chunkY = (int)floor((float)_y / CHUNK_SIZE);

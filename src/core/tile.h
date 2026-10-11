@@ -3,6 +3,14 @@
 
 const int TILE_SIZE = 32;
 
+enum tileFlags {
+	T_SOLID = 1,
+	T_REPLACEABLE = 2,
+	T_INTERACTABLE = 4,
+	T_USESITEMS = 8,
+	T_ISORE = 16
+};
+
 class World;
 
 class Tile {
@@ -10,10 +18,7 @@ public:
 	int worldX;
 	int worldY;
 	int itemID = 0; // ID of the item which placed the obect, 0 means it was not placed
-	bool solid = false;
-	bool replaceable = true;
-	bool interactable = false;
-	bool usesItems = false; // whether the tile has item interraction functions or not
+	unsigned int flags = T_REPLACEABLE;
 	Tile(int worldX, int worldY);
 	Tile();
 	virtual void tick(World* world, int gameTick);

@@ -17,6 +17,7 @@ public:
 	World();
 
 	virtual void addChunk(int x, int y);
+	virtual Tile* getDefaultTile(int x, int y);
 	Tile* getTile(int x, int y);
 	Tile* getTile(float x, float y);
 	void setTile(Tile* tile, int x, int y);

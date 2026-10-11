@@ -133,19 +133,19 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 		switch ((exitDirection + dir - Up + 4) % 4)
 		{
 		case 0: // up
-			if (dir == Right) { exitOffset = width - exitOffset - 1; }
+			if (dir == Right || dir == Down) { exitOffset = width - exitOffset - 1; }
 			generateRoom(depth + 1, x + exitOffset, y-1, Up, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		case 1: // right
-			if (dir == Down) { exitOffset = height - exitOffset - 1; }
+			if (dir == Down || dir == Right) { exitOffset = height - exitOffset - 1; }
 			generateRoom(depth + 1, x + width, y + exitOffset, Right, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		case 2: // down
-			if (dir == Right) { exitOffset = width - exitOffset - 1; }
+			if (dir == Right || dir == Down) { exitOffset = width - exitOffset - 1; }
 			generateRoom(depth + 1, x + exitOffset, y + height, Down, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		case 3: // left
-			if (dir == Down) { exitOffset = height - exitOffset - 1; }
+			if (dir == Down || dir == Right) { exitOffset = height - exitOffset - 1; }
 			generateRoom(depth + 1, x-1, y + exitOffset, Left, SDL_IOFromFile(getRoomString(), "r"), world);
 			break;
 		}

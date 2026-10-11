@@ -3,8 +3,8 @@
 Machine* MACHINE[256];
 
 Machine::Machine() {
-	interactable = true;
-	replaceable = false;
+	flags |= T_INTERACTABLE;
+	flags ^= T_REPLACEABLE;
 }
 
 void Machine::init(int _worldX, int _worldY, Direction _direction) {
@@ -28,7 +28,7 @@ bool Machine::canPlace(World* world, int worldX, int worldY, Direction direction
 				if (!world->getTile(i, j)) {
 					return false;
 				}
-				if (!world->getTile(i, j)->replaceable) {
+				if (!(world->getTile(i, j)->flags & T_REPLACEABLE)) {
 					return false;
 				}
 			}
@@ -42,7 +42,7 @@ bool Machine::canPlace(World* world, int worldX, int worldY, Direction direction
 			if (!world->getTile(i, j)) {
 				return false;
 			}
-			if (!world->getTile(i, j)->replaceable) {
+			if (!(world->getTile(i, j)->flags & T_REPLACEABLE)) {
 				return false;
 			}
 		}
@@ -61,7 +61,7 @@ void Machine::place(World* world) {
 void Machine::clear(World* world) {
 	for (int i = worldX; i < worldX + width; i++) {
 		for (int j = worldY; j < worldY + height; j++) {
-			world->setTile(new Grass(i, j), i, j);
+			world->setTile(world->getDefaultTile(i, j), i, j);
 		}
 	}
 }

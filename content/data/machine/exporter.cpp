@@ -26,7 +26,7 @@ void Exporter::tick(World* world, int gameTick) {
 
 	if (item1_progress == 16) {
 		Tile* targetTile = world->getTile(targetX, targetY);
-		if (targetTile->usesItems) {
+		if (targetTile->flags & T_USESITEMS) {
 			if (((Machine*)targetTile)->acceptItem(new ItemStack(item1_type, 1), targetX, targetY, direction, true)) {
 				item1_progress = 64;
 			};

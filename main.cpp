@@ -170,7 +170,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
                 // world x/y
                 int worldX = (int)(cX / TILE_SIZE);
                 int worldY = (int)(cY / TILE_SIZE);
-                if (currentWorld->getTile(worldX, worldY)->interactable) {
+                if (currentWorld->getTile(worldX, worldY)->flags & T_INTERACTABLE) {
                     Machine* tile = (Machine*)currentWorld->getTile(worldX, worldY);
                     if (tile->interract(player)) {
                         inventoryOpen = true;

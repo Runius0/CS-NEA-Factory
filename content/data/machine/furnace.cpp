@@ -5,7 +5,7 @@ Furnace::Furnace() : Machine() {
 	height = 2;
 	inputItem = NULL;
 	outputItem = NULL;
-	solid = true;
+	flags |= T_SOLID || T_USESITEMS;
 };
 
 

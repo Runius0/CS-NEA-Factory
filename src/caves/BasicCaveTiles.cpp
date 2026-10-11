@@ -17,18 +17,18 @@ void CaveDirt::draw(SDL_Renderer* renderer, float _x, float _y) {
 CaveWall::CaveWall(int _worldX, int _worldY) {
 	worldX = _worldX;
 	worldY = _worldY;
-	solid = true;
-	replaceable = false;
+	flags |= T_SOLID;
+	flags ^= T_REPLACEABLE;
 }
 
 void CaveWall::tick(World* world, int gameTick) {
 	if (initialized) {
 		return;
 	}
-	if (world->getTile(worldX, worldY + 1) && !world->getTile(worldX, worldY + 1)->solid) {
+	if (world->getTile(worldX, worldY + 1) && !(world->getTile(worldX, worldY + 1)->flags & T_SOLID)) {
 		floorDist = 1;
 	}
-	else if (world->getTile(worldX, worldY + 2) && !world->getTile(worldX, worldY + 2)->solid) {
+	else if (world->getTile(worldX, worldY + 2) && !(world->getTile(worldX, worldY + 2)->flags & T_SOLID)) {
 		floorDist = 2;
 	}
 }

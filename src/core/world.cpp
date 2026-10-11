@@ -15,6 +15,10 @@ void World::addChunk(int _x, int _y) {
 	chunkMap[_x - x][_y - y] = new Chunk(_x, _y);
 };
 
+Tile* World::getDefaultTile(int x, int y) {
+	return new Grass(x, y);
+};
+
 void World::draw(SDL_Renderer* renderer, float _x, float _y) {
 	int chunkX = SDL_floorf(_x / CHUNK_SIZE_PX);
 	int chunkY = SDL_floorf(_y / CHUNK_SIZE_PX);
