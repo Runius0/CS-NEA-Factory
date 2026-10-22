@@ -1,10 +1,11 @@
 import std.mem;
 
+
 bitfield specialFlags {
-    padding : 3;
-    rounded : 1;
-    type : 2;
     size : 2;
+    type : 2;
+    rounded : 1;
+    padding : 3;
 };
 enum Tile : u8 {
     empty,

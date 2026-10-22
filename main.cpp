@@ -550,6 +550,29 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         SDL_RenderFillRect(renderer, &wipeRect);
     }
 
+
+    if (player->state == s_ascend) {
+        if (player->stateTimer > 5) {
+            SDL_FRect wipeRect = { 0, - SCREEN_HEIGHT - 200 + player->stateTimer * 40, SCREEN_WIDTH, SCREEN_HEIGHT };
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+            SDL_RenderFillRect(renderer, &wipeRect);
+        }
+        if (player->stateTimer >= 5 + SCREEN_HEIGHT / 40) {
+
+            player->setState(s_ascend_out);
+            currentWorld = &surface;
+            descendPlatform->currentState = s_ascend_out;
+            descendPlatform->vel = ascendPlatform->vel;
+            descendPlatform->depth = -ascendPlatform->depth;
+            descendPlatform->targetPlayer = ascendPlatform->targetPlayer;
+        }
+    }
+    if (player->state == s_ascend_out) {
+        SDL_FRect wipeRect = { 0, 0 + player->stateTimer * 40, SCREEN_WIDTH, SCREEN_HEIGHT };
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderFillRect(renderer, &wipeRect);
+    }
+
     SDL_RenderPresent(renderer);
 
     return SDL_APP_CONTINUE;

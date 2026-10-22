@@ -2,6 +2,21 @@
 #include "../../src/core/machineItem.h"
 #include "../../src/caves/pickaxe.h"
 
+enum ITEM {
+	IT_CONVEYOR = 1,
+	IT_EXPORTER,
+	IT_IMPORTER,
+	IT_CRATE,
+	IT_SPLITTER,
+	IT_FURNACE,
+	IT_GENERATOR_TIN,
+	IT_ORE_TIN,
+	IT_BLOCK_TIN,
+	IT_SHEET_TIN,
+	IT_GEAR_TIN,
+	IT_PICK_BASIC
+};
+
 
 void registerItem(Item* item);
 
