@@ -132,7 +132,10 @@ void Furnace::clickInventory(UIElement* playerHotbar, UIElement* playerInventory
 		}
 		else {
 			ItemStack* temp = new ItemStack(*cursorItem);
-			cursorItem->add(inputItem->getAmount(), inputItem->type);
+			cursorItem->take(cursorItem->getAmount());
+			if (inputItem != NULL) {
+				cursorItem->add(inputItem->getAmount(), inputItem->type);
+			}
 			inputItem = temp;
 		}
 	}

@@ -454,7 +454,8 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     f_tick = SDL_GetTicks() / (1000.0f / TPS);
     if (f_tick - tick >= 1) {
         tick++;
-        currentWorld->tick(tick);
+        surface.tick(tick);
+        caves.tick(tick);
     }
 
     deltaTick = f_tick - pf_tick;

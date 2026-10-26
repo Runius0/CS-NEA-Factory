@@ -15,6 +15,17 @@ void World::addChunk(int _x, int _y) {
 	chunkMap[_x - x][_y - y] = new Chunk(_x, _y);
 };
 
+void World::clearMap() {
+	for (int i = 0; i < 11; i++) {
+		for (int j = 0; j < 11; j++) {
+			if (chunkMap[i][j]) {
+				delete chunkMap[i][j];
+				chunkMap[i][j] = nullptr;
+			}
+		}
+	}
+};
+
 Tile* World::getDefaultTile(int x, int y) {
 	return new Grass(x, y);
 };

@@ -7,7 +7,6 @@ const char* getRoomString() {
 	switch (SDL_rand(5))
 	{
 	case 0:
-		return "content/rooms/corridorS.crm";
 	case 1:
 		return "content/rooms/corridorSpecial.crm";
 	case 2:
@@ -20,6 +19,9 @@ const char* getRoomString() {
 		return "content/rooms/corridorS.crm";
 	} 
 }
+
+
+
 
 // note: rooms generate upwards by default
 void getCoords(int x, int y, Direction dir, int* out_x, int* out_y) {
@@ -41,6 +43,31 @@ void getCoords(int x, int y, Direction dir, int* out_x, int* out_y) {
 		*out_x = x;
 		*out_y = y;
 		return;
+	}
+}
+
+void generateOreSpecial(World* world, int x, int y, char type, SDL_FRect baseImage, Item* itemType, float oreChance) {
+	int size = (type & 3) + 2;
+	for (int xOff = 0; xOff < size; xOff++) {
+		for (int yOff = 0; yOff < size; yOff++) {
+			if (SDL_randf() < oreChance) {
+				world->setTile(new OreRock(xOff + x, yOff + y, baseImage, itemType), xOff + x, yOff + y);
+			}
+		}
+	}
+}
+
+void chooseSpecial(World* world, int x, int y, char type) {
+	float choice = SDL_randf();
+	SDL_log(choice);
+	if (choice < 0.3) {
+		generateOreSpecial(world, x, y, type, { SPRITE_SIZE * 10, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, ITEM[IT_ORE_TIN], 0.8f); // tin
+	}
+	else if (choice < 0.6) {
+		generateOreSpecial(world, x, y, type, { SPRITE_SIZE * 10, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE }, ITEM[IT_ORE_COPPER], 0.8f); // copper
+	}
+	else if (choice < 0.8) {
+		generateOreSpecial(world, x, y, type, { SPRITE_SIZE * 10, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, ITEM[IT_ORE_ZINC], 0.8f); // zinc
 	}
 }
 
@@ -117,13 +144,19 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 	SDL_ReadU8(file, &specialY);
 	SDL_ReadU8(file, &specialType);
 	while (!(specialX == 0 && specialY == 0 && specialType == 0)) {
+		int size = (specialType & 3) + 2;
+		if (dir == Right || dir == Down) {
+			specialX = width - specialX - size;
+			specialY = height - specialY - size;
+		}
 		if (dir % 2 == 0) {
 			int temp = specialX;
 			specialX = specialY;
 			specialY = temp;
 		}
+		chooseSpecial(world, x + specialX, y + specialY, specialType);
 		// spawn specials
-		world->setTile(new OreRock(specialX + x, specialY + y, { SPRITE_SIZE * 10, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, ITEM[8]), specialX + x, specialY + y);
+		//world->setTile(new OreRock(specialX + x, specialY + y, { SPRITE_SIZE * 10, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, ITEM[8]), specialX + x, specialY + y);
 		SDL_ReadU8(file, &specialX);
 		SDL_ReadU8(file, &specialY);
 		SDL_ReadU8(file, &specialType);
@@ -168,6 +201,7 @@ void generateRoom(int depth, int _x, int _y, Direction dir, SDL_IOStream* file, 
 }
 
 void generateCaves(CaveWorld* world, Machine* platform) {
+	world->clearMap();
 	SDL_IOStream* startRoom = SDL_IOFromFile("content/rooms/special/start.crm", "r");
 	SDL_Log(SDL_GetError());
 	generateRoom(0, 8, 11, Up, startRoom, world);
