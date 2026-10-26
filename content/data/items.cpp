@@ -13,7 +13,6 @@ void loadItems() {
 	registerItem(new MachineItem(MACHINE_CRATE, (char*)"CRATE", { SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new MachineItem(MACHINE_SPLITTER, (char*)"SPLITTER", { 0, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new MachineItem(MACHINE_FURNACE, (char*)"FURNACE", { SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE}, 50));
-	registerItem(new MachineItem(MACHINE_TIN_GENERATOR, (char*)"TIN GENERATOR", { SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"RAW TIN", { 0, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"TIN BLOCK", { SPRITE_SIZE, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"TIN SHEET", { SPRITE_SIZE * 2, SPRITE_SIZE * 2, SPRITE_SIZE, SPRITE_SIZE }, 20));
@@ -23,4 +22,8 @@ void loadItems() {
 	registerItem(new Item((char*)"RAW ZINC", { 0, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"COPPER BLOCK", { SPRITE_SIZE, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"ZINC BLOCK", { SPRITE_SIZE, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
+	registerItem(new Item((char*)"COPPER SHEET", { SPRITE_SIZE * 2, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE }, 50));
+	registerItem(new Item((char*)"ZINC SHEET", { SPRITE_SIZE * 2, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
+	registerItem(new Item((char*)"COPPER GEAR", { SPRITE_SIZE * 3, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE }, 50));
+	registerItem(new Item((char*)"ZINC GEAR", { SPRITE_SIZE * 3, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
 }

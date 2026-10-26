@@ -7,48 +7,68 @@ void loadRecipes() {
 
 	ingredients[1] = NULL;
 
-	ingredients[0] = new ItemStack(ITEM[8], 1);
-	registerRecipe(SMELT, new Recipe(ingredients, new ItemStack(ITEM[9], 1), 50)); // SMELT RAW TIN
+	ingredients[0] = new ItemStack(ITEM[IT_ORE_TIN], 1);
+	registerRecipe(SMELT, new Recipe(ingredients, new ItemStack(ITEM[IT_BLOCK_TIN], 1), 50)); // SMELT RAW TIN
 
-	ingredients[0] = new ItemStack(ITEM[9], 1);
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[10], 1), 10)); // CRAFT: TIN SHEET
+	ingredients[0] = new ItemStack(ITEM[IT_ORE_COPPER], 1);
+	registerRecipe(SMELT, new Recipe(ingredients, new ItemStack(ITEM[IT_BLOCK_COPPER], 1), 50)); // SMELT RAW COPPER
 
-	ingredients[0] = new ItemStack(ITEM[9], 2);
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[11], 1), 15)); // CRAFT: TIN GEAR
+	ingredients[0] = new ItemStack(ITEM[IT_ORE_ZINC], 1);
+	registerRecipe(SMELT, new Recipe(ingredients, new ItemStack(ITEM[IT_BLOCK_ZINC], 1), 50)); // SMELT RAW ZINC
 
-	ingredients[0] = new ItemStack(ITEM[10], 2);
-	ingredients[1] = new ItemStack(ITEM[11], 1);
+
+	// CRAFT SHEETS
+	ingredients[1] = NULL;
+
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 1);
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_SHEET_TIN], 1), 10));
+
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_COPPER], 1);
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_SHEET_COPPER], 1), 10));
+
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_ZINC], 1);
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_SHEET_ZINC], 1), 10));
+
+
+	// CRAFT GEARS
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 2);
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_GEAR_TIN], 1), 15)); 
+
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 2);
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_GEAR_COPPER], 1), 15));
+
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 2);
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_GEAR_ZINC], 1), 15));
+
+
+	ingredients[0] = new ItemStack(ITEM[IT_SHEET_TIN], 2);
+	ingredients[1] = new ItemStack(ITEM[IT_GEAR_TIN], 1);
 	ingredients[2] = NULL;
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[1], 4), 20)); // CRAFT: CONVEYOR
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_CONVEYOR], 4), 20)); // CRAFT: CONVEYOR
 
 	ingredients[0] = new ItemStack(ITEM[1], 1);
-	ingredients[1] = new ItemStack(ITEM[10], 1);
+	ingredients[1] = new ItemStack(ITEM[IT_SHEET_TIN], 1);
 	ingredients[2] = NULL;
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[2], 1), 20)); // CRAFT: EXPORTER
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_EXPORTER], 1), 20)); // CRAFT: EXPORTER
 
 	ingredients[0] = new ItemStack(ITEM[1], 1);
-	ingredients[1] = new ItemStack(ITEM[10], 1);
+	ingredients[1] = new ItemStack(ITEM[IT_SHEET_TIN], 1);
 	ingredients[2] = NULL;
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[3], 1), 20)); // CRAFT: IMPORTER
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_IMPORTER], 1), 20)); // CRAFT: IMPORTER
 
-	ingredients[0] = new ItemStack(ITEM[10], 4);
-	ingredients[1] = new ItemStack(ITEM[9], 2);
+	ingredients[0] = new ItemStack(ITEM[IT_SHEET_COPPER], 4);
+	ingredients[1] = new ItemStack(ITEM[IT_BLOCK_ZINC], 2);
 	ingredients[2] = NULL;
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[4], 1), 20)); // CRAFT: CRATE
+	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_CRATE], 1), 20)); // CRAFT: CRATE
 
 	ingredients[0] = new ItemStack(ITEM[1], 2);
-	ingredients[1] = new ItemStack(ITEM[10], 3);
-	ingredients[2] = new ItemStack(ITEM[11], 2);
+	ingredients[1] = new ItemStack(ITEM[IT_SHEET_TIN], 3);
+	ingredients[2] = new ItemStack(ITEM[IT_GEAR_COPPER], 2);
 	ingredients[3] = NULL;
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[5], 2), 40)); // CRAFT: SPLITTER
 
-	ingredients[0] = new ItemStack(ITEM[9], 5);
-	ingredients[1] = new ItemStack(ITEM[11], 3);
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 5);
+	ingredients[1] = new ItemStack(ITEM[IT_SHEET_COPPER], 5);
 	ingredients[2] = NULL;
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[6], 1), 40)); // CRAFT: FURNACE
-
-	ingredients[0] = new ItemStack(ITEM[10], 5);
-	ingredients[1] = new ItemStack(ITEM[11], 10);
-	ingredients[2] = NULL;
-	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[7], 1), 40)); // CRAFT: TIN GENERATOR
 }
