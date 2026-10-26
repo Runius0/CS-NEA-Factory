@@ -59,7 +59,6 @@ void Importer::tick(World* world, int gameTick) {
 		Tile* targetTile = world->getTile(extractionX, extractionY);
 		if (targetTile->flags & T_USESITEMS) {
 			ItemStack* newItem = ((Machine*)targetTile)->extractItem();
-			SDL_Log("sucking");
 			if (newItem != NULL) {
 				item2_progress = 0;
 				item2_type = newItem->type;

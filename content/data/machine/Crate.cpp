@@ -3,7 +3,7 @@
 Crate::Crate() : Machine() {
 	width = 1;
 	height = 1;
-	flags |= T_SOLID || T_USESITEMS;
+	flags |= T_SOLID | T_USESITEMS;
 };
 
 void Crate::init(int _worldX, int _worldY, Direction direction) {
@@ -66,7 +66,7 @@ void Crate::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, 
 	inventory->setPos(x, y);
 	int slotX, slotY;
 	if (inventory->getSlotValid(mouseX, mouseY, &slotX, &slotY)) {
-		if (cursorItem->isNull()) {
+		if (cursorItem->isNull() && !inventory->items[slotX][slotY]->isNull()) {
 			cursorItem->add(inventory->items[slotX][slotY]->take(inventory->items[slotX][slotY]->getAmount()), inventory->items[slotX][slotY]->type);
 		}
 		else if (inventory->items[slotX][slotY]->isNull()) {
