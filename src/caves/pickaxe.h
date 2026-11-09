@@ -12,4 +12,5 @@ class Pickaxe : public Item {
 		Pickaxe(float maxCooldown, char* name, SDL_FRect sprite, int maxStack);
 		void tick(float deltaTick, Player* holder);
 		bool interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo, Item** result) override;
+		void drawPreview(SDL_Renderer* renderer, float x, float y, Direction direction) override;
 };

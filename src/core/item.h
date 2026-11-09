@@ -5,7 +5,8 @@
 
 
 class Item {
-	SDL_FRect sprite;
+	protected:
+		SDL_FRect sprite;
 
 	public:
 		int ID;
@@ -16,6 +17,7 @@ class Item {
 		Item(char* name, SDL_FRect sprite, int maxStack);
 		Item();
 		void draw(SDL_Renderer* renderer, float x, float y, int scale = 1);
+		virtual void drawPreview(SDL_Renderer* renderer, float x, float y, Direction direction) {};
 		virtual bool interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo, Item** result) { return false; };
 		virtual void tick(float deltaTick, Player* holder) {};
 };

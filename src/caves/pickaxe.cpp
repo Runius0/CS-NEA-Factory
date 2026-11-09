@@ -14,6 +14,14 @@ void Pickaxe::tick(float deltaTick, Player* holder) {
 	}
 }
 
+void Pickaxe::drawPreview(SDL_Renderer* renderer, float x, float y, Direction direction) {
+	SDL_FRect cursorRect = { x, y, TILE_SIZE, TILE_SIZE };
+
+	SDL_SetTextureAlphaMod(textureList[TEX_ITEM], 128);
+	SDL_RenderTexture(renderer, textureList[TEX_ITEM], &sprite, &cursorRect);
+	SDL_SetTextureAlphaMod(textureList[TEX_ITEM], 255);
+};
+
 bool Pickaxe::interact(World* world, int worldX, int worldY, int* stackSize, Player* playerInfo, Item** result) {
 	if (cooldown == 0) {
 		Tile* tile = world->getTile(worldX, worldY);

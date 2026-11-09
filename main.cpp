@@ -521,8 +521,8 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         x -= player->getX() - SCREEN_WIDTH / 2;
         y -= player->getY() - SCREEN_HEIGHT / 2;
 
-        if (hotbarSlot != -1 && !hotbar.items[hotbarSlot][0]->isNull() && hotbar.items[hotbarSlot][0]->type->placeable) {
-            ((MachineItem*)(hotbar.items[hotbarSlot][0]->type))->drawPreview(renderer, x, y, player->placingDirection);
+        if (hotbarSlot != -1 && !hotbar.items[hotbarSlot][0]->isNull()) {
+            hotbar.items[hotbarSlot][0]->type->drawPreview(renderer, x, y, player->placingDirection);
         }
 
         SDL_FRect cursorRect = { x, y, TILE_SIZE, TILE_SIZE };
