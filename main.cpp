@@ -207,6 +207,19 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
             }
         }
     }
+    else if (event->type == SDL_EVENT_MOUSE_WHEEL) {
+        if (event->wheel.integer_y > 0) {
+            hotbarSlot++;
+            hotbarSlot = hotbarSlot % 8;
+        }
+        else if (event->wheel.integer_y < 0) {
+            hotbarSlot--;
+            if (hotbarSlot < 0) {
+                hotbarSlot = 7;
+            }
+
+        }
+    }
     else if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
     }
@@ -516,7 +529,9 @@ SDL_AppResult SDL_AppIterate(void* appstate)
         SDL_RenderRect(renderer, &cursorRect);
 
         hotbar.draw(renderer);
-
+        SDL_FRect hotbarCursor = { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE };
+        SDL_FRect hotbarSelect = { hotbarSlot * SPRITE_SIZE * UI_SCALE, 0, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
+        SDL_RenderTexture(renderer, textureList[TEX_UI], &hotbarCursor, &hotbarSelect);
     }
 
     // Ascend / Descend screen wipes
