@@ -229,5 +229,17 @@
     <CopyFileToFolders Include="content\rooms\corridorS.crm">
       <Filter>Resource Files\rooms</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="content\rooms\JunctionT.crm">
+      <Filter>Resource Files\rooms</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\rooms\corridorSpecial.crm">
+      <Filter>Resource Files\rooms</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\rooms\bendR.crm">
+      <Filter>Resource Files\rooms</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="content\rooms\bendL.crm">
+      <Filter>Resource Files\rooms</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

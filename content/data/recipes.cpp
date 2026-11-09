@@ -34,10 +34,10 @@ void loadRecipes() {
 	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 2);
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_GEAR_TIN], 1), 15)); 
 
-	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 2);
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_COPPER], 2);
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_GEAR_COPPER], 1), 15));
 
-	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_TIN], 2);
+	ingredients[0] = new ItemStack(ITEM[IT_BLOCK_ZINC], 2);
 	registerRecipe(CRAFT, new Recipe(ingredients, new ItemStack(ITEM[IT_GEAR_ZINC], 1), 15));
 
 
