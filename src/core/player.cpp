@@ -60,8 +60,8 @@ void Player::movement(const bool* keyboard, float deltaTick, World* world) {
 	int HorizontalInput = (int)keyboard[SDL_SCANCODE_D] - (int)keyboard[SDL_SCANCODE_A];
 	int VerticalInput = (int)keyboard[SDL_SCANCODE_S] - (int)keyboard[SDL_SCANCODE_W];
 	bool hasMoved = false;
-	int oldX = x;
-	int oldY = y;
+	float oldX = x;
+	float oldY = y;
 
 	if (HorizontalInput == 1) {
 		x += P_speed * deltaTick;
