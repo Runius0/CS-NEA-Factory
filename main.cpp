@@ -83,6 +83,12 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
         if (event->key.scancode == SDL_SCANCODE_R) {
             player->placingDirection = (Direction)((player->placingDirection + 1) % 4);
         }
+        else if (event->key.scancode == SDL_SCANCODE_T) {
+            player->placingDirection = (Direction)(player->placingDirection - 1);
+            if (player->placingDirection < 0) {
+                player->placingDirection = Up;
+            }
+        }
         else if (event->key.scancode == SDL_SCANCODE_1) {
            hotbarSlot = 0;
         }
