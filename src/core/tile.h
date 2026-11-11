@@ -32,3 +32,10 @@ class Grass : public Tile {
 		void draw(SDL_Renderer* renderer, float x, float y) override;
 
 };
+
+class BlankTile : public Tile { // dummy tile to be returned in place of null
+public:
+		BlankTile(int worldX, int worldY);
+};
+
+extern Tile* nullTile;

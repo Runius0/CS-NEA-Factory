@@ -33,3 +33,11 @@ void Grass::draw(SDL_Renderer* renderer, float _x, float _y) {
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 
 }
+BlankTile::BlankTile(int _worldX, int _worldY) {
+	worldX = _worldX;
+	worldY = _worldY;
+	flags |= T_SOLID;
+	flags ^= T_REPLACEABLE;
+}
+
+Tile* nullTile = new BlankTile(0, 0);

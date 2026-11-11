@@ -73,7 +73,7 @@ Tile* World::getTile(int _x, int _y) {
 	int tileY = _y >= 0 ? _y % CHUNK_SIZE : CHUNK_SIZE - ((-1 - _y) % CHUNK_SIZE) - 1;
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
-		return NULL;
+		return nullTile;
 	}
 
 	return chunkMap[chunkX - x][chunkY - y]->getTile(tileX, tileY);
@@ -112,7 +112,7 @@ Tile* World::getTile(float _x, float _y) {
 	if (tileY == CHUNK_SIZE) { tileY = 0; }
 
 	if (chunkMap[chunkX - x][chunkY - y] == NULL) {
-		return NULL;
+		return nullTile;
 	}
 	return chunkMap[chunkX - x][chunkY - y]->getTile(tileX, tileY);
 }
