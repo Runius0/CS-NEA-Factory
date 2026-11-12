@@ -19,6 +19,7 @@ void loadMachines() {
 	registerMachine(new SurfacePlatform());
 	registerMachine(new CavesPlatform());
 	registerMachine(new Crafter());
+	registerMachine(new drill());
 }
 
 void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float y, Direction direction) {

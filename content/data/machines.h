@@ -8,6 +8,7 @@
 #include "machine/platform.h"
 #include "machine/assembler.h"
 #include "machine/resourceGenerators.h"
+#include "machine/drill.h"
 
 enum MACHINE_ID {
 	MACHINE_CONVEYOR,
@@ -19,7 +20,8 @@ enum MACHINE_ID {
 	MACHINE_TIN_GENERATOR,
 	MACHINE_PLATFORM,
 	MACHINE_PLATFORM_CAVE,
-	MACHINE_CRAFTER
+	MACHINE_CRAFTER,
+	MACHINE_DRILL
 };
 
 void loadMachines();

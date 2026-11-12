@@ -23,6 +23,7 @@ enum ITEM {
 	IT_GEAR_COPPER,
 	IT_GEAR_ZINC,
 	IT_CRAFTER,
+	IT_DRILL,
 };
 
 

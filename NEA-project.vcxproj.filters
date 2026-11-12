@@ -126,6 +126,9 @@
     <ClCompile Include="content\data\machine\assembler.cpp">
       <Filter>Source Files\content/data\machine</Filter>
     </ClCompile>
+    <ClCompile Include="content\data\machine\drill.cpp">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -213,6 +216,9 @@
       <Filter>Source Files\src/caves</Filter>
     </ClInclude>
     <ClInclude Include="content\data\machine\assembler.h">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\machine\drill.h">
       <Filter>Source Files\content/data\machine</Filter>
     </ClInclude>
   </ItemGroup>

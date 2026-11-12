@@ -66,6 +66,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     hotbar.items[0][0] = new ItemStack(ITEM[IT_PICK_BASIC], 1);
     hotbar.items[1][0] = new ItemStack(ITEM[IT_FURNACE], 1);
     hotbar.items[2][0] = new ItemStack(ITEM[IT_CRAFTER], 1);
+    hotbar.items[3][0] = new ItemStack(ITEM[IT_DRILL], 5);
 
     descendPlatform = (SurfacePlatform*)NewMachine(MACHINE_PLATFORM, 4, 4, Right);
     descendPlatform->place(&surface);

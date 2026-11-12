@@ -248,6 +248,9 @@ bool Crafter::acceptItem(ItemStack* item, int x, int y, Direction direction, boo
 	}
 
 	for (int i = 0; i < maxIngredients; i++) {
+		if (recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i] == NULL) {
+			break;
+		}
 		if (*recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i] == *item) {
 			inputItems[i]->type = item->type;
 			return inputItems[i]->addStrict(item->getAmount());
