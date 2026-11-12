@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="content\data\items.cpp" />
     <ClCompile Include="content\data\machines.cpp" />
+    <ClCompile Include="content\data\machine\assembler.cpp" />
     <ClCompile Include="content\data\machine\conveyor.cpp" />
     <ClCompile Include="content\data\machine\Crate.cpp" />
     <ClCompile Include="content\data\machine\exporter.cpp" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="content\data\items.h" />
     <ClInclude Include="content\data\machines.h" />
+    <ClInclude Include="content\data\machine\assembler.h" />
     <ClInclude Include="content\data\machine\conveyor.h" />
     <ClInclude Include="content\data\machine\Crate.h" />
     <ClInclude Include="content\data\machine\exporter.h" />

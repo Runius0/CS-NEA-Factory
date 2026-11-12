@@ -123,6 +123,9 @@
     <ClCompile Include="src\caves\oreRock.cpp">
       <Filter>Source Files\src/caves</Filter>
     </ClCompile>
+    <ClCompile Include="content\data\machine\assembler.cpp">
+      <Filter>Source Files\content/data\machine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\chunk.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="src\caves\oreRock.h">
       <Filter>Source Files\src/caves</Filter>
+    </ClInclude>
+    <ClInclude Include="content\data\machine\assembler.h">
+      <Filter>Source Files\content/data\machine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

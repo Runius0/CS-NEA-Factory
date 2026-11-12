@@ -26,4 +26,5 @@ void loadItems() {
 	registerItem(new Item((char*)"ZINC SHEET", { SPRITE_SIZE * 2, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"COPPER GEAR", { SPRITE_SIZE * 3, SPRITE_SIZE * 3, SPRITE_SIZE, SPRITE_SIZE }, 50));
 	registerItem(new Item((char*)"ZINC GEAR", { SPRITE_SIZE * 3, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
+	registerItem(new MachineItem(MACHINE_CRAFTER, (char*)"CRAFTER", { SPRITE_SIZE * 3, SPRITE_SIZE * 4, SPRITE_SIZE, SPRITE_SIZE }, 50));
 }

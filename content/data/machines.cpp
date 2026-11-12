@@ -18,6 +18,7 @@ void loadMachines() {
 	registerMachine(new TinGenerator());
 	registerMachine(new SurfacePlatform());
 	registerMachine(new CavesPlatform());
+	registerMachine(new Crafter());
 }
 
 void DrawMachinePreview(MACHINE_ID type, SDL_Renderer* renderer, float x, float y, Direction direction) {

@@ -6,6 +6,7 @@
 #include "machine/Crate.h"
 #include "machine/furnace.h"
 #include "machine/platform.h"
+#include "machine/assembler.h"
 #include "machine/resourceGenerators.h"
 
 enum MACHINE_ID {
@@ -17,7 +18,8 @@ enum MACHINE_ID {
 	MACHINE_FURNACE,
 	MACHINE_TIN_GENERATOR,
 	MACHINE_PLATFORM,
-	MACHINE_PLATFORM_CAVE
+	MACHINE_PLATFORM_CAVE,
+	MACHINE_CRAFTER
 };
 
 void loadMachines();
