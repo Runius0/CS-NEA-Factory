@@ -1,5 +1,6 @@
 #pragma once
 #include "itemStack.h"
+#include "uiElement.h"
 
 
 enum RecipeType {
@@ -15,6 +16,7 @@ class Recipe {
 		int getTime();
 		ItemStack* getResult();
 		ItemStack** getIngredients();
+		void drawRecipeInfo(SDL_Renderer* renderer, float x, float y);
 		Recipe(ItemStack** ingredients, ItemStack* result, int craftingTicks);
 };
 

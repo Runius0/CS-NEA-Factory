@@ -6,6 +6,7 @@
 
 const int TEXTURE_AMOUNT = 4;
 const int SPRITE_SIZE = 16;
+const int TPS = 20;
 enum TEXTURE
 {
 	TEX_TILES1,

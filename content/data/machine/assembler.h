@@ -3,12 +3,18 @@
 #include "../../../src/core/item.h"
 #include "../../../src/core/recipe.h"
 
+enum assemblerState {
+	STATE_A_RECIPECHOOSE,
+	STATE_A_CRAFT,
+};
+
+
 class Crafter : public Machine {
 	int craftingTicks = 0;
-	ItemStack* inputItem;
+	ItemStack* inputItems[8];
 	ItemStack* outputItem;
-	Recipe* currentRecipe;
 	int selectedRecipe = -1;
+	assemblerState state = STATE_A_RECIPECHOOSE;
 public:
 	int maxIngredients;
 	RecipeType recipeFilter;
