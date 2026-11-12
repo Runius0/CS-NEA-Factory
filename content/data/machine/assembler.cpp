@@ -36,7 +36,7 @@ void Crafter::tick(World* world, int gameTick) {
 		if (inputItems[i] == NULL || inputItems[i]->getAmount() < recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i]->getAmount()) {
 			craftValid = false;
 		}
-		if (!(*inputItems[i] == *recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i])) {
+		if (inputItems[i] == NULL || !(*inputItems[i] == *recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i])) {
 			craftValid = false;
 		}
 	}
@@ -209,7 +209,7 @@ void Crafter::clickInventory(UIElement* playerHotbar, UIElement* playerInventory
 				break;
 			}
 			if (rx > 16 + 32 * i && rx < 48 + 32 * i && ry > 64 && ry < 96) {
-				if (*recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i] == *cursorItem) {
+				if (*recipeRegistry[recipeFilter][selectedRecipe]->getIngredients()[i] == *cursorItem || cursorItem->isNull()) {
 					if (inputItems[i] != NULL && !cursorItem->isNull() && *cursorItem == *inputItems[i]) {
 						cursorItem->take(inputItems[i]->add(cursorItem->getAmount()));
 					}
