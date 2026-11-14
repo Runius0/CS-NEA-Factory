@@ -12,7 +12,7 @@ void Crate::init(int _worldX, int _worldY, Direction direction) {
 };
 
 Machine* Crate::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Crate();
+	Crate* out = new Crate();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;

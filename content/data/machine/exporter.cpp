@@ -6,7 +6,7 @@ Exporter::Exporter() : Conveyor() {
 };
 
 Machine* Exporter::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Exporter();
+	Exporter* out = new Exporter();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;

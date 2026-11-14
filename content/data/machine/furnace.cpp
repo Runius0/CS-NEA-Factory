@@ -18,7 +18,7 @@ void Furnace::draw(SDL_Renderer* renderer, float _x, float _y) {
 }
 
 Machine* Furnace::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Furnace();
+	Furnace* out = new Furnace();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;
@@ -133,7 +133,7 @@ void Furnace::clickInventory(UIElement* playerHotbar, UIElement* playerInventory
 		else {
 			ItemStack* temp = new ItemStack(*cursorItem);
 			cursorItem->take(cursorItem->getAmount());
-			if (inputItem != NULL) {
+			if (inputItem != NULL && !inputItem->isNull()) {
 				cursorItem->add(inputItem->getAmount(), inputItem->type);
 			}
 			inputItem = temp;

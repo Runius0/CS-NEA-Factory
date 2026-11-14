@@ -35,7 +35,7 @@ void Splitter::init(int _worldX, int _worldY, Direction direction) {
 }
 
 Machine* Splitter::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Splitter();
+	Splitter* out = new Splitter();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;

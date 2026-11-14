@@ -30,7 +30,7 @@ void Conveyor::init(int _worldX, int _worldY, Direction direction) {
 };
 
 Machine* Conveyor::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Conveyor();
+	Conveyor* out = new Conveyor();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;

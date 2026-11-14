@@ -30,7 +30,7 @@ void Importer::init(int _worldX, int _worldY, Direction direction) {
 };
 
 Machine* Importer::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Importer();
+	Importer* out = new Importer();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;

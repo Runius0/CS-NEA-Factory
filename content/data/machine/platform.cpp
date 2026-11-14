@@ -14,7 +14,7 @@ void SurfacePlatform::init(int _worldX, int _worldY, Direction direction) {
 };
 
 Machine* SurfacePlatform::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new SurfacePlatform();
+	SurfacePlatform* out = new SurfacePlatform();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;
@@ -91,7 +91,7 @@ void CavesPlatform::init(int _worldX, int _worldY, Direction direction) {
 };
 
 Machine* CavesPlatform::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new CavesPlatform();
+	CavesPlatform* out = new CavesPlatform();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;

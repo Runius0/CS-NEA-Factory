@@ -18,7 +18,9 @@ void Crafter::init(int _worldX, int _worldY, Direction direction) {
 	else {
 		height = 2;
 	}
-
+	for (int i = 0; i < 8; i++) {
+		inputItems[i] = new ItemStack();
+	}
 }
 
 void Crafter::draw(SDL_Renderer* renderer, float _x, float _y) {
@@ -39,7 +41,7 @@ void Crafter::draw(SDL_Renderer* renderer, float _x, float _y) {
 }
 
 Machine* Crafter::copy(int _worldX, int _worldY, Direction _direction) {
-	Machine* out = new Crafter();
+	Crafter* out = new Crafter();
 	out->init(_worldX, _worldY, _direction);
 	out->ID = ID;
 	return out;
@@ -264,7 +266,7 @@ void Crafter::clickInventory(UIElement* playerHotbar, UIElement* playerInventory
 };
 
 bool Crafter::acceptItem(ItemStack* item, int x, int y, Direction direction, bool forced) {
-	if (!forced) {
+	if (!forced || state == STATE_A_RECIPECHOOSE) {
 		return false;
 	}
 

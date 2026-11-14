@@ -3,11 +3,12 @@
 drill::drill() : Machine() {
 	width = 1;
 	height = 1;
-	flags |= T_USESITEMS;
+	flags |= T_USESITEMS | T_SOLID;
 };
 
 void drill::init(int _worldX, int _worldY, Direction direction) {
 	Machine::init(_worldX, _worldY, direction);
+	oreItem = new ItemStack();
 	switch (direction)
 	{
 	case Right:
@@ -53,10 +54,7 @@ void drill::tick(World* world, int gameTick) {
 	if (drill_progress == 64) {
 		Tile* targetTile = world->getTile(targetX, targetY);
 		if (targetTile->flags & T_ISORE) {
-			item_type = ((OreRock*)targetTile)->type;
-			if (oreCount < item_type->maxStack) {
-				oreCount++;
-			}
+			oreItem->add(1, ((OreRock*)targetTile)->type);
 		}
 		drill_progress = 0;
 	}
@@ -64,10 +62,47 @@ void drill::tick(World* world, int gameTick) {
 
 
 ItemStack* drill::extractItem() {
-	if (oreCount > 0) {
-		oreCount--;
-		return new ItemStack(item_type, 1);
+	if (oreItem->getAmount() > 0) {
+		oreItem->take(1);
+		return new ItemStack(oreItem->type, 1);
 	}
+};
+void drill::renderInventory(SDL_Renderer* renderer, float x, float y, float mouseX, float mouseY) {
+	drawUIBackground(renderer, x, y, 96, 96);
+	SDL_FRect srcRect = { SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE };
+	SDL_FRect dstRect = { x + 32, y + 32, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
+	SDL_RenderTexture(renderer, textureList[TEX_UI], &srcRect, &dstRect);
+	if (oreItem != NULL) { oreItem->draw(renderer, x + 32, y + 32, 2); }
+
+	float rx = mouseX - x;
+	float ry = mouseY - y;
+	srcRect = { SPRITE_SIZE * 3, 0, SPRITE_SIZE, SPRITE_SIZE };
+	if (rx > 32 && rx < 64 && ry > 32 && ry < 64) {
+		dstRect = { x + 32, y + 32, SPRITE_SIZE * UI_SCALE, SPRITE_SIZE * UI_SCALE };
+		SDL_RenderTexture(renderer, textureList[TEX_UI], &srcRect, &dstRect);
+		if (oreItem != NULL && !oreItem->isNull()) {
+			drawTextString(renderer, mouseX, mouseY + 24, oreItem->type->name, 32);
+		}
+
+	}
+
+}
+
+
+void drill::clickInventory(UIElement* playerHotbar, UIElement* playerInventory, ItemStack* cursorItem, float x, float y, float mouseX, float mouseY) {
+	float rx = mouseX - x;
+	float ry = mouseY - y;
+	if (rx > 32 && rx < 64 && ry > 32 && ry < 64) {
+		if (oreItem != NULL && !cursorItem->isNull() && *oreItem == *cursorItem) {
+			oreItem->take(cursorItem->add(oreItem->getAmount()));
+		}
+		else if (cursorItem->isNull()) {
+			cursorItem->add(oreItem->getAmount(), oreItem->type);
+			oreItem->take(oreItem->getAmount());
+		}
+
+	}
+
 };
 
 void drill::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction _direction) {

@@ -45,7 +45,7 @@ TinGenerator::TinGenerator() : Generator(ITEM[8]) {
 
 Machine* TinGenerator::copy(int _worldX, int _worldY, Direction direction) {
 
-	Machine* out = new TinGenerator();
+	TinGenerator* out = new TinGenerator();
 	out->init(_worldX, _worldY, direction);
 	out->ID = ID;
 	return out;
