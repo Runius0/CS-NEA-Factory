@@ -2,18 +2,38 @@
 
 Crafter::Crafter() : Machine() {
 	width = 2;
-	height = 2;
+	height = 1;
 	outputItem = NULL;
 	flags |= T_SOLID | T_USESITEMS;
 	maxIngredients = 2;
 	recipeFilter = CRAFT;
 };
 
+void Crafter::init(int _worldX, int _worldY, Direction direction) {
+	Machine::init(_worldX, _worldY, direction);
+	width = 1;
+	if (direction % 2 == 0) {
+		width = 2;
+	}
+	else {
+		height = 2;
+	}
+
+}
 
 void Crafter::draw(SDL_Renderer* renderer, float _x, float _y) {
 
-	SDL_FRect tileRect = { _x, _y, TILE_SIZE * 2, TILE_SIZE * 2 };
-	SDL_FRect texRect = { SPRITE_SIZE * 2, 0, SPRITE_SIZE * 2, SPRITE_SIZE * 2 };
+	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
+	SDL_FRect texRect;
+
+	if (direction % 2 == 0) {
+		texRect = { 6 * SPRITE_SIZE, (float)frame * SPRITE_SIZE, SPRITE_SIZE * 2, SPRITE_SIZE };
+		tileRect.w = TILE_SIZE * 2;
+	}
+	else {
+		texRect = { 6 * SPRITE_SIZE, (float)(frame + 2) * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE * 2 };
+		tileRect.h = TILE_SIZE * 2;
+	}
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
 
 }
@@ -45,6 +65,7 @@ void Crafter::tick(World* world, int gameTick) {
 	}
 
 	if (craftValid) {
+		frame =  1 - frame;
 		craftingTicks++;
 		if (craftingTicks >= recipeRegistry[recipeFilter][selectedRecipe]->getTime()) {
 			for (int i = 0; i < maxIngredients; i++) {
@@ -262,8 +283,17 @@ bool Crafter::acceptItem(ItemStack* item, int x, int y, Direction direction, boo
 void Crafter::DrawPreview(SDL_Renderer* renderer, float _x, float _y, Direction _direction) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 128);
 
-	SDL_FRect tileRect = { _x, _y, TILE_SIZE*2, TILE_SIZE*2};
-	SDL_FRect texRect = { SPRITE_SIZE * 2, 0, SPRITE_SIZE*2, SPRITE_SIZE*2 };
+	SDL_FRect tileRect = { _x, _y, TILE_SIZE, TILE_SIZE };
+	SDL_FRect texRect;
+
+	if (_direction % 2 == 0) {
+		texRect = { 6 * SPRITE_SIZE, 0, SPRITE_SIZE * 2, SPRITE_SIZE};
+		tileRect.w = TILE_SIZE * 2;
+	}
+	else {
+		texRect = { 6 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE * 2 };
+		tileRect.h = TILE_SIZE * 2;
+	}
 
 	SDL_SetTextureAlphaMod(textureList[TEX_TILES1], 128);
 	SDL_RenderTexture(renderer, textureList[TEX_TILES1], &texRect, &tileRect);
